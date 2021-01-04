@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Update person</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/delete/{id}(id=${person.getId()})}" th:object="${person}">
+<label for="name">Enter Name: </label>
+<input type="text" readonly th:field="*{name}" id="name"></input><br>
+<input type="submit" value="Delete"></input>
+
+</form>
+
+</body>
+</html>
