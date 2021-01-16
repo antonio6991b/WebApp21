@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang ="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Поиск смен</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+
+<form th:method="POST" th:action="@{/shifts/search}" th:object="${shiftQuery}" th:charset="UTF-8">
+
+<label for="begin">Начало смены в диапазоне от ГГГГ-ММ-ДД</label>
+<input type="text" th:field="*{shiftBegin}" id="begin"></input><br>
+<label for="end">До </label>
+<input type="text" th:field="*{shiftEnd}" id="end"></input><br>
+<input type="submit" value="Искать"></input>
+
+</form>
+
+Поиск смен
+
+</body>
+</html>

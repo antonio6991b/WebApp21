@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang ="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Создание нового продавца</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+
+<form th:method="POST" th:action="@{/sellers/}" th:object="${seller}" th:charset="UTF-8">
+
+<label for="idShop">Выберите магазин </label>
+
+<select th:field="*{shopId}" id = "idShop">
+
+<option th:each = "shop:${shop}" th:text="${shop.getShopId()}" th:value = "${shop.getShopId()}"></option>
+</select><br>
+
+<label for="fio">Введите ФИО продавца </label>
+<input type="text" th:field="*{sellerName}" id="fio"></input><br>
+<label for="phone">Введите номер телефона </label>
+<input type="text" th:field="*{sellerPhone}" id="phone"></input><br>
+<input type="submit" value="Создать"></input>
+
+</form>
+
+Создание нового продавца
+
+</body>
+</html>

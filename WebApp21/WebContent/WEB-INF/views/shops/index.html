@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Магазины</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+<a href = "/WebApp21/shops/new">Создать новый магазин</a>
+<table>
+<tr>
+
+
+
+<td>ID</td>
+<td>Адрес</td>
+<td>Номер телефона</td>
+<td>городской/нет</td>
+<td>Действие</td>
+</tr>
+<tr height = 5 th:each = "shop : ${shop}">
+<td>
+<a th:href = "@{/shops/{id}(id=${shop.getShopId()})}"   th:text="${shop.getShopId()}"></a>
+</td>
+<td>
+<p th:text="${shop.getShopAddress()}"></p>
+</td>
+<td>
+<p th:text="${shop.getShopPhone()}">
+	</p>
+</td>
+<td>
+<p th:text="${shop.getIsCity()}"></p>
+</td>
+<td>
+<a th:href = "@{/shops/{id}/edit(id=${shop.getShopId()})}">Редактировать</a>
+<br>
+<a th:href = "@{/shops/{id}/delete(id=${shop.getShopId()})}">Удалить</a>
+</td>
+</tr>
+</table>
+<a href = "/WebApp21/shops/new">Создать новый магазин</a>
+</body>
+</html>

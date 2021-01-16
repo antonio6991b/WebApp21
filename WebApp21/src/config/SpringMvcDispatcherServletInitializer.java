@@ -1,5 +1,8 @@
 package config;
 
+import javax.servlet.Filter;
+
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class SpringMvcDispatcherServletInitializer 
@@ -22,5 +25,14 @@ public class SpringMvcDispatcherServletInitializer
 		// TODO Auto-generated method stub
 		return new String[] { "/"};
 	}
+	
+	//Set charset UTF-8
+	 @Override
+	    protected Filter[] getServletFilters() {
+	        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+	        filter.setEncoding("UTF-8");
+	        filter.setForceEncoding(true);
+	        return new Filter[] { filter };
+	    }
 
 }

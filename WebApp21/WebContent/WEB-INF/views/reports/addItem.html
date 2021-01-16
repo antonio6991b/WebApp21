@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Добавление товара в отчет</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+
+<table>
+<tr>
+<td>Добавление записи в смену</td>
+<td><p th:text = "${report.getShiftId()}"></p></td>
+</tr>
+<tr>
+<td>Магазин</td>
+	<td><p th:text = "${report.getShopId()}"></p></td>
+</tr>
+<tr>
+	<td>Дата начала смены</td>
+	<td><p th:text = "${report.getShiftBegin()}"></p></td>
+</tr>
+<tr>
+	<td>Дата окончания смены</td>
+	<td><p th:text = "${report.getShiftEnd()}"></p></td>
+</tr>
+<tr>
+	<td>Продавец</td>
+	<td><p th:text = "${report.getSellerName()}"></p></td>
+</tr>
+</table>
+
+
+<form th:method="POST" th:action="@{/reports/{shiftId}/add/(shiftId=${report.getShiftId()})}" th:object="${item}">
+
+<label for="idSeller">Выберите товар: </label>
+
+<select th:field="*{productId}" id = "idSeller">
+
+<option th:each = "products:${products}" th:text="${products.getProductName()}" th:value = "${products.getProductId()}"></option>
+</select><br>
+<label for="priceBuy">Цена покупки</label>
+<input type="text" th:field="*{priceBuy}" id="priceBuy"></input><br>
+<label for="priceSell">Цена продажи</label>
+<input type="text" th:field="*{priceSell}" id="priceBuy"></input><br>
+<label for="remainsLast">Остаток предыдущий</label>
+<input type="text" th:field="*{remainsLast}" id="remainsLast"></input><br>
+<label for="coming">Приход</label>
+<input type="text" th:field="*{coming}" id="coming"></input><br>
+<label for="remainsCurrent">Остаток на конец смены</label>
+<input type="text" th:field="*{remainsCurrent}" id="remainsCurrent"></input><br>
+<label for="sumCurrent">Сумма на конец смены</label>
+<input type="text" th:field="*{sumCurrent}" id="sumCurrent"></input><br>
+<label for="grossProfit">Валовая прибыль</label>
+<input type="text" th:field="*{grossProfit}" id="grossProfit"></input><br>
+<label for="notebookValue">Значение в тетради</label>
+<input type="text" th:field="*{notebookValue}" id="notebookValue"></input><br>
+<label for="balance">Баланс</label>
+<input type="text" th:field="*{balance}" id="balance"></input><br>
+
+<input type="submit" value="Добавить"></input>
+</form>
+
+
+
+</body>
+</html>
