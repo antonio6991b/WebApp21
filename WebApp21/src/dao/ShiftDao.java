@@ -212,8 +212,7 @@ public class ShiftDao {
 			preparedStatement.setDate(1, this.shiftQuery.getShiftBegin());
 			preparedStatement.setDate(2,  this.shiftQuery.getShiftEnd());
 			
-			
-			
+		
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
 			while(resultSet.next()) {

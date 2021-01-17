@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.Product;
+import models.reports.ReportShow;
 
 public class ProductDao {
 	
@@ -96,14 +97,22 @@ public class ProductDao {
 		// TODO Auto-generated method stub
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement("INSERT INTO products ( productName, productCategory, productMaker)\r\n"
-					+ "values ( ?, ?,?);");
+			preparedStatement = connection.prepareStatement("SELECT MAX(productId) from products;");
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			int order = rs.getInt(1) + 1;
+			rs.close();
+			preparedStatement.close();
+			preparedStatement = connection.prepareStatement("INSERT INTO products ( productName, productCategory, productMaker, productOrder)\r\n"
+					+ "values ( ?, ?, ?, ?);");
 			
 			preparedStatement.setString(1, product.getProductName());
 			preparedStatement.setString(2, product.getProductCategory());
-			preparedStatement.setString(3,  product.getProductMaker());
-			
+			preparedStatement.setString(3,  product.getProductMaker());	
+			preparedStatement.setInt(4, order);
 			preparedStatement.execute();
+			preparedStatement.close();
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -150,6 +159,26 @@ public class ProductDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+
+	public List<Product> showMissProducts(int shiftId, ReportShow reportShow) {
+		List<Product> missProducts = new ArrayList<>();
+		List<Product> allProducts = index();
+		
+		for(int i = 0; i < allProducts.size(); i++) {
+			boolean missing = true;
+			for(int j = 0; j < reportShow.getProducts().size(); j++) {
+				if(allProducts.get(i).getProductId() == reportShow.getProducts().get(j).getProductId()) {
+					missing = false;
+				}
+			}
+			if (missing == true) {
+				missProducts.add(allProducts.get(i));
+				}
+		}
+		
+		return missProducts;
 	}
 
 

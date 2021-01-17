@@ -1,6 +1,8 @@
 package models.reports;
 
+
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,7 +17,7 @@ public class ReportProductShow {
 	private BigDecimal priceBuy;
 	private BigDecimal priceSell;
 	private BigDecimal remainsLast;
-	private int coming;
+	private BigDecimal coming;
 	private BigDecimal remainsCurrent;
 	private BigDecimal sumCurrent;
 	private BigDecimal grossProfit;
@@ -26,8 +28,8 @@ public class ReportProductShow {
 	public ReportProductShow() {}
 
 	public ReportProductShow(int reportId, int productId, String productName, BigDecimal priceBuy, BigDecimal priceSell,
-			BigDecimal remainsLast, int coming, BigDecimal remainsCurrent, BigDecimal sumCurrent, BigDecimal grossProfit,
-			BigDecimal notebookValue, BigDecimal balance) {
+			BigDecimal remainsLast, BigDecimal coming, BigDecimal remainsCurrent,  
+			BigDecimal notebookValue) {
 		this.setReportId(reportId);
 		this.setProductId(productId);
 		this.setProductName(productName);
@@ -36,10 +38,11 @@ public class ReportProductShow {
 		this.setRemainsLast(remainsLast);
 		this.setComing(coming);
 		this.setRemainsCurrent(remainsCurrent);
-		this.setSumCurrent(sumCurrent);
-		this.setGrossProfit(grossProfit);
+		//this.setSumCurrent(sumCurrent);
+		//this.setGrossProfit(grossProfit);
 		this.setNotebookValue(notebookValue);
-		this.setBalance(balance);
+		//this.setBalance(balance);
+		calculate();
 	}
 
 	public int getProductId() {
@@ -82,13 +85,7 @@ public class ReportProductShow {
 		this.remainsLast = remainsLast;
 	}
 
-	public int getComing() {
-		return coming;
-	}
-
-	public void setComing(int coming) {
-		this.coming = coming;
-	}
+	
 
 	public BigDecimal getRemainsCurrent() {
 		return remainsCurrent;
@@ -162,6 +159,27 @@ public class ReportProductShow {
 	
 	}
 	
+	public BigDecimal getComing() {
+		return coming;
+	}
+
+	public void setComing(BigDecimal coming) {
+		this.coming = coming;
+	}
+	
+	public void calculate() {
+	//	sumCurrent = priceSell * (remainsLast + coming - remainsCurrent);
+		
+		this.sumCurrent = (priceSell.multiply((remainsLast.add(coming)).subtract(remainsCurrent))).setScale(3, RoundingMode.HALF_EVEN);
+		
+	// grossProfit = (priceSell - priceBuy) * (remainsLast + coming - remainsCurrent);
+		this.grossProfit = (priceSell.subtract(priceBuy)).multiply((remainsLast.add(coming).subtract(remainsCurrent))).setScale(3, RoundingMode.HALF_EVEN);
+		
+	//	balance = notebookValue - sumCurrent;
+		this.balance = (notebookValue.subtract(sumCurrent)).setScale(3, RoundingMode.HALF_EVEN);
+		
+	}
+
 	private static String url = "jdbc:postgresql://localhost:5432/soulBeer"; 
 	private static String name = "postgres";
 	private static String pass = "13121994";

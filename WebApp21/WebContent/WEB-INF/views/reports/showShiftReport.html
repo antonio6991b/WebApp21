@@ -33,19 +33,34 @@
 </table>
 
 <a th:href = "@{/reports/{id}/add(id=${report.getShiftId()})}" >Добавить запись</a>
+
+
 <table>
 <tr>
+	<td>Общая сумма</td>
+	<td><p th:text = "${report.getTotalSumCurrent()}"></p></td>
+</tr>
+<tr>
+	<td>Общая валовая прибыль</td>
+	<td><p th:text = "${report.getTotalGrossProfit()}"></p></td>
+</tr>
+<tr>
+	<td>Общий баланс</td>
+	<td><p th:text = "${report.getTotalBalance()}"></p></td>
+</tr>
+</table>
 
-
+<table>
+<tr>
 <td>Номер <br>записи</td>
 <td>ИД товара</td>
 <td>Товар</td>
 <td>Цена покупки</td>
 <td>Цена продажи</td>
-<td>Остаток (начало смены)</td>
+<td>Остаток на<p th:text = "${report.getShiftBegin()}"></p></td>
 <td>Приход</td>
-<td>Остаток (конец смены)</td>
-<td>Сумма (конец смены)</td>
+<td>Остаток на <p th:text = "${report.getShiftEnd()}"></p></td>
+<td>Сумма на <p th:text = "${report.getShiftEnd()}"></p></td>
 <td>Валовая прибыль</td>
 <td>Значение в тетради</td>
 <td>Баланс</td>

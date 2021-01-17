@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -45,6 +46,10 @@ public class ReportDao {
 		List<ReportProductShow> productList = new ArrayList<>();
 		ShiftDao shiftDao = new ShiftDao();
 		ShiftIndex shift = shiftDao.show(shiftId);
+		BigDecimal totalSumCurrent = new BigDecimal(0);
+		BigDecimal totalGrossProfit = new BigDecimal(0);
+		BigDecimal totalBalance = new BigDecimal(0);
+		
 		reportShow.setShiftId(shiftId);
 		reportShow.setShopId(shift.getShopId());
 		reportShow.setShiftBegin(shift.getShiftBegin());
@@ -62,10 +67,10 @@ public class ReportDao {
 					+ "weekReport.remainsLast,\r\n"
 					+ "weekReport.coming, \r\n"
 					+ "weekReport.remainsCurrent,\r\n"
-					+ "weekReport.sumCurrent, \r\n"
-					+ "weekReport.grossProfit,\r\n"
-					+ "weekReport.notebookValue, \r\n"
-					+ "weekReport.balance\r\n"
+					//+ "weekReport.sumCurrent, \r\n"
+					//+ "weekReport.grossProfit,\r\n"
+					+ "weekReport.notebookValue \r\n"
+					//+ "weekReport.balance\r\n"
 					+ "FROM weekReport ,products\r\n"
 					+ "WHERE (weekReport.productId = products.productId)"
 					+ "AND (weekReport.shiftId = ?); ";
@@ -74,23 +79,26 @@ public class ReportDao {
 			preparedStatement.setInt(1,  shiftId);
 			ResultSet resultSet = preparedStatement.executeQuery();
 			
-			while(resultSet.next()) {
+			while(resultSet.next()) {				
 				
-				ReportProductShow reportProductShow = new ReportProductShow();
+				int reportId = resultSet.getInt(1);
+				int productId = resultSet.getInt(2);
+				String productName = resultSet.getString(3);
+				BigDecimal priceBuy = resultSet.getBigDecimal(4);
+				BigDecimal priceSell = resultSet.getBigDecimal(5);
+				BigDecimal remainsLast = resultSet.getBigDecimal(6);
+				BigDecimal coming = resultSet.getBigDecimal(7);
+				BigDecimal remainsCurrent = resultSet.getBigDecimal(8);
+				BigDecimal notebookValue = resultSet.getBigDecimal(9);
 				
-				reportProductShow.setReportId(resultSet.getInt(1));
-				reportProductShow.setProductId(resultSet.getInt(2));
-				reportProductShow.setProductName(resultSet.getString(3));
-				reportProductShow.setPriceBuy(resultSet.getBigDecimal(4));
-				reportProductShow.setPriceSell(resultSet.getBigDecimal(5));
-				reportProductShow.setRemainsLast(resultSet.getBigDecimal(6));
-				reportProductShow.setComing(resultSet.getInt(7));
-				reportProductShow.setRemainsCurrent(resultSet.getBigDecimal(8));
-				reportProductShow.setSumCurrent(resultSet.getBigDecimal(9));
-				reportProductShow.setGrossProfit(resultSet.getBigDecimal(10));
-				reportProductShow.setNotebookValue(resultSet.getBigDecimal(11));
-				reportProductShow.setBalance(resultSet.getBigDecimal(12));
-				
+				ReportProductShow reportProductShow = 
+						new ReportProductShow(reportId, productId, productName, priceBuy, priceSell, remainsLast,
+								coming, remainsCurrent, notebookValue);				
+				totalSumCurrent = totalSumCurrent.add(reportProductShow.getSumCurrent());
+				//System.out.print("total sum current");
+				//System.out.println(reportProductShow.getSumCurrent());
+				totalGrossProfit = totalGrossProfit.add(reportProductShow.getGrossProfit());
+				totalBalance = totalBalance.add(reportProductShow.getBalance());
 				
 				productList.add(reportProductShow);
 				
@@ -103,7 +111,14 @@ public class ReportDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		reportShow.setTotalSumCurrent(totalSumCurrent);
+		reportShow.setTotalGrossProfit(totalGrossProfit);
+		reportShow.setTotalBalance(totalBalance);
 		reportShow.setProducts(productList);
+		
+		//System.out.println(totalSumCurrent);
+		//System.out.println(totalGrossProfit);
+		//System.out.println(totalBalance);
 		return reportShow;
 	}
 
@@ -117,10 +132,10 @@ public class ReportDao {
 					+ "remainsLast = ?,\r\n"
 					+ "coming = ?, \r\n"
 					+ "remainsCurrent = ?,\r\n"
-					+ "sumCurrent = ?, \r\n"
-					+ "grossProfit = ?,\r\n"
-					+ "notebookValue = ?, \r\n"
-					+ "balance = ? \r\n"
+				//	+ "sumCurrent = ?, \r\n"
+				//	+ "grossProfit = ?,\r\n"
+					+ "notebookValue = ? \r\n"
+				//	+ "balance = ? \r\n"
 					
 					+ "WHERE (weekReport.reportId = ?); ";
 					
@@ -129,13 +144,13 @@ public class ReportDao {
 			preparedStatement.setBigDecimal(2, reportProductShow.getPriceBuy());
 			preparedStatement.setBigDecimal(3, reportProductShow.getPriceSell());
 			preparedStatement.setBigDecimal(4, reportProductShow.getRemainsLast());
-			preparedStatement.setInt(5, reportProductShow.getComing());
+			preparedStatement.setBigDecimal(5, reportProductShow.getComing());
 			preparedStatement.setBigDecimal(6, reportProductShow.getRemainsCurrent());
-			preparedStatement.setBigDecimal(7, reportProductShow.getSumCurrent());
-			preparedStatement.setBigDecimal(8,  reportProductShow.getGrossProfit());
-			preparedStatement.setBigDecimal(9,  reportProductShow.getNotebookValue());
-			preparedStatement.setBigDecimal(10, reportProductShow.getBalance());
-			preparedStatement.setInt(11,  reportId);
+		//	preparedStatement.setBigDecimal(7, reportProductShow.getSumCurrent());
+		//	preparedStatement.setBigDecimal(8,  reportProductShow.getGrossProfit());
+			preparedStatement.setBigDecimal(7,  reportProductShow.getNotebookValue());
+		//	preparedStatement.setBigDecimal(10, reportProductShow.getBalance());
+			preparedStatement.setInt(8,  reportId);
 			
 			preparedStatement.execute();
 			
@@ -163,10 +178,10 @@ public class ReportDao {
 					+ "weekReport.remainsLast,\r\n"
 					+ "weekReport.coming, \r\n"
 					+ "weekReport.remainsCurrent,\r\n"
-					+ "weekReport.sumCurrent, \r\n"
-					+ "weekReport.grossProfit,\r\n"
-					+ "weekReport.notebookValue, \r\n"
-					+ "weekReport.balance\r\n"
+				//	+ "weekReport.sumCurrent, \r\n"
+				//	+ "weekReport.grossProfit,\r\n"
+					+ "weekReport.notebookValue \r\n"
+				//	+ "weekReport.balance\r\n"
 					+ "FROM weekReport ,products\r\n"
 					+ "WHERE (weekReport.reportId = ?); ";
 					
@@ -181,12 +196,13 @@ public class ReportDao {
 			reportProductShow.setPriceBuy(resultSet.getBigDecimal(4));
 			reportProductShow.setPriceSell(resultSet.getBigDecimal(5));
 			reportProductShow.setRemainsLast(resultSet.getBigDecimal(6));
-			reportProductShow.setComing(resultSet.getInt(7));
+			reportProductShow.setComing(resultSet.getBigDecimal(7));
 			reportProductShow.setRemainsCurrent(resultSet.getBigDecimal(8));
-			reportProductShow.setSumCurrent(resultSet.getBigDecimal(9));
-			reportProductShow.setGrossProfit(resultSet.getBigDecimal(10));
-			reportProductShow.setNotebookValue(resultSet.getBigDecimal(11));
-			reportProductShow.setBalance(resultSet.getBigDecimal(12));
+			//reportProductShow.setSumCurrent(resultSet.getBigDecimal(9));
+			//reportProductShow.setGrossProfit(resultSet.getBigDecimal(10));
+			reportProductShow.setNotebookValue(resultSet.getBigDecimal(9));
+			//reportProductShow.setBalance(resultSet.getBigDecimal(12));
+			reportProductShow.calculate();
 			
 		resultSet.close();
 		preparedStatement.close();
@@ -211,26 +227,26 @@ try {
 					+ "remainsLast,\r\n"
 					+ "coming , \r\n"
 					+ "remainsCurrent ,\r\n"
-					+ "sumCurrent , \r\n"
-					+ "grossProfit ,\r\n"
+				//	+ "sumCurrent , \r\n"
+				//	+ "grossProfit ,\r\n"
 					+ "notebookValue , \r\n"
-					+ "balance,"
+				//	+ "balance,"
 					+ "shiftId) \r\n"
 					
-					+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ";
+					+ "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?); ";
 					
 			PreparedStatement preparedStatement = connection.prepareStatement(select);
 			preparedStatement.setInt(1,  reportProductShow.getProductId());
 			preparedStatement.setBigDecimal(2, reportProductShow.getPriceBuy());
 			preparedStatement.setBigDecimal(3, reportProductShow.getPriceSell());
 			preparedStatement.setBigDecimal(4, reportProductShow.getRemainsLast());
-			preparedStatement.setInt(5, reportProductShow.getComing());
+			preparedStatement.setBigDecimal(5, reportProductShow.getComing());
 			preparedStatement.setBigDecimal(6, reportProductShow.getRemainsCurrent());
-			preparedStatement.setBigDecimal(7, reportProductShow.getSumCurrent());
-			preparedStatement.setBigDecimal(8,  reportProductShow.getGrossProfit());
-			preparedStatement.setBigDecimal(9,  reportProductShow.getNotebookValue());
-			preparedStatement.setBigDecimal(10, reportProductShow.getBalance());
-			preparedStatement.setInt(11,  shiftId);
+		//	preparedStatement.setBigDecimal(7, reportProductShow.getSumCurrent());
+		//	preparedStatement.setBigDecimal(8,  reportProductShow.getGrossProfit());
+			preparedStatement.setBigDecimal(7,  reportProductShow.getNotebookValue());
+		//	preparedStatement.setBigDecimal(10, reportProductShow.getBalance());
+			preparedStatement.setInt(8,  shiftId);
 			
 			preparedStatement.execute();
 			
@@ -269,6 +285,5 @@ try {
 	
 		
 	}
-
 
 }

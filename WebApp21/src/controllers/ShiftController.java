@@ -91,6 +91,9 @@ public class ShiftController {
 	public String postQuery(@ModelAttribute("shiftQuery") ShiftQuery shiftQuery) {		
 		//model.addAttribute("shiftQuery", new ShiftQuery());
 		shiftDao.setShiftQuery(shiftQuery);
+		System.out.println(shiftQuery.getShiftBegin());
+		System.out.println(shiftQuery.getShiftEnd());
+		
 		return "redirect:/shifts/search/result";
 	}
 	

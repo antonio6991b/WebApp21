@@ -1,5 +1,6 @@
 package models.reports;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ public class ReportShow {
 	private String sellerName;	
 	
 	private List<ReportProductShow> products = new ArrayList<>();
+	
+	private BigDecimal totalSumCurrent;
+	private BigDecimal totalGrossProfit;
+	private BigDecimal totalBalance;
 	
 	public ReportShow() {}
 
@@ -78,6 +83,42 @@ public class ReportShow {
 	public void setSellerId(int sellerId) {
 		this.sellerId = sellerId;
 	}
+
+
+
+	public BigDecimal getTotalSumCurrent() {
+		return totalSumCurrent;
+	}
+
+
+
+	public void setTotalSumCurrent(BigDecimal totalSumCurrent) {
+		this.totalSumCurrent = totalSumCurrent;
+	}
+
+
+
+	public BigDecimal getTotalGrossProfit() {
+		return totalGrossProfit;
+	}
+
+
+
+	public void setTotalGrossProfit(BigDecimal totalGrossProfit) {
+		this.totalGrossProfit = totalGrossProfit;
+	}
+
+
+
+	public BigDecimal getTotalBalance() {
+		return totalBalance;
+	}
+
+
+
+	public void setTotalBalance(BigDecimal totalBalance) {
+		this.totalBalance = totalBalance;
+	}
 	
-	
+
 }

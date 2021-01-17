@@ -5,6 +5,7 @@ public class Product {
 	private String productName;
 	private String productCategory;
 	private String productMaker;
+	private int productOrder;
 	
 	public Product(int productId, String productName, String productCategory, String productMaker) {
 		this.setProductId(productId);
@@ -45,6 +46,14 @@ public class Product {
 
 	public void setProductMaker(String productMaker) {
 		this.productMaker = productMaker;
+	}
+
+	public int getProductOrder() {
+		return productOrder;
+	}
+
+	public void setProductOrder(int productOrder) {
+		this.productOrder = productOrder;
 	}
 
 }

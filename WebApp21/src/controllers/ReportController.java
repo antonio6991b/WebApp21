@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dao.ProductDao;
 import dao.ReportDao;
 import models.reports.ReportProductShow;
+import models.reports.ReportShow;
 
 @Controller
 @RequestMapping("/reports")
@@ -22,9 +23,9 @@ public class ReportController {
 	
 	@GetMapping("/{shiftId}")
 	public String showShiftReport(@PathVariable("shiftId") int shiftId, Model model) {
-		
-		model.addAttribute("report", reportDao.show(shiftId));
-		model.addAttribute("productList", reportDao.show(shiftId).getProducts());
+		ReportShow report = reportDao.show(shiftId);
+		model.addAttribute("report", report);
+		model.addAttribute("productList", report.getProducts());
 		
 		return "reports/showShiftReport";
 	}
@@ -47,7 +48,7 @@ public class ReportController {
 	
 	 @GetMapping("/{shiftId}/add")
 	 public String addItem(Model model, @PathVariable("shiftId") int shiftId) {
-		 model.addAttribute("products", productDao.index());
+		 model.addAttribute("products", productDao.showMissProducts(shiftId, reportDao.show(shiftId)));
 		 model.addAttribute("item", new ReportProductShow());
 		 model.addAttribute("report", reportDao.show(shiftId));
 		 return "reports/addItem";
