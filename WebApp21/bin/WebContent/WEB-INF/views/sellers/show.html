@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Продавец</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+Информация о продавце
+	<p th:text="${seller.getSellerId()}">VALUE</p>
+	<p th:text="${seller.getSellerName()}">VALUE</p>
+<p th:text="${seller.getSellerPhone()}">VALUE</p>
+<p th:text="${seller.getShopId()}">VALUE</p><br>
+<a th:href = "@{/sellers/{id}/edit(id=${seller.getSellerId()})}">редактировать</a>
+<br>
+<a th:href = "@{/sellers/{id}/delete(id=${seller.getSellerId()})}">Удалить</a>
+</body>
+</html>

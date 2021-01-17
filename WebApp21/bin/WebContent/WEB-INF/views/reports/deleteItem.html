@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Удаление записи</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+
+<table>
+<tr>
+<td>Удаление записи №</td>
+<td><p th:text = "${item.getReportId()}"></p></td>
+</tr>
+</table>
+
+
+<form th:method="POST" th:action="@{/reports/delete/{id}(id=${item.getReportId()})}" th:object="${item}">
+
+
+<input type = "text" readonly th:field="*{productId}" id = "idSeller"></input>
+
+
+<label for="priceBuy">Цена покупки</label>
+<input type="text"  readonly th:field="*{priceBuy}" id="priceBuy"></input><br>
+<label for="priceSell">Цена продажи</label>
+<input type="text" readonly th:field="*{priceSell}" id="priceBuy"></input><br>
+<label for="remainsLast">Остаток предыдущий</label>
+<input type="text" readonly th:field="*{remainsLast}" id="remainsLast"></input><br>
+<label for="coming">Приход</label>
+<input type="text" readonly th:field="*{coming}" id="coming"></input><br>
+<label for="remainsCurrent">Остаток на конец смены</label>
+<input type="text" readonly th:field="*{remainsCurrent}" id="remainsCurrent"></input><br>
+<label for="sumCurrent">Сумма на конец смены</label>
+<input type="text" readonly th:field="*{sumCurrent}" id="sumCurrent"></input><br>
+<label for="grossProfit">Валовая прибыль</label>
+<input type="text" readonly th:field="*{grossProfit}" id="grossProfit"></input><br>
+<label for="notebookValue">Значение в тетради</label>
+<input type="text" readonly th:field="*{notebookValue}" id="notebookValue"></input><br>
+<label for="balance">Баланс</label>
+<input type="text" readonly th:field="*{balance}" id="balance"></input><br>
+
+<input type="submit" value="Удалить строку"></input>
+</form>
+
+
+
+</body>
+</html>

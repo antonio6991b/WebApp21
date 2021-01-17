@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Товары</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+<a href = "/WebApp21/products/new">Новый товар</a>
+<table>
+<tr>
+
+<td>ID товара</td>
+<td>Наименование</td>
+<td>Категория</td>
+<td>Производитель</td>
+<td>Действие</td>
+</tr>
+<tr height = 5 th:each = "product : ${product}">
+<td>
+<p th:text="${product.getProductId()}"></p>
+</td>
+<td>
+<a th:href = "@{/products/{id}(id=${product.getProductId()})}"  th:text="${product.getProductName()}">
+	</a>
+</td>
+<td>
+<p th:text="${product.getProductCategory()}">
+	</p>
+</td>
+<td>
+<p th:text="${product.getProductMaker()}"></p>
+</td>
+<td>
+<a th:href = "@{/products/{id}/edit(id=${product.getProductId()})}">Редактировать</a>
+<br>
+<a th:href = "@{/products/{id}/delete(id=${product.getProductId()})}">Удалить товар</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

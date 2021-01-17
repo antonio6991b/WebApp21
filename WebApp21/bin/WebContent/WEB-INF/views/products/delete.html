@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Удалить товар</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+<form th:method="POST" th:action="@{/products/delete/{id}(id=${product.getProductId()})}" th:object="${product}">
+<label for="productId"> ID: </label>
+<input type="text" readonly th:field="*{productId}" id="productId"></input><br>
+<label for="productName"> Наименование: </label>
+<input type="text" readonly th:field="*{productName}" id="productName"></input><br>
+<label for="productCategory"> Категория: </label>
+<input type="text" readonly th:field="*{productCategory}" id="productCategory"></input><br>
+<label for="productMaker"> Производитель: </label>
+<input type="text" readonly th:field="*{productMaker}" id="productMaker"></input><br>
+<input type="submit" value="Удалить товар"></input>
+
+</form>
+
+</body>
+</html>

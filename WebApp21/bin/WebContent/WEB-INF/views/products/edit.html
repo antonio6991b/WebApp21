@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Редактирование товара</title>
+</head>
+<body>
+<a href = "/WebApp21/"> На главную </a><br>
+<form th:method="POST" th:action="@{/products/{id}(id=${product.getProductId()})}" th:object="${product}">
+<label for="Id"> ID </label>
+<input type="text" readonly th:field="*{productId}" id="Id"></input><br>
+<label for="Name">Наименование </label>
+<input type="text"  th:field="*{productName}" id="Name"></input><br>
+<label for="Category"> Категория </label>
+<input type="text" th:field="*{productCategory}" id="Category"></input><br>
+<label for="Maker"> Производитель </label>
+<input type="text" th:field="*{productMaker}" id="Maker"></input><br>
+<input type="submit" value="Обновить"></input>
+</form>
+</body>
+</html>
