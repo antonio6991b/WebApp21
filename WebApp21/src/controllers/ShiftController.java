@@ -51,6 +51,7 @@ public class ShiftController {
 		
 		model.addAttribute("shift", shiftDao.show(id));
 		
+		
 		return "shifts/show";
 	}
 	

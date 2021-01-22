@@ -38,17 +38,19 @@ create table products (
 	productId SERIAL primary key,
 	productName varchar(50) not null,
 	productCategory varchar(50),
-	productMaker varchar(20)
+	productMaker varchar(20),
+	productOrder int
 );
 
 create table shifts
 (
 	shiftId SERIAL primary key,
 	shopId varchar(10) ,
-	sellerId int ,
-	
+	sellerId int ,	
 	shiftBegin date not null,
 	shiftEnd date not null,
+	cashBegin NUMERIC(15,2),
+	cashEnd NUMERIC(15,2)
 FOREIGN KEY (shopId) REFERENCES shops(shopId),
 FOREIGN KEY (sellerId) REFERENCES sellers(sellerId)
 );
@@ -70,5 +72,14 @@ CREATE TABLE weekReport(
 	FOREIGN KEY (shiftId) REFERENCES shifts (shiftId),
 	FOREIGN KEY (productId) REFERENCES products (productId),
 	FOREIGN KEY (shiftId) REFERENCES shifts (shiftId)
+);
+
+CREATE TABLE expenses(
+	expId SERIAL PRIMARY KEY,
+	shiftId int,
+	expName VARCHAR(50),
+	expSum NUMERIC(15, 2),
+	expCategory VARCHAR(20),
+	FOREIGN KEY(shiftId) REFERENCES shifts(shiftId)
 );
 

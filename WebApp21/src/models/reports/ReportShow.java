@@ -16,11 +16,22 @@ public class ReportShow {
 	
 	private List<ReportProductShow> products = new ArrayList<>();
 	
-	private BigDecimal totalSumCurrent;
-	private BigDecimal totalGrossProfit;
-	private BigDecimal totalBalance;
+	private BigDecimal totalSumCurrent = BigDecimal.valueOf(0);
+	private BigDecimal totalGrossProfit = BigDecimal.valueOf(0);
+	private BigDecimal totalBalance = BigDecimal.valueOf(0);
+	private BigDecimal totalExpenses = BigDecimal.valueOf(0);
+	private BigDecimal totalNetProfit = BigDecimal.valueOf(0);
 	
-	public ReportShow() {}
+	private CashDesk cashDesk;
+	private CashDesk writeOff;
+	private CashDesk costs;
+//	private Expenses expenses;
+	//private WriteOff writeOff;
+	
+	public ReportShow() {
+		
+		
+	}
 
 	
 
@@ -118,6 +129,77 @@ public class ReportShow {
 
 	public void setTotalBalance(BigDecimal totalBalance) {
 		this.totalBalance = totalBalance;
+	}
+
+
+
+	public BigDecimal getTotalExpenses() {
+		return totalExpenses;
+	}
+
+
+
+	public void setTotalExpenses(BigDecimal totalExpenses) {
+		this.totalExpenses = totalExpenses;
+	}
+
+
+
+	public BigDecimal getTotalNetProfit() {
+		return totalNetProfit;
+	}
+
+
+
+	public void setTotalNetProfit(BigDecimal totalNetProfit) {
+		this.totalNetProfit = totalNetProfit;
+	}
+
+
+
+	public CashDesk getCashDesk() {
+		return cashDesk;
+	}
+
+
+
+	public void setCashDesk(CashDesk cashDesk) {
+		this.cashDesk = cashDesk;
+	}
+
+
+
+	public CashDesk getWriteOff() {
+		return writeOff;
+	}
+
+
+
+	public void setWriteOff(CashDesk writeOff) {
+		this.writeOff = writeOff;
+	}
+
+
+
+	public CashDesk getCosts() {
+		return costs;
+	}
+
+
+
+	public void setCosts(CashDesk costs) {
+		this.costs = costs;
+	}
+
+
+
+	public void calculate() {
+		BigDecimal totalExpenses = this.writeOff.getTotalExpenses().add(this.cashDesk.getTotalExpenses());
+		BigDecimal netProfit = this.getTotalGrossProfit().subtract(this.writeOff.getTotalExpenses().add(this.cashDesk.getTotalExpenses()));
+		
+		this.setTotalExpenses(totalExpenses);
+		this.setTotalNetProfit(netProfit);
+		
 	}
 	
 

@@ -18,6 +18,8 @@
 <td>Начало смены</td>
 <td>Конец смены</td>
 <td>Продавец</td>
+<td>Сумма в начале смены</td>
+<td>Сумма в конце смены</td>
 <td>Действие</td>
 </tr>
 <tr height = 5 th:each = "shiftIndex : ${shiftIndex}">
@@ -38,6 +40,8 @@
 <a th:href = "@{/sellers/{id}(id=${shiftIndex.getSellerId()})}" th:text = "${shiftIndex.getSellerName()}">
 	</a>
 </td>
+<td><p th:text="${shiftIndex.getCashBegin()}"></p></td>
+<td><p th:text="${shiftIndex.getCashEnd()}"></p></td>
 <td>
 <a th:href = "@{/shifts/{id}/edit(id=${shiftIndex.getShiftId()})}">Редактировать</a>
 <br>

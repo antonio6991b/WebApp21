@@ -16,6 +16,33 @@
 
 
 <form th:method="POST" th:action="@{/reports/edit/{id}(id=${item.getReportId()})}" th:object="${item}">
+<table>
+<tr>
+	<td>Выберите товар:</td>
+	<td>Цена покупки</td>
+	<td>Цена продажи</td>
+	<td>Остаток предыдущий</td>
+	<td>Приход</td>
+	<td>Остаток на конец смены</td>
+	<td>Значение в тетради</td>
+</tr>
+<tr>
+	<td>
+		<select th:field="*{productId}" id = "idSeller">
+		<option th:each = "products:${products}" th:text="${products.getProductName()}" th:value = "${products.getProductId()}"></option>
+		</select>
+	</td>
+	<td><input type="text" th:field="*{priceBuy}" id="priceBuy"></input></td>
+	<td><input type="text" th:field="*{priceSell}" id="priceBuy"></input></td>
+	<td><input type="text" th:field="*{remainsLast}" id="remainsLast"></input></td>
+	<td><input type="text" th:field="*{coming}" id="coming"></input></td>
+	<td><input type="text" th:field="*{remainsCurrent}" id="remainsCurrent"></input></td>
+	<td><input type="text" th:field="*{notebookValue}" id="notebookValue"></input></td>
+</tr>
+</table>
+<!-- 
+<input type="submit" value="Добавить"></input>
+</form>
 <label for="idSeller">Выберите товар: </label>
 
 <select th:field="*{productId}" id = "idSeller">
@@ -32,18 +59,19 @@
 <input type="text" th:field="*{coming}" id="coming"></input><br>
 <label for="remainsCurrent">Остаток на конец смены</label>
 <input type="text" th:field="*{remainsCurrent}" id="remainsCurrent"></input><br>
-<!-- 
+
 <label for="sumCurrent">Сумма на конец смены</label>
 <input type="text" th:field="*{sumCurrent}" id="sumCurrent"></input><br>
 <label for="grossProfit">Валовая прибыль</label>
 <input type="text" th:field="*{grossProfit}" id="grossProfit"></input><br>
--->
+
 <label for="notebookValue">Значение в тетради</label>
 <input type="text" th:field="*{notebookValue}" id="notebookValue"></input><br>
-<!-- 
+<
 <label for="balance">Баланс</label>
 <input type="text" th:field="*{balance}" id="balance"></input><br>
 -->
+
 <input type="submit" value="Изменить строку"></input>
 </form>
 

@@ -1,5 +1,6 @@
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import models.shifts.Shift;
-import models.shifts.ShiftIndex;
+
 import models.shifts.ShiftQuery;
 
 public class ShiftDao {
@@ -21,7 +22,7 @@ public class ShiftDao {
 	private static String name = "postgres";
 	private static String pass = "13121994";
 	
-	private List<ShiftIndex> shifts = new ArrayList<ShiftIndex>();
+	private List<Shift> shifts = new ArrayList<Shift>();
 	private ShiftQuery shiftQuery = new ShiftQuery();
 	
 	private static Connection connection ;
@@ -44,7 +45,7 @@ public class ShiftDao {
 	}
 	
 	
-	public List<ShiftIndex> index(){
+	public List<Shift> index(){
 		try {
 			this.shifts.clear();
 			String select = "SELECT  "
@@ -53,7 +54,9 @@ public class ShiftDao {
 								+ " shifts.shiftBegin," 
 								+ " shifts.shiftEnd,"
 								+ " sellers.sellerName,"
-								+ " sellers.sellerId "
+								+ " sellers.sellerId, "
+								+ " shifts.cashBegin, "
+								+ " shifts.cashEnd "
 								+ " FROM shifts , sellers"
 								+ " WHERE (sellers.sellerId = shifts.sellerId); ";
 					
@@ -67,8 +70,10 @@ public class ShiftDao {
 				Date shiftEnd = resultSet.getDate(4);
 				String sellerName = resultSet.getString(5);
 				int sellerId = resultSet.getInt(6);
-				ShiftIndex shiftIndex = new ShiftIndex(shiftId, shopId, shiftBegin, shiftEnd, sellerName, sellerId);
-				this.shifts.add(shiftIndex);
+				BigDecimal cashBegin = resultSet.getBigDecimal(7);
+				BigDecimal cashEnd = resultSet.getBigDecimal(8);
+				Shift shift = new Shift(shiftId, shopId, shiftBegin, shiftEnd, sellerName, sellerId, cashBegin, cashEnd);
+				this.shifts.add(shift);
 				
 			}
 			resultSet.close();
@@ -86,11 +91,13 @@ public class ShiftDao {
 	public void save(Shift shift) {
 		PreparedStatement preparedStatement;
 		try {
-			preparedStatement = connection.prepareStatement("INSERT INTO shifts (sellerId, shiftBegin, shiftEnd)\r\n"
-					+ "values (?, ?, ?);");
+			preparedStatement = connection.prepareStatement("INSERT INTO shifts (sellerId, shiftBegin, shiftEnd, cashBegin, cashEnd)\r\n"
+					+ "values (?, ?, ?, ?, ?);");
 			preparedStatement.setInt(1, shift.getSellerId());
 			preparedStatement.setDate(2, shift.getShiftBegin());
 			preparedStatement.setDate(3, shift.getShiftEnd());
+			preparedStatement.setBigDecimal(4, shift.getCashBegin());
+			preparedStatement.setBigDecimal(5, shift.getCashEnd());
 			
 			
 			preparedStatement.execute();
@@ -103,8 +110,8 @@ public class ShiftDao {
 	}
 
 
-	public ShiftIndex show(int id) {
-		ShiftIndex shiftIndex = new ShiftIndex();
+	public Shift show(int id) {
+		Shift shift = new Shift();
 		try {
 			
 			String select = "SELECT  "
@@ -113,7 +120,9 @@ public class ShiftDao {
 								+ " shifts.shiftBegin," 
 								+ " shifts.shiftEnd,"
 								+ " sellers.sellerName,"
-								+ " sellers.sellerId "
+								+ " sellers.sellerId, "
+								+ " shifts.cashBegin, "
+								+ " shifts.cashEnd "
 								+ " FROM shifts , sellers"
 								+ " WHERE (sellers.sellerId = shifts.sellerId) and (shifts.shiftId = ?) "
 								+ " Order by shiftId";
@@ -123,12 +132,14 @@ public class ShiftDao {
 			
 			resultSet.next();
 				
-				shiftIndex.setShiftId(resultSet.getInt(1));
-				shiftIndex.setShopId(resultSet.getString(2));
-				shiftIndex.setShiftBegin(resultSet.getDate(3));
-				shiftIndex.setShiftEnd(resultSet.getDate(4));
-				shiftIndex.setSellerName(resultSet.getString(5));
-				shiftIndex.setSellerId(resultSet.getInt(6));
+				shift.setShiftId(resultSet.getInt(1));
+				shift.setShopId(resultSet.getString(2));
+				shift.setShiftBegin(resultSet.getDate(3));
+				shift.setShiftEnd(resultSet.getDate(4));
+				shift.setSellerName(resultSet.getString(5));
+				shift.setSellerId(resultSet.getInt(6));
+				shift.setCashBegin(resultSet.getBigDecimal(7));
+				shift.setCashEnd(resultSet.getBigDecimal(8));
 				/*
 				int sellerId = resultSet.getInt(6);
 				shiftIndex.setShiftId(shiftId);
@@ -149,7 +160,7 @@ public class ShiftDao {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return shiftIndex;
+		return shift;
 	}
 	
 	public void delete(int shiftId) {
@@ -175,12 +186,16 @@ public class ShiftDao {
 			preparedStatement = connection.prepareStatement("UPDATE shifts\r\n"
 					+ "SET sellerId = ? ,\r\n"
 					+ "    shiftBegin = ? ,\r\n"
-					+ "    shiftEnd = ? \r\n"
+					+ "    shiftEnd = ? , \r\n"
+					+ "    cashBegin = ? , "
+					+ "    cashEnd = ?"
 					+ "WHERE shiftId = ?;");
 			preparedStatement.setInt(1, shift.getSellerId());
 			preparedStatement.setDate(2, shift.getShiftBegin());
 			preparedStatement.setDate(3, shift.getShiftEnd());
-			preparedStatement.setInt(4, shiftId);
+			preparedStatement.setBigDecimal(4, shift.getCashBegin());
+			preparedStatement.setBigDecimal(5, shift.getCashEnd());			
+			preparedStatement.setInt(6, shiftId);
 			
 			preparedStatement.execute();
 			
@@ -192,7 +207,7 @@ public class ShiftDao {
 	}
 
 
-	public List<ShiftIndex> search() {
+	public List<Shift> search() {
 		try {
 			this.shifts.clear();
 			String select = "SELECT  "
@@ -201,7 +216,9 @@ public class ShiftDao {
 								+ " shifts.shiftBegin," 
 								+ " shifts.shiftEnd,"
 								+ " sellers.sellerName,"
-								+ " sellers.sellerId "
+								+ " sellers.sellerId, "
+								+ " shifts.cashBegin, "
+								+ " shifts.cashEnd "
 								+ " FROM shifts , sellers "
 								+ " WHERE (sellers.sellerId = shifts.sellerId) "
 								+ " AND (shifts.shiftBegin BETWEEN ? and ?)";
@@ -222,8 +239,11 @@ public class ShiftDao {
 				Date shiftEnd = resultSet.getDate(4);
 				String sellerName = resultSet.getString(5);
 				int sellerId = resultSet.getInt(6);
-				ShiftIndex shiftIndex = new ShiftIndex(shiftId, shopId, shiftBegin, shiftEnd, sellerName, sellerId);
-				this.shifts.add(shiftIndex);
+				BigDecimal cashBegin = resultSet.getBigDecimal(7);
+				BigDecimal cashEnd = resultSet.getBigDecimal(8);
+
+				Shift shift = new Shift(shiftId, shopId, shiftBegin, shiftEnd, sellerName, sellerId, cashBegin, cashEnd);
+				this.shifts.add(shift);
 				
 			}
 			resultSet.close();

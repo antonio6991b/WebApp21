@@ -1,0 +1,200 @@
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Жигулевское' , 'Пиво' , '' , 1);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Ячменный колос' , '' , '' , 2);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Волгарь св' , '' , '' , 3);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Волгарь тем' , '' , '' , 4);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кр. октябрь' , '' , '' , 5);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Ржаное' , '' , '' , 6);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Пшеничное' , '' , '' , 7);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Безалкогольное' , '' , '' , 8);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Лимонад' , '' , '' , 9);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Квас' , '' , '' , 10);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вода 0.5л' , '' , '' , 11);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вода 1.5л' , '' , '' , 12);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вода 1л' , '' , '' , 13);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вода 5л' , '' , '' , 14);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Лимонад 0.5' , '' , '' , 15);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Лимонад 1.5' , '' , '' , 16);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чайный гриб' , '' , '' , 17);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Медовуха' , '' , '' , 18);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('ВЕЕР св' , '' , '' , 19);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('ВЕЕР пшенич' , '' , '' , 20);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Русская охота' , '' , '' , 21);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сбитень' , '' , '' , 22);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('ВЕЕR легкое' , '' , '' , 23);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Квасной напиток' , '' , '' , 24);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Маски' , '' , '' , 25);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Блонд' , '' , '' , 26);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Копченое пиво' , '' , '' , 27);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Тара 0.5л' , '' , '' ,  28);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Тара  л' , '' , '' , 29 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Тара  .5л' , '' , '' , 30);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Тара 2л' , '' , '' , 31 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Пакет' , '' , '' , 32 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Стакан 0.5' , '' , '' , 33 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Фисташки' , '' , '' , 34 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Арахис соль' , '' , '' , 35 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Арахис вассаб' , '' , '' , 36 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Стаканы стекло' , '' , '' , 37 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Тара 3л' , '' , '' , 38 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Гренки 250г' , '' , '' , 39 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Гренки 80г' , '' , '' , 40 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кальмар кольц' , '' , '' , 41 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Желтый полос' , '' , '' , 42 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чипсы курин' , '' , '' , 43 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Мясо на решет' , '' , '' , 44 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Зомо' , '' , '' , 45 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Коро' , '' , '' , 46 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Шот' , '' , '' , 47 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Уголь' , '' , '' , 48 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Арахис соль' , '' , '' , 49 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вассаби' , '' , '' , 50 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('4 сыра' , '' , '' , 51 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Гренки ассорт' , '' , '' , 52 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Фисташки' , '' , '' , 53 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кальм стружка' , '' , '' , 54 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кальм кольца' , '' , '' , 55 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Бочонок сыр' , '' , '' , 56 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сыр коса' , '' , '' , 57 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сыр чечел' , '' , '' , 58 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сыр паутинка' , '' , '' , 59 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сыр снопик' , '' , '' , 60 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Ротманс' , '' , '' , 61 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Лентяйка' , '' , '' , 62 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Филип морис' , '' , '' , 63 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Ротманс2' , '' , '' , 64 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Винстон' , '' , '' , 65 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Бонд комкакт' , '' , '' , 66 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сорожка' , '' , '' , 67 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Вобла' , '' , '' , 68 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Густера' , '' , '' , 69 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сопа' , '' , '' , 70 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Рыба шт' , '' , '' , 71 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чехонь' , '' , '' , 72 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Желтый полосатик' , '' , '' ,73);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Винстон XS' , '' , '' , 74 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кальмар паутинка' , '' , '' , 75 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Минтай' , '' , '' , 76 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чипсы мясн' , '' , '' , 77 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Караван  30г' , '' , '' , 78 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Караван 90г' , '' , '' , 79 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Караван 20г' , '' , '' ,  80);
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Таранка' , '' , '' , 81 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Таранка с перцем' , '' , '' , 82 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Янтарная' , '' , '' , 83 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чипсы лаваш' , '' , '' , 84 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Сухари в ассорт' , '' , '' , 85 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Брусочки кур' , '' , '' , 86 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Ушки св' , '' , '' , 87 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чупс' , '' , '' , 88 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Лучистик' , '' , '' , 89 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Джерки кур' , '' , '' , 90 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Балык гов' , '' , '' , 91 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Салями' , '' , '' , 92 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Балык свин' , '' , '' , 93 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Бастурма' , '' , '' , 94 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Шейка св' , '' , '' , 95 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Венгерские' , '' , '' , 96 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Чешские' , '' , '' , 97 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Пасторма' , '' , '' , 98 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Кнуты' , '' , '' , 99 );
+INSERT INTO products (productName, productCategory, productMaker, productOrder)
+VALUES ('Пакет мал' , '' , '' , 100 );

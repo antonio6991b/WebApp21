@@ -14,6 +14,9 @@
 <p th:text="${shift.getSellerName()}">VALUE</p>
 <p th:text="${shift.getSellerId()}"></p>
 
+<p th:text="${shift.getCashBegin()}"></p>
+<p th:text="${shift.getCashEnd()}"></p>
+
 <a th:href = "@{/shifts/{id}/edit(id=${shift.getShiftId()})}"> Редактировать </a>
 <br>
 <a th:href = "@{/shifts/{id}/delete(id=${shift.getShiftId()})}">Удалить </a>
