@@ -25,7 +25,7 @@
 	<td><p th:text = "${report.getSellerName()}"></p></td>
 </tr>
 </table>
-<form th:method="POST" th:action="@{/reports/{shiftId}/add/(shiftId=${report.getShiftId()})}" th:object="${item}">
+<form name = "Product" th:method="POST" th:action="@{/reports/{shiftId}/add/(shiftId=${report.getShiftId()})}" th:object="${item}">
 <table>
 <tr>
 	<td>Выберите товар:</td>
@@ -42,18 +42,33 @@
 		<option th:each = "products:${products}" th:text="${products.getProductName()}" th:value = "${products.getProductId()}"></option>
 		</select>
 	</td>
-	<td><input type="text" th:field="*{priceBuy}" id="priceBuy"></input></td>
-	<td><input type="text" th:field="*{priceSell}" id="priceBuy"></input></td>
-	<td><input type="text" th:field="*{remainsLast}" id="remainsLast"></input></td>
-	<td><input type="text" th:field="*{coming}" id="coming"></input></td>
-	<td><input type="text" th:field="*{remainsCurrent}" id="remainsCurrent"></input></td>
-	<td><input type="text" th:field="*{notebookValue}" id="notebookValue"></input></td>
+	<td><input type="number" step="any" th:field="*{priceBuy}"  name = "priceBuy"></input></td>
+	<td><input type="number" step="any" th:field="*{priceSell}"  name = "priceSell"></input></td>
+	<td><input type="number" step="any" th:field="*{remainsLast}"  name = "remainsLast"></input></td>
+	<td><input type="number" step="any" th:field="*{coming}"  name = "coming"></input></td>
+	<td><input type="number" step="any" th:field="*{remainsCurrent}"  name = "remainsCurrent"></input></td>
+	<td><input type="number" step="any" th:field="*{notebookValue}"  name = "notebookValue" onfocus = "this.value = calculate();"></input></td>
 </tr>
 </table>
 
+
 <input type="submit" value="Добавить"></input>
 </form>
+<script type="text/javascript">
 
+function calculate(){
+	var priceSell = 0.0;
+	var remainsLast = 0.0;
+	var remainsCurrent = 0.0;
+	var coming = 0.0;
+	priceSell = Number(document.Product.priceSell.value);
+	remainsLast = Number(document.Product.remainsLast.value);
+	remainsCurrent = Number(document.Product.remainsCurrent.value);
+	coming = Number(document.Product.coming.value);
+	var notebookValue = Number(priceSell*(remainsLast+coming-remainsCurrent));
+	return notebookValue;	
+}
+</script>
 
 </body>
 </html>
