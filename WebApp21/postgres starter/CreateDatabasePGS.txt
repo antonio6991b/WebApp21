@@ -50,7 +50,7 @@ create table shifts
 	shiftBegin date not null,
 	shiftEnd date not null,
 	cashBegin NUMERIC(15,2),
-	cashEnd NUMERIC(15,2)
+	cashEnd NUMERIC(15,2),
 FOREIGN KEY (shopId) REFERENCES shops(shopId),
 FOREIGN KEY (sellerId) REFERENCES sellers(sellerId)
 );
