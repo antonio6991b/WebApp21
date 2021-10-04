@@ -1,6 +1,7 @@
 package ru.bolgov.soulbeer.controllers;
 
 
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -62,17 +63,21 @@ public class ShopController {
         return "shops/edit";
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(Model model, @PathVariable("id") Long id){
+        model.addAttribute("shop", shopRepository.findById(id).orElse(new Shop()));
+        return "shops/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id){
+        shopRepository.deleteById(id);
+        return "redirect:/shops/all";
+    }
+
     @PostMapping("/{id}")
     public String update(@ModelAttribute("shop") Shop shop, @PathVariable("id") Long id) {
-        Shop tmpShop = shopRepository.findById(id).orElse(null);
-        if(Objects.nonNull(tmpShop)){
-            tmpShop.setShopName(shop.getShopName());
-            tmpShop.setShopAddress(shop.getShopAddress());
-            tmpShop.setShopPhone(shop.getShopPhone());
-            tmpShop.setIsCity(shop.getIsCity());
-            shopRepository.save(tmpShop);
-        }
-
+        shopRepository.edit(shop, id);
         return "redirect:/shops/all";
     }
 }

@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Shop</title>
+    <link rel="stylesheet" href="/styles/shops.css"/>
 </head>
 <body>
 <a href="/main">На главную</a>
+<div class = "container">
 
     Shop, id = <span th:text = "${shop.getShopId()}"></span>, name = <span th:text = "${shop.getShopName()}"></span>,
     address = <span th:text = "${shop.getShopAddress()}"></span>, phone number = <span th:text = "${shop.getShopPhone()}"></span>
 
     <br>
     <a href="/shops/all">To all shops</a>
+</div>
 </body>
+
 </html>

@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Новый магазин</title>
-
+    <link rel="stylesheet" href="/styles/shops.css"/>
 </head>
 <body>
 <a href="/main">На главную</a>
+<div class = "container">
+
 <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shops/}" th:object="${shop}" >
     <h2>Создать новый магазин</h2>
     <table>
@@ -31,5 +33,7 @@
     <input type="submit" value="Создать"></input>
 </form>
 
+<a href="/shops/all">Отмена</a>
+</div>
 </body>
 </html>

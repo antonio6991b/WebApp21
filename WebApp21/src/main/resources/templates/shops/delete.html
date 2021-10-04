@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удалить</title>
+    <link rel="stylesheet" href="/styles/shops.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+<h2>Вы уверены, что хотите удалить магазин?</h2>
+<form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shops/delete/{id}(id=${shop.getShopId()})}" th:object="${shop}" >
+
+    <table>
+        <tr>
+            <td>Название магазина</td>
+            <td><input readonly type="text" th:field="*{shopName}" id="idShop"></input></td>
+        </tr>
+        <tr>
+            <td>Адрес</td>
+            <td><input readonly type="text" th:field="*{shopAddress}" id="address"></input><br></td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td><input readonly type="text"  th:field="*{shopPhone}" id="shopPhone"></input><br></td>
+        </tr>
+        <tr>
+            <td>Городской/нет</td>
+            <td><input readonly type="text" th:field="*{isCity}" id="isCity"></input><br></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Удалить"></input>
+</form>
+<a href="/shops/all">Отмена</a>
+</div>
+</body>
+</html>

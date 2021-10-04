@@ -2,21 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>All shops</title>
+  <title>Список Магазинов</title>
+  <link rel="stylesheet" href="/styles/shops.css"/>
 </head>
+
 <body>
 <a href="/main">На главную</a>
-<h1>All shops</h1>
-<table>
-  <tr th:each = "shop:${shops}">
-    <td th:text = "${shop.getShopId()}"></td>
-    <td th:text = "${shop.getShopName()}"></td>
-    <td th:text = "${shop.getShopAddress()}"></td>
-    <td th:text = "${shop.getShopPhone()}"></td>
-    <td th:text = "${shop.getIsCity()}"></td>
+<div class = "container">
 
-  </tr>
-</table>
-<a href="/shops/new">new shop</a>
+
+  <h2>Магазины</h2>
+  <table>
+    <tr th:each = "shop:${shops}">
+      <td th:text = "${shop.getShopId()}"></td>
+      <td><a th:text = "${shop.getShopName()}" th:href="@{/shops/{id}(id=${shop.getShopId()})}"></td>
+      <td th:text = "${shop.getShopAddress()}"></td>
+      <td th:text = "${shop.getShopPhone()}"></td>
+      <td th:text = "${shop.getIsCity()}"></td>
+      <td>
+        <a th:href = "@{/shops/edit/{id}(id=${shop.getShopId()})}">Редактировать</a><br>
+        <a th:href = "@{/shops/delete/{id}(id=${shop.getShopId()})}">Удалить</a>
+      </td>
+
+    </tr>
+  </table>
+  <a href="/shops/new">Создать новый магазин</a>
+</div>
 </body>
 </html>

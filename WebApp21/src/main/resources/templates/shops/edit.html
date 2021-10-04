@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit shop</title>
+    <link rel="stylesheet" href="/styles/shops.css"/>
 </head>
 <body>
+<a href="/main">На главную</a>
+<div class = "container">
+
       <h2>Редактирование магазина</h2>
         <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shops/{id}(id=${shop.getShopId()})}" th:object="${shop}" >
 
@@ -29,6 +33,7 @@
 
         <input type="submit" value="Обновить"></input>
         </form>
-
+      <a href="/shops/all">Отмена</a>
+</div>
 </body>
 </html>
