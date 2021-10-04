@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All shops</title>
+</head>
+<body>
+<a href="/main">На главную</a>
+<h1>All shops</h1>
+<table>
+  <tr th:each = "shop:${shops}">
+    <td th:text = "${shop.getShopId()}"></td>
+    <td th:text = "${shop.getShopName()}"></td>
+    <td th:text = "${shop.getShopAddress()}"></td>
+    <td th:text = "${shop.getShopPhone()}"></td>
+    <td th:text = "${shop.getIsCity()}"></td>
+
+  </tr>
+</table>
+<a href="/shops/new">new shop</a>
+</body>
+</html>

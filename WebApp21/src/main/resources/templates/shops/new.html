@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый магазин</title>
+
+</head>
+<body>
+<a href="/main">На главную</a>
+<form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shops/}" th:object="${shop}" >
+    <h2>Создать новый магазин</h2>
+    <table>
+        <tr>
+            <td>Название магазина</td>
+            <td><input type="text" th:field="*{shopName}" id="idShop"></input></td>
+        </tr>
+        <tr>
+            <td>Адрес</td>
+            <td><input type="text" th:field="*{shopAddress}" id="address"></input><br></td>
+        </tr>
+        <tr>
+            <td>Телефон</td>
+            <td><input type="text"  th:field="*{shopPhone}" id="shopPhone"></input><br></td>
+        </tr>
+        <tr>
+            <td>Городской/нет</td>
+            <td><input type="text" th:field="*{isCity}" id="isCity"></input><br></td>
+        </tr>
+    </table>
+
+    <input type="submit" value="Создать"></input>
+</form>
+
+</body>
+</html>
