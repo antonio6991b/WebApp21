@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Категории Товаров</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+    <h2>Категории товаров</h2>
+    <a href="/product-category/new">Новая категория</a>
+    <table>
+        <tr>
+            <td>№</td>
+            <td>Категория</td>
+            <td>Продукты категории</td>
+            <td>Действие</td>
+        </tr>
+        <tr height = 5 th:each = "productCategory : ${productCategories}">
+            <td>
+                <p th:text="${productCategory.getCategoryId()}"></p>
+            </td>
+            <td th:text = "${productCategory.getCategoryName()}"></td>
+            <td><a th:href = "@{/products/category/{id}(id=${productCategory.getCategoryId()})}"> Наименований: (<span th:text = "${productCategory.getProducts().size()}"></span>)</a></td>
+            <td>
+                <a th:href = "@{/product-category/edit/{id}(id=${productCategory.getCategoryId()})}">Редактировать</a>
+                <br>
+                <a th:href = "@{/product-category/delete/{id}(id=${productCategory.getCategoryId()})}">Удалить</a>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+      <html lang="en">
+      <head>
+      <meta charset="UTF-8">
+      <title>Новый продавец</title>
+        <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+  <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/sellers/}" th:object="${seller}" >
+    <h2>Создать нового продавца</h2>
+    <table>
+      <tr>
+        <td>Магазин</td>
+        <td>
+          <select th:field="*{shop}" id = "shop">
+
+            <option th:each = "shop:${shops}" th:text="${shop.getShopName()}" th:value = "${shop.getShopId()}"></option>
+          </select>
+
+        </td>
+      </tr>
+      <tr>
+        <td>Имя</td>
+        <td><input type="text" th:field="*{sellerName}" id="address"></input><br></td>
+      </tr>
+      <tr>
+        <td>Телефон</td>
+        <td><input type="text"  th:field="*{sellerPhone}" id="shopPhone"></input><br></td>
+      </tr>
+      
+    </table>
+
+    <input type="submit" value="Создать"></input>
+  </form>
+
+  <a href="/sellers/all">Отмена</a>
+</div>
+</body>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список продавцов</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+
+<body>
+<a href="/main">На главную</a><br>
+<a href="/shops/all">К магазинам</a>
+<div class = "container">
+
+
+    <h2>Все продавцы</h2>
+    <table>
+        <thead>
+        <tr>
+            <td>№</td>
+            <td>Имя</td>
+            <td>Магазин</td>
+            <td>Телефон</td>
+            <td>Действие</td>
+        </tr>
+        </thead>
+        <tr th:each = "seller:${sellers}">
+            <td th:text = "${seller.getSellerId()}"></td>
+            <td><a th:text = "${seller.getSellerName()}" th:href="@{/sellers/{id}(id=${seller.getSellerId()})}"></td>
+            <td th:text = "${seller.getShop().getShopName()}"></td>
+            <td th:text = "${seller.getSellerPhone()}"></td>
+
+            <td>
+                <a th:href = "@{/sellers/edit/{id}(id=${seller.getSellerId()})}">Редактировать</a><br>
+                <a th:href = "@{/sellers/delete/{id}(id=${seller.getSellerId()})}">Удалить</a>
+            </td>
+
+        </tr>
+    </table>
+    <a href="/sellers/new">Новый продавец</a>
+</div>
+</body>
+</html>

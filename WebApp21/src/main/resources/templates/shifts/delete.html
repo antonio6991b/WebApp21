@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удалить смену</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shifts/delete/{id}(id=${shift.getShiftId()})}" th:object="${shift}" >
+        <h2>Удаление смены</h2>
+        <table>
+            <tr>
+                <td>Продавец</td>
+                <td th:text = "${shift.getShiftSeller().getSellerName()}"></td>
+            </tr>
+            <tr>
+                <td>Магазин</td>
+                <td th:text = "${shift.getShiftSeller().getShop().getShopName()}"></td>
+            </tr>
+            <tr>
+                <td>Начало смены</td>
+                <td><input readonly type="text" th:field="*{shiftBegin}" ></td>
+            </tr>
+            <tr>
+                <td>Конец смены</td>
+                <td><input readonly type="text"  th:field="*{shiftEnds}" ></td>
+            </tr>
+
+            <tr>
+                <td>Остаток на начало смены</td>
+                <td><input readonly type="text"  th:field="*{cashBegin}" ></td>
+            </tr>
+
+            <tr>
+                <td>Остаток на конец смены</td>
+                <td><input readonly type="text"  th:field="*{cashEnd}" ></td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Удалить"></input>
+    </form>
+
+    <a href="/shifts/all">Отмена</a>
+</div>
+</body>

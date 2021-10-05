@@ -1,7 +1,5 @@
 package ru.bolgov.soulbeer.controllers;
 
-
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +10,6 @@ import ru.bolgov.soulbeer.model.Shop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 @EnableWebMvc
 @Controller

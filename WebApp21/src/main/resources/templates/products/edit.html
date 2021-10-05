@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товара</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+    <form th:method="POST" th:action="@{/products/edit/{id}(id=${product.getProductId()})}" th:object="${product}" >
+        <table>
+            <tr>
+                <td>Наименование</td>
+                <td><input type="text" th:field="*{productName}" id="address"><br></td>
+            </tr>
+            <tr>
+                <td>Категория</td>
+                <td>
+                    <select th:field="*{productCategory}">
+
+                        <option th:each = "productCategory:${productCategories}" th:text="${productCategory.getCategoryName()}" th:value = "${productCategory.getCategoryId()}"></option>
+                    </select>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>Производитель</td>
+                <td><input type="text"  th:field="*{productMaker}" ></td>
+            </tr>
+
+            <tr>
+                <td>Порядок</td>
+                <td><input type="text"  th:field="*{productOrder}" ></td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Редактировать">
+    </form>
+    <a href="/products/all">Отменить</a>
+</div>
+</body>
+</html>

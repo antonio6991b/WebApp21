@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список смен</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <h2>Рабочие смены</h2>
+    <table>
+        <thead>
+        <tr>
+            <td>№</td>
+            <td>Магазин</td>
+            <td>Продавец</td>
+            <td>Телефон магазина</td>
+            <td>Начало смены</td>
+            <td>Конец смены</td>
+            <td>Остаток на начало смены</td>
+            <td>Остаток на конец смены</td>
+            <td>Действие</td>
+
+        </tr>
+        </thead>
+        <tr th:each = "shift:${shifts}">
+            <td th:text = "${shift.getShiftId()}"></td>
+            <td th:text = "${shift.getShiftSeller().getShop().getShopName()}"></td>
+            <td th:text = "${shift.getShiftSeller().getSellerName()}"></td>
+            <td th:text = "${shift.getShiftSeller().getShop().getShopPhone()}"></td>
+            <td th:text = "${shift.getShiftBegin()}"></td>
+            <td th:text = "${shift.getShiftEnds()}"></td>
+
+            <td th:text = "${shift.getCashBegin()}"></td>
+            <td th:text = "${shift.getCashEnd()}"></td>
+            <td>
+                <a th:href = "@{/shifts/edit/{id}(id=${shift.getShiftId()})}">Редактировать</a><br>
+                <a th:href = "@{/shifts/delete/{id}(id=${shift.getShiftId()})}">Удалить</a><br>
+                <a href="/reports">Посмотреть отчет</a>
+            </td>
+
+        </tr>
+    </table>
+    <a href="/shifts/new">Создать новую смену</a>
+</div>
+</body>
+</html>

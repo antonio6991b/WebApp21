@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление продавца</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/sellers/delete/{id}(id=${seller.getSellerId()})}" th:object="${seller}" >
+        <h2>Удалить продавца? Отменить операцию будет невозможно</h2>
+        <table>
+            <tr>
+                <td>Магазин</td>
+                <td th:text = "${seller.getShop().getShopName()}">
+
+                </td>
+            </tr>
+            <tr>
+                <td>Имя</td>
+                <td><input readonly type="text" th:field="*{sellerName}" id="address"></input><br></td>
+            </tr>
+            <tr>
+                <td>Телефон</td>
+                <td><input readonly type="text"  th:field="*{sellerPhone}" id="shopPhone"></input><br></td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Удалить"></input>
+    </form>
+
+    <a href="/sellers/all">Отмена</a>
+</div>
+</body>

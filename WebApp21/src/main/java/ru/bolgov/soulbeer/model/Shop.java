@@ -1,6 +1,7 @@
 package ru.bolgov.soulbeer.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="shops")
@@ -22,6 +23,18 @@ public class Shop {
 
     @Column(name="isCity")
     private int isCity;
+
+    @OneToMany(mappedBy = "shop", fetch = FetchType.EAGER)
+    private List<Seller> sellers;
+
+    public List<Seller> getSellers() {
+        return sellers;
+    }
+
+    public void setSellers(List<Seller> sellers) {
+        this.sellers = sellers;
+    }
+
 
     public Shop(){}
 

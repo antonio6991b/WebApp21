@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Товары</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+<a href = "/products/new">Новый товар</a>
+<table>
+    <tr>
+        <td>№</td>
+        <td>Наименование</td>
+        <td>Категория</td>
+        <td>Производитель</td>
+        <td>Действие</td>
+    </tr>
+    <tr height = 5 th:each = "product : ${products}">
+        <td>
+            <p th:text="${product.getProductId()}"></p>
+        </td>
+        <td>
+            <p  th:text="${product.getProductName()}">
+            </p>
+        </td>
+        <td>
+            <p th:text="${product.getProductCategory().getCategoryName()}">
+            </p>
+        </td>
+        <td>
+            <p th:text="${product.getProductMaker()}"></p>
+        </td>
+        <td>
+            <a th:href = "@{/products/edit/{id}(id=${product.getProductId()})}">Редактировать</a>
+            <br>
+            <a th:href = "@{/products//delete/{id}(id=${product.getProductId()})}">Удалить</a>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

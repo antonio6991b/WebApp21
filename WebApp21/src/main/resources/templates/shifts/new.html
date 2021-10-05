@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая смена</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shifts/}" th:object="${shift}" >
+        <h2>Создать новую смену</h2>
+        <table>
+            <tr>
+                <td>Продавец</td>
+                <td>
+                    <select th:field="*{shiftSeller}" >
+
+                        <option th:each = "seller:${sellers}" th:text="${seller.getSellerName()}" th:value = "${seller.getSellerId()}"></option>
+                    </select>
+
+                </td>
+            </tr>
+            <tr>
+                <td>Начало смены</td>
+                <td><input type="text" th:field="*{shiftBegin}" ></td>
+            </tr>
+            <tr>
+                <td>Конец смены</td>
+                <td><input type="text"  th:field="*{shiftEnds}" ></td>
+            </tr>
+
+            <tr>
+                <td>Остаток на начало смены</td>
+                <td><input type="text"  th:field="*{cashBegin}" ></td>
+            </tr>
+
+            <tr>
+                <td>Остаток на конец смены</td>
+                <td><input type="text"  th:field="*{cashEnd}" ></td>
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Создать"></input>
+    </form>
+
+    <a href="/shifts/all">Отмена</a>
+</div>
+</body>
