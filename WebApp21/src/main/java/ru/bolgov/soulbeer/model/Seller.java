@@ -23,6 +23,8 @@ public class Seller {
     @Column(name = "sellerPhone")
     private Long sellerPhone;
 
+
+
     public Seller(){}
 
     @Override

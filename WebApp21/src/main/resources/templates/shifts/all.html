@@ -27,18 +27,18 @@
         </tr>
         </thead>
         <tr th:each = "shift:${shifts}">
-            <td th:text = "${shift.getShiftId()}"></td>
-            <td th:text = "${shift.getShiftSeller().getShop().getShopName()}"></td>
-            <td th:text = "${shift.getShiftSeller().getSellerName()}"></td>
-            <td th:text = "${shift.getShiftSeller().getShop().getShopPhone()}"></td>
-            <td th:text = "${shift.getShiftBegin()}"></td>
-            <td th:text = "${shift.getShiftEnds()}"></td>
+            <td th:text = "${shift.getShift().getShiftId()}"></td>
+            <td th:text = "${shift.getShift().getShiftSeller().getShop().getShopName()}"></td>
+            <td th:text = "${shift.getShift().getShiftSeller().getSellerName()}"></td>
+            <td th:text = "${shift.getShift().getShiftSeller().getShop().getShopPhone()}"></td>
+            <td th:text = "${shift.getDateBegin().show()}"></td>
+            <td th:text = "${shift.getDateEnd().show}"></td>
 
-            <td th:text = "${shift.getCashBegin()}"></td>
-            <td th:text = "${shift.getCashEnd()}"></td>
+            <td th:text = "${shift.getShift().getCashBegin()}"></td>
+            <td th:text = "${shift.getShift().getCashEnd()}"></td>
             <td>
-                <a th:href = "@{/shifts/edit/{id}(id=${shift.getShiftId()})}">Редактировать</a><br>
-                <a th:href = "@{/shifts/delete/{id}(id=${shift.getShiftId()})}">Удалить</a><br>
+                <a th:href = "@{/shifts/edit/{id}(id=${shift.getShift().getShiftId()})}">Редактировать</a><br>
+                <a th:href = "@{/shifts/delete/{id}(id=${shift.getShift().getShiftId()})}">Удалить</a><br>
                 <a href="/reports">Посмотреть отчет</a>
             </td>
 

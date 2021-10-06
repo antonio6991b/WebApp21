@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bolgov.soulbeer.dao.ShiftRepository;
 import ru.bolgov.soulbeer.model.shift.Shift;
+import ru.bolgov.soulbeer.model.shift.ShiftTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +15,18 @@ public class ShiftService {
     @Autowired
     private ShiftRepository shiftRepository;
 
-    public List<Shift> findAll(){
+    public List<ShiftTemplate> findAll(){
         List<Shift> shifts = new ArrayList<>();
         try {
             shifts = shiftRepository.findAll();
         }catch (Exception e){
             e.printStackTrace();
         }
-        return shifts;
+        List<ShiftTemplate> templates = new ArrayList<>();
+        for(int i = 0; i < shifts.size(); i++){
+            templates.add(new ShiftTemplate(shifts.get(i)));
+        }
+        return templates;
     }
 
     public Shift newShift(){

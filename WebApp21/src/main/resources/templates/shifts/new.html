@@ -9,13 +9,13 @@
 <a href="/main">На главную</a>
 <div class = "container">
 
-    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shifts/}" th:object="${shift}" >
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/shifts/}" th:object="${shiftTemplate}" >
         <h2>Создать новую смену</h2>
         <table>
             <tr>
                 <td>Продавец</td>
                 <td>
-                    <select th:field="*{shiftSeller}" >
+                    <select th:field="*{shift.shiftSeller}" >
 
                         <option th:each = "seller:${sellers}" th:text="${seller.getSellerName()}" th:value = "${seller.getSellerId()}"></option>
                     </select>
@@ -24,21 +24,48 @@
             </tr>
             <tr>
                 <td>Начало смены</td>
-                <td><input type="text" th:field="*{shiftBegin}" ></td>
+                <td>д
+                    <select th:field="*{dateBegin.day}" >
+                        <option th:each = "day:${dateTemplate.getDay()}" th:text="${day}" th:value = "${day}"></option>
+                    </select>
+                    м
+                    <select th:field="*{dateBegin.month}" >
+                        <option th:each = "month:${dateTemplate.getMonth()}" th:text="${month}" th:value = "${month}"></option>
+                    </select>
+                    г
+                    <select th:field="*{dateBegin.year}" >
+                        <option th:each = "year:${dateTemplate.getYear()}" th:text="${year}" th:value = "${year}"></option>
+                    </select>
+
+                </td>
             </tr>
             <tr>
                 <td>Конец смены</td>
-                <td><input type="text"  th:field="*{shiftEnds}" ></td>
+                <td>
+                    д
+                    <select th:field="*{dateEnd.day}" >
+                        <option th:each = "day:${dateTemplate.getDay()}" th:text="${day}" th:value = "${day}"></option>
+                    </select>
+                    м
+                    <select th:field="*{dateEnd.month}" >
+                        <option th:each = "month:${dateTemplate.getMonth()}" th:text="${month}" th:value = "${month}"></option>
+                    </select>
+                    г
+                    <select th:field="*{dateEnd.year}" >
+                        <option th:each = "year:${dateTemplate.getYear()}" th:text="${year}" th:value = "${year}"></option>
+                    </select>
+
+                </td>
             </tr>
 
             <tr>
                 <td>Остаток на начало смены</td>
-                <td><input type="text"  th:field="*{cashBegin}" ></td>
+                <td><input type="text"  th:field="*{shift.cashBegin}" ></td>
             </tr>
 
             <tr>
                 <td>Остаток на конец смены</td>
-                <td><input type="text"  th:field="*{cashEnd}" ></td>
+                <td><input type="text"  th:field="*{shift.cashEnd}" ></td>
             </tr>
 
         </table>
