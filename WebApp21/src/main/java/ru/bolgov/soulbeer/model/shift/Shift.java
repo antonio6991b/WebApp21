@@ -1,11 +1,12 @@
 package ru.bolgov.soulbeer.model.shift;
 
 import ru.bolgov.soulbeer.model.Seller;
-import ru.bolgov.soulbeer.model.Shop;
+import ru.bolgov.soulbeer.model.report.ProductReport;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "shift")
@@ -32,6 +33,17 @@ public class Shift {
     @Column(name = "cashEnd")
     private BigDecimal cashEnd;
 
+    @OneToMany(mappedBy = "productReportId", fetch = FetchType.EAGER)
+    private List<ProductReport> productReports;
+
+    public List<ProductReport> getProductReports() {
+        return productReports;
+    }
+
+    public void setProductReports(List<ProductReport> productReports) {
+        this.productReports = productReports;
+    }
+
     public Shift(){}
 
     public Long getShiftId() {
@@ -41,10 +53,6 @@ public class Shift {
     public void setShiftId(Long shiftId) {
         this.shiftId = shiftId;
     }
-
-
-
-
 
     public Seller getShiftSeller() {
         return shiftSeller;

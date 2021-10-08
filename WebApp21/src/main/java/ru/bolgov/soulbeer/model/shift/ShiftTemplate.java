@@ -1,9 +1,11 @@
 package ru.bolgov.soulbeer.model.shift;
 
+import ru.bolgov.soulbeer.model.Product;
 import ru.bolgov.soulbeer.model.util.ShowDate;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.List;
 
 public class ShiftTemplate {
     private Shift shift;
@@ -59,4 +61,6 @@ public class ShiftTemplate {
         this.shift.setShiftEnds(this.dateEnd.createDate());
         return this.shift;
     }
+
+
 }

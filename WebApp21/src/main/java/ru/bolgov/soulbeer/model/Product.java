@@ -1,6 +1,9 @@
 package ru.bolgov.soulbeer.model;
 
+import ru.bolgov.soulbeer.model.report.ProductReport;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -23,6 +26,9 @@ public class Product {
 
     @Column(name = "productOrder")
     private int productOrder;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<ProductReport> reports;
 
     public Product(){}
 

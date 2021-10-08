@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчет по смене</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+
+<body>
+<a href="/main">На главную</a><br>
+<div class = "container">
+
+    <h2>Отчет по смене <span th:text = "${weekReport.getShiftTemplate().getShift().getShiftId()}"></span></h2>
+    <table>
+        <thead>
+        <tr>
+            <td>Наименование</td>
+            <td>Цена покупки</td>
+            <td>Цена продажи</td>
+            <td>Остаток на начало смены</td>
+            <td>Приход</td>
+            <td>Остаток на конец смены</td>
+            <td>Сумма текущая</td>
+            <td>Валовая прибыль</td>
+            <td>Значение в тетради</td>
+            <td>Баланс</td>
+            <td>Действие</td>
+        </tr>
+        </thead>
+        <tr th:each = "product:${weekReport.getProducts()}">
+            <td th:text = "${product.getProduct().getProductName()}"></td>
+            <td th:text = "${product.getPriceBuy()}"></td>
+            <td th:text = "${product.getPriceSell()}"></td>
+            <td th:text = "${product.getRemainsLast()}"></td>
+            <td th:text = "${product.getComing()}"></td>
+            <td th:text = "${product.getRemainsCurrent()}"></td>
+            <td th:text = "${product.getSumCurrent()}"></td>
+            <td th:text = "${product.getGrossProfit()}"></td>
+            <td th:text = "${product.getNotebookValue()}"></td>
+            <td th:text = "${product.getBalance()}"></td>
+
+            <td>
+                <a th:href = "@{/reports/edit-product/{id}(id=${product.getProductReportId()})}">Редактировать</a><br>
+                <a th:href = "@{/reports/delete-product/{id}(id=${product.getProductReportId()})}">Удалить</a><br>
+            </td>
+
+        </tr>
+    </table>
+    <a th:href = "@{/reports/add-product/{id}(id=${weekReport.getShiftTemplate().getShift().getShiftId()})}">Добавить товар</a>
+</div>
+</body>
+</html>

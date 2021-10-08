@@ -1,6 +1,7 @@
 package ru.bolgov.soulbeer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import ru.bolgov.soulbeer.dao.ShiftRepository;
 import ru.bolgov.soulbeer.model.shift.Shift;
@@ -44,6 +45,8 @@ public class ShiftService {
     public void edit(Shift shift, Long id){
         shiftRepository.edit(shift, id);
     }
+
+    public ShiftService(){}
 
     public void delete(Long id){
         shiftRepository.deleteById(id);

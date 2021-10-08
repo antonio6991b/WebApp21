@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удалить товар</title>
+    <link rel="stylesheet" href="/styles/report.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/reports/delete-product/{productId}(productId=${productReport.getProductReportId()})}" th:object="${productReport}" >
+        <h2>Редактирование записи </h2>
+        <table>
+            <tr>
+                <td th:text = "${productReport.getProduct().getProductName()}">
+
+                </td>
+                <td>Цена покупки <input readonly type="number"  th:field = "*{priceBuy}"></td>
+                <td>Цена продажи<input readonly type="number" th:field = "*{priceSell}"></td>
+                <td>Сумма нач<input readonly type="number" th:field = "*{remainsLast}"></td>
+                <td>Приход<input readonly type="number" th:field = "*{coming}"></td>
+                <td>Сумма конец<input readonly type="number" th:field = "*{remainsCurrent}"></td>
+                <td>Сумма текущая<input readonly type="number" th:field = "*{sumCurrent}"></td>
+                <td>Валовая прибыль<input readonly type="number" th:field = "*{grossProfit}"></td>
+                <td>Значение в тетради<input readonly type="number" th:field = "*{notebookValue}"></td>
+                <td>Баланс<input readonly type="number" th:field = "*{balance}"></td>
+
+            </tr>
+
+        </table>
+
+        <input type="submit" value="Удалить">
+    </form>
+
+    <a th:href="@{/reports/{id}(id = ${productReport.getShift().getShiftId()})}">Отмена</a>
+</div>
+</body>

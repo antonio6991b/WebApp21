@@ -39,7 +39,7 @@
             <td>
                 <a th:href = "@{/shifts/edit/{id}(id=${shift.getShift().getShiftId()})}">Редактировать</a><br>
                 <a th:href = "@{/shifts/delete/{id}(id=${shift.getShift().getShiftId()})}">Удалить</a><br>
-                <a href="/reports">Посмотреть отчет</a>
+                <a th:href="@{/reports/{id}(id=${shift.getShift().getShiftId()})}">Посмотреть отчет</a>
             </td>
 
         </tr>

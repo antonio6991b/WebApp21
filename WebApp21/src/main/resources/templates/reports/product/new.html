@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый товар</title>
+    <link rel="stylesheet" href="/styles/report.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/reports/add-product/{shiftId}(shiftId=${productReport.getShift().getShiftId()})}" th:object="${productReport}" >
+        <h2>Создать новую запись </h2>
+        <table>
+            <tr>
+                <td>Товар
+                <select th:field="*{product}">
+                    <option th:each = "product:${products}" th:text="${product.getProductName()}" th:value = "${product.getProductId}"></option>
+                </select>
+                </td>
+                <td>Цена покупки <input  type="number"  th:field = "*{priceBuy}"></td>
+                <td>Цена продажи<input type="number" th:field = "*{priceSell}"></td>
+                <td>Сумма нач<input type="number" th:field = "*{remainsLast}"></td>
+                <td>Приход<input type="number" th:field = "*{coming}"></td>
+                <td>Сумма конец<input type="number" th:field = "*{remainsCurrent}"></td>
+                <td>Сумма текущая<input type="number" th:field = "*{sumCurrent}"></td>
+                <td>Валовая прибыль<input type="number" th:field = "*{grossProfit}"></td>
+                <td>Значение в тетради<input type="number" th:field = "*{notebookValue}"></td>
+                <td>Баланс<input type="number" th:field = "*{balance}"></td>
+
+            </tr>
+
+
+        </table>
+
+        <input type="submit" value="Создать"></input>
+    </form>
+
+    <a th:href="@{/reports/{id}(id = ${productReport.getShift().getShiftId()})}">Отмена</a>
+</div>
+</body>
