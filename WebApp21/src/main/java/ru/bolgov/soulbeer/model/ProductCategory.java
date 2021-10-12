@@ -29,6 +29,10 @@ public class ProductCategory {
 
     public ProductCategory(){}
 
+    public ProductCategory(String categoryName){
+        this.categoryName = categoryName;
+    }
+
     @Override
     public String toString() {
         return "ProductCategory{" +

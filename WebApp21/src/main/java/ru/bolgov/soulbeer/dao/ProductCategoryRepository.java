@@ -1,5 +1,6 @@
 package ru.bolgov.soulbeer.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.bolgov.soulbeer.model.ProductCategory;
@@ -19,4 +20,7 @@ public interface ProductCategoryRepository extends CrudRepository<ProductCategor
             this.save(tmp);
         }
     }
+
+    @Query("from ProductCategory p where p.categoryName = ?1")
+    ProductCategory findByName(String name);
 }

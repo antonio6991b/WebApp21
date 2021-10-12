@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заполнить таблицу товаров</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+Загрузите файл
+<h4>Upload Single File:</h4>
+<form method="POST" th:action="@{/fill-products}" enctype="multipart/form-data">
+    <input type="file" name="file"/> <br/><br/>
+    <button type="submit">Submit</button>
+</form>
+</body>
+</html>
