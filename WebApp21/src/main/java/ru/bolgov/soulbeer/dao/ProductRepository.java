@@ -18,7 +18,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     List<Product> findByCategoryId(Long categoryId);
 
     @Query("from Product p where p.productName = ?1")
-    Product findByName(String name);
+    Product findByNameIgnoreCase(String name);
 
     default void edit(Product product, Long id){
         Product tmp = this.findById(id).orElse(null);

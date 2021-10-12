@@ -16,10 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -47,16 +44,22 @@ public class FileService {
         return content;
     }
 
+
     public Map<String, String> fillProducts(MultipartFile file){
         String content = uploadFile(file);
-
-        Map<String, String> map = Stream.of(content.split("\\;"))
-                .collect(Collectors.toMap(t -> t.toString().split("=")[0], t -> t.toString().split("=")[1]));
         System.out.println(content);
-        System.out.println(Collections.singletonList(map));
-        System.out.println(map.keySet());
-        System.out.println(map.values());
+        Set<String> hashSet = new HashSet<>();
 
+        Map<String, String> map = new HashMap<>();
+        try {
+            map = Stream.of(content.split("\\;"))
+                    .filter(x -> !hashSet.contains(x.split("\\=")[0]))
+                    .map(x -> {hashSet.add(x.split("\\=")[0]); return x;})
+                    .collect(Collectors.toMap(t -> t.split("\\=")[0], t -> t.split("\\=")[1]));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        
         map.values().stream()
                 .filter(f -> {
                    if(Objects.isNull(productCategoryRepository.findByName(f))) {
@@ -70,11 +73,11 @@ public class FileService {
 
         map.entrySet().stream()
                 .filter(f -> {
-                    if(Objects.isNull(productRepository.findByName(f.getKey()))) {
+                    Product tmp = productRepository.findByNameIgnoreCase(f.getKey());
+                    if(Objects.isNull(tmp)) {
                         Product product = new Product();
                         product.setProductName(f.getKey());
                         ProductCategory productCategory = productCategoryRepository.findByName(f.getValue());
-
                         product.setProductCategory(productCategory);
                         productRepository.save(product);
                     }
