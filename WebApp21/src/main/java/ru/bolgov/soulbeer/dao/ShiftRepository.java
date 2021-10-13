@@ -1,10 +1,12 @@
 package ru.bolgov.soulbeer.dao;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.bolgov.soulbeer.model.Product;
 import ru.bolgov.soulbeer.model.shift.Shift;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,4 +25,7 @@ public interface ShiftRepository extends CrudRepository<Shift, Long> {
             this.save(tmp);
         }
     }
+
+    @Query("from Shift s where s.shiftBegin in(?1, ?2)")
+    List<Shift> findAllByInterval(Date from, Date to);
 }

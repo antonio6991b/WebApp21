@@ -10,10 +10,13 @@ import ru.bolgov.soulbeer.dao.SellerRepository;
 import ru.bolgov.soulbeer.model.Seller;
 import ru.bolgov.soulbeer.model.shift.Shift;
 import ru.bolgov.soulbeer.model.shift.ShiftTemplate;
+import ru.bolgov.soulbeer.model.util.DateInterval;
 import ru.bolgov.soulbeer.model.util.DateTemplate;
 import ru.bolgov.soulbeer.model.util.ShowDate;
 import ru.bolgov.soulbeer.service.ShiftService;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +34,8 @@ public class ShiftController {
     @Autowired
     private DateTemplate dateTemplate;
 
+    private Date from = Date.valueOf("2021-01-01");
+    private Date to = Date.valueOf("2021-01-02");
 
 
     @GetMapping("/all")
@@ -39,6 +44,16 @@ public class ShiftController {
         model.addAttribute("shifts", shifts);
         return "shifts/all";
     }
+
+    @GetMapping("/filter")
+    public String filterShifts(Model model){
+//        this.from = dateInterval.getFrom().createDate();
+//        this.to = dateInterval.getTo().createDate();
+        List<ShiftTemplate> shifts = shiftService.findByInterval(from, to);
+        model.addAttribute("shifts", shifts);
+        return "shifts/all";
+    }
+
 
     @GetMapping("/new")
     public String newShift(Model model){

@@ -7,8 +7,10 @@ import ru.bolgov.soulbeer.dao.ShiftRepository;
 import ru.bolgov.soulbeer.model.shift.Shift;
 import ru.bolgov.soulbeer.model.shift.ShiftTemplate;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ShiftService {
@@ -50,5 +52,13 @@ public class ShiftService {
 
     public void delete(Long id){
         shiftRepository.deleteById(id);
+    }
+
+    public List<ShiftTemplate> findByInterval(Date from, Date to){
+        List<Shift> shifts = shiftRepository.findAllByInterval(from, to);
+        return shifts.stream().map(x -> {
+            return new ShiftTemplate(x);
+        }).collect(Collectors.toList());
+
     }
 }

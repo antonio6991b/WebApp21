@@ -3,19 +3,14 @@ package ru.bolgov.soulbeer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import ru.bolgov.soulbeer.dao.ProductCategoryRepository;
 import ru.bolgov.soulbeer.dao.ProductRepository;
 import ru.bolgov.soulbeer.model.Product;
 import ru.bolgov.soulbeer.model.ProductCategory;
-import ru.bolgov.soulbeer.model.report.ProductReport;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -34,9 +29,10 @@ public class FileService {
 
     public String uploadFile(MultipartFile file){
 
+        Charset ch = Charset.forName("UTF-8");
         String content = "";
         try {
-            content = new String(file.getBytes());
+            content = new String(file.getBytes(), ch);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -59,7 +55,7 @@ public class FileService {
         }catch (Exception e){
             e.printStackTrace();
         }
-        
+
         map.values().stream()
                 .filter(f -> {
                    if(Objects.isNull(productCategoryRepository.findByName(f))) {

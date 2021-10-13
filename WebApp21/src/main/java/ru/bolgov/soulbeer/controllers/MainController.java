@@ -7,10 +7,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.bolgov.soulbeer.dao.ProductCategoryRepository;
+import ru.bolgov.soulbeer.dao.ShopRepository;
+import ru.bolgov.soulbeer.model.Seller;
+import ru.bolgov.soulbeer.model.Shop;
+import ru.bolgov.soulbeer.model.shift.Shift;
 import ru.bolgov.soulbeer.service.FileService;
+import ru.bolgov.soulbeer.service.TestDataService;
 
 import java.io.*;
 import java.nio.file.*;
+import java.time.LocalDate;
+import java.util.List;
 
 
 @Controller
@@ -22,6 +29,12 @@ public class MainController {
 
     @Autowired
     FileService fileService;
+
+    @Autowired
+    private ShopRepository shopRepository;
+
+    @Autowired
+    TestDataService testDataService;
 
     @GetMapping("/main")
     public String main(){
@@ -39,15 +52,35 @@ public class MainController {
     @PostMapping("fill-products")
     public String fill(@RequestParam("file") MultipartFile file){
 
-
-
-            fileService.fillProducts(file);
-
-
-
-
-
-//
+        fileService.fillProducts(file);
         return "redirect:/main";
+    }
+
+    @GetMapping("/test")
+    public String fillTestData(){
+        LocalDate localDate = LocalDate.of(2021,01,01);
+
+//        for (int i = 0; i < 10; i ++){
+//            Shop shop = testDataService.createShop();
+//            Seller seller = testDataService.createSeller(shop);
+//        }
+
+        List<Shop> shops = shopRepository.findAll();
+        int j = 0;
+        for(int i = 0; i < 2; i ++){
+
+            for(Shop shop : shops){
+                Shift shift = testDataService.createShift(shop, localDate);
+                testDataService.createReport(shift);
+                j++;
+                System.out.println("create report #" + j);
+
+            }
+
+
+            localDate = localDate.plusDays(7);
+        }
+
+        return "index";
     }
 }
