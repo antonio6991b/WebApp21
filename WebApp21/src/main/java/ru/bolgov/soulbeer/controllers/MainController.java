@@ -102,7 +102,7 @@ public class MainController {
                 for(Product product: category.getProducts()){
                     products.append(product.getProductName());
                     count--;
-                    if(count > 1){
+                    if(count > 0){
                         products.append(",");
                     }
                 }
