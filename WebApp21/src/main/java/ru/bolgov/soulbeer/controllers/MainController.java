@@ -108,7 +108,9 @@ public class MainController {
                 }
             products.append(")");
         }
-
+        if(products.toString().equals("")){
+            products.append("Список товаров пуст");
+        }
         model.addAttribute("products", products.toString());
 
         return "fill/productList";
