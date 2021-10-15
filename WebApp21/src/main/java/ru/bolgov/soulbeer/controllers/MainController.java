@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.bolgov.soulbeer.dao.ProductCategoryRepository;
 import ru.bolgov.soulbeer.dao.ShopRepository;
+import ru.bolgov.soulbeer.model.Product;
+import ru.bolgov.soulbeer.model.ProductCategory;
 import ru.bolgov.soulbeer.model.Seller;
 import ru.bolgov.soulbeer.model.Shop;
 import ru.bolgov.soulbeer.model.shift.Shift;
@@ -17,6 +19,7 @@ import ru.bolgov.soulbeer.service.TestDataService;
 import java.io.*;
 import java.nio.file.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,5 +85,32 @@ public class MainController {
         }
 
         return "index";
+    }
+
+    @GetMapping("/product-list")
+    public String getProductList(Model model){
+        List<ProductCategory> categories = new ArrayList<>();
+        try {
+            categories = productCategoryRepository.findAll();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        StringBuilder products = new StringBuilder();
+        for(ProductCategory category : categories){
+            products.append(category.getCategoryName() + "(");
+            int count = category.getProducts().size();
+                for(Product product: category.getProducts()){
+                    products.append(product.getProductName());
+                    count--;
+                    if(count > 1){
+                        products.append(",");
+                    }
+                }
+            products.append(")");
+        }
+
+        model.addAttribute("products", products.toString());
+
+        return "fill/productList";
     }
 }
