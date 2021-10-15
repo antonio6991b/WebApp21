@@ -6,11 +6,34 @@
     <link rel="stylesheet" href="/styles/style.css"/>
 </head>
 <body>
-Загрузите файл
-<h4>Upload Single File:</h4>
+Загрузить файл с товарами
 <form method="POST" th:action="@{/fill-products}" enctype="multipart/form-data">
     <input type="file" name="file"/> <br/><br/>
     <button type="submit">Submit</button>
 </form>
+<div style="background-color: aqua; width: 150px; text-align: left">
+    <p style="background-color: chocolate">Пример содержания файла:</p>
+    Пиво (<br>
+    жигулевское,<br>
+    Темное,<br>
+    Светлое,<br>
+    Классическое,<br>
+    Фон Вакано)<br>
+    <br>
+    Лимонады(<br>
+    Жигулевское,<br>
+    Буратино,<br>
+    Тархун)<br>
+    <br>
+    Снеки(<br>
+    сухарики,<br>
+    кренделя,<br>
+    фисташки,<br>
+    семечки,<br>
+    орешки)<br>
+</div>
+
+
+
 </body>
 </html>

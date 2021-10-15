@@ -4,6 +4,7 @@ import ru.bolgov.soulbeer.model.report.ProductReport;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
@@ -82,5 +83,18 @@ public class Product {
                 ", productMaker='" + productMaker + '\'' +
                 ", productOrder=" + productOrder +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(productName, product.productName) && Objects.equals(productCategory, product.productCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productName, productCategory);
     }
 }

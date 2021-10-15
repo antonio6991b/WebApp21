@@ -2,6 +2,7 @@ package ru.bolgov.soulbeer.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "productCategories")
@@ -41,6 +42,19 @@ public class ProductCategory {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProductCategory that = (ProductCategory) o;
+        return Objects.equals(categoryName, that.categoryName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(categoryName);
+    }
+
     public Long getCategoryId() {
         return categoryId;
     }
@@ -56,4 +70,5 @@ public class ProductCategory {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
 }

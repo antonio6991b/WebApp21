@@ -41,46 +41,40 @@ public class FileService {
     }
 
 
-    public Map<String, String> fillProducts(MultipartFile file){
+    public void fillProducts(MultipartFile file){
         String content = uploadFile(file);
-        System.out.println(content);
-        Set<String> hashSet = new HashSet<>();
 
-        Map<String, String> map = new HashMap<>();
-        try {
-            map = Stream.of(content.split("\\;"))
-                    .filter(x -> !hashSet.contains(x.split("\\=")[0]))
-                    .map(x -> {hashSet.add(x.split("\\=")[0]); return x;})
-                    .collect(Collectors.toMap(t -> t.split("\\=")[0], t -> t.split("\\=")[1]));
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        Set<ProductCategory> categorySet =
+                productCategoryRepository.findAll()
+                                .stream()
+                                .collect(Collectors.toSet());
+        Set<Product> products = productRepository.findAll().stream()
+                .collect(Collectors.toSet());
 
-        map.values().stream()
-                .filter(f -> {
-                   if(Objects.isNull(productCategoryRepository.findByName(f))) {
-                       ProductCategory productCategory = new ProductCategory();
-                       productCategory.setCategoryName(f);
-                       productCategoryRepository.save(productCategory);
-                   }
-                   return false;
-                })
-                .count();
-
-        map.entrySet().stream()
-                .filter(f -> {
-                    Product tmp = productRepository.findByNameIgnoreCase(f.getKey());
-                    if(Objects.isNull(tmp)) {
-                        Product product = new Product();
-                        product.setProductName(f.getKey());
-                        ProductCategory productCategory = productCategoryRepository.findByName(f.getValue());
-                        product.setProductCategory(productCategory);
-                        productRepository.save(product);
+        long count = Arrays.stream(content.split("\\)"))
+                .map(x -> {
+                    String tmpCategoryName = x.split("\\(")[0];
+                    ProductCategory tmp = categorySet.stream()
+                            .filter(category -> {
+                                return category.getCategoryName().equalsIgnoreCase(tmpCategoryName);
+                            }).findAny().orElse(null);
+                    if(Objects.isNull(tmp)){
+                        productCategoryRepository.save(new ProductCategory(tmpCategoryName));
                     }
-                    return false;
+
+                    long prod = Arrays.stream(x.split("\\(")[1].split("\\,"))
+                            .filter(pro -> {
+                                Product product = new Product();
+                                product.setProductCategory(productCategoryRepository.findByName(tmpCategoryName));
+                                product.setProductName(pro);
+                                if(!products.contains(product)){
+                                    productRepository.save(product);
+                                }
+                                return false;
+                            })
+                            .count();
+                    return prod;
                 })
                 .count();
-
-        return map;
     }
 }
