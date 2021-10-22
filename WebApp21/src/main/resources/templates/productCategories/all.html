@@ -22,7 +22,7 @@
                 <p th:text="${productCategory.getCategoryId()}"></p>
             </td>
             <td th:text = "${productCategory.getCategoryName()}"></td>
-            <td><a th:href = "@{/products/category/{id}(id=${productCategory.getCategoryId()})}"> Наименований: (<span th:text = "${productCategory.getProducts().size()}"></span>)</a></td>
+            <td><a th:href = "@{/products/category/{id}(id=${productCategory.getCategoryId()})}"> Наименований: (<span th:text = "${productCategory.getProductCount()}"></span>)</a></td>
             <td>
                 <a th:href = "@{/product-category/edit/{id}(id=${productCategory.getCategoryId()})}">Редактировать</a>
                 <br>

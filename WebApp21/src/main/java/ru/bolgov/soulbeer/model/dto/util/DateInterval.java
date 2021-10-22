@@ -1,6 +1,4 @@
-package ru.bolgov.soulbeer.model.util;
-
-import java.sql.Date;
+package ru.bolgov.soulbeer.model.dto.util;
 
 public class DateInterval {
     private ShowDate from;

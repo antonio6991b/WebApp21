@@ -1,16 +1,18 @@
-package ru.bolgov.soulbeer.model.shift;
+package ru.bolgov.soulbeer.model.dto.shift;
 
-import ru.bolgov.soulbeer.model.Product;
-import ru.bolgov.soulbeer.model.util.ShowDate;
+import ru.bolgov.soulbeer.model.entity.Shift;
+import ru.bolgov.soulbeer.model.dto.util.ShowDate;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.List;
 
 public class ShiftTemplate {
     private Shift shift;
     private ShowDate dateBegin;
     private ShowDate dateEnd;
+    private String shopName;
+    private Long shopPhone;
+    private String sellerName;
 
     public ShiftTemplate(){  //Set current monday to shift begins and current sunday to shift ends
         LocalDate today = LocalDate.now();
@@ -62,5 +64,27 @@ public class ShiftTemplate {
         return this.shift;
     }
 
+    public String getShopName() {
+        return shopName;
+    }
 
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public void setSellerName(String sellerName) {
+        this.sellerName = sellerName;
+    }
+
+    public Long getShopPhone() {
+        return shopPhone;
+    }
+
+    public void setShopPhone(Long shopPhone) {
+        this.shopPhone = shopPhone;
+    }
 }

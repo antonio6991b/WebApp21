@@ -1,51 +1,46 @@
-package ru.bolgov.soulbeer.model.report;
-
-import ru.bolgov.soulbeer.model.Product;
-import ru.bolgov.soulbeer.model.Shop;
-import ru.bolgov.soulbeer.model.shift.Shift;
+package ru.bolgov.soulbeer.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "productReport")
+@Table(name = "product_report")
 public class ProductReport {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "productReportId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "product_report_id")
     private Long productReportId;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "shiftId")
-    private Shift shift;
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "productId")
-    private Product product;
+    @Column(name = "shift_id")
+    private Long shiftId;
 
-    @Column(name = "priceBuy")
+    @Column(name = "product_id")
+    private Long productId;
+
+    @Column(name = "price_buy")
     private BigDecimal priceBuy;
 
-    @Column(name = "priceSell")
+    @Column(name = "price_sell")
     private BigDecimal priceSell;
 
-    @Column(name = "remainsLast")
+    @Column(name = "remains_last")
     private BigDecimal remainsLast;
 
     @Column(name = "coming")
     private int coming;
 
-    @Column(name = "remainsCurrent")
+    @Column(name = "remains_current")
     private BigDecimal remainsCurrent;
 
-    @Column(name = "sumCurrent")
+    @Column(name = "sum_current")
     private BigDecimal sumCurrent;
 
-    @Column(name = "grossProfit")
+    @Column(name = "gross_profit")
     private BigDecimal grossProfit;
 
-    @Column(name = "notebookValue")
+    @Column(name = "notebook_value")
     private BigDecimal notebookValue;
 
     @Column(name = "balance")
@@ -61,20 +56,20 @@ public class ProductReport {
         this.productReportId = productReportId;
     }
 
-    public Shift getShift() {
-        return shift;
+    public Long getShiftId() {
+        return shiftId;
     }
 
-    public void setShift(Shift shift) {
-        this.shift = shift;
+    public void setShiftId(Long shiftId) {
+        this.shiftId = shiftId;
     }
 
-    public Product getProduct() {
-        return product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public BigDecimal getPriceBuy() {

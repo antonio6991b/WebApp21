@@ -8,6 +8,7 @@
 <body>
 <a href = "/main"> На главную </a><br>
 <div class = "container">
+    Редактирование товара
     <form th:method="POST" th:action="@{/products/edit/{id}(id=${product.getProductId()})}" th:object="${product}" >
         <table>
             <tr>
@@ -17,7 +18,7 @@
             <tr>
                 <td>Категория</td>
                 <td>
-                    <select th:field="*{productCategory}">
+                    <select th:field="*{categoryId}">
 
                         <option th:each = "productCategory:${productCategories}" th:text="${productCategory.getCategoryName()}" th:value = "${productCategory.getCategoryId()}"></option>
                     </select>
@@ -32,7 +33,7 @@
 
             <tr>
                 <td>Порядок</td>
-                <td><input type="text"  th:field="*{productOrder}" ></td>
+                <td><input type="number"  th:field="*{productOrder}" ></td>
             </tr>
 
         </table>

@@ -1,40 +1,28 @@
-package ru.bolgov.soulbeer.model;
+package ru.bolgov.soulbeer.model.entity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="shops")
+@Table(name="shop")
 public class Shop {
 
     @Id
-    @Column(name = "shopId")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "shop_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shopId;
 
-    @Column(name="shopName")
+    @Column(name="shop_name")
     private String shopName;
 
-    @Column(name="shopAddress")
+    @Column(name="shop_address")
     private String shopAddress;
 
-    @Column(name="shopPhone")
+    @Column(name="shop_phone")
     private Long shopPhone;
 
-    @Column(name="isCity")
+    @Column(name="is_city")
     private int isCity;
-
-    @OneToMany(mappedBy = "shop", fetch = FetchType.EAGER)
-    private List<Seller> sellers;
-
-    public List<Seller> getSellers() {
-        return sellers;
-    }
-
-    public void setSellers(List<Seller> sellers) {
-        this.sellers = sellers;
-    }
-
 
     public Shop(){}
 

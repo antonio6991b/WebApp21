@@ -1,4 +1,4 @@
-package ru.bolgov.soulbeer.model.util;
+package ru.bolgov.soulbeer.model.dto.util;
 
 import java.sql.Date;
 

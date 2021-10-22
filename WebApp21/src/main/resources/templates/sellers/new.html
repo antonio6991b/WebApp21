@@ -15,7 +15,7 @@
       <tr>
         <td>Магазин</td>
         <td>
-          <select th:field="*{shop}" id = "shop">
+          <select th:field="*{shopId}" id = "shop">
 
             <option th:each = "shop:${shops}" th:text="${shop.getShopName()}" th:value = "${shop.getShopId()}"></option>
           </select>
@@ -28,7 +28,7 @@
       </tr>
       <tr>
         <td>Телефон</td>
-        <td><input type="text"  th:field="*{sellerPhone}" id="shopPhone"></input><br></td>
+        <td><input type="number"  th:field="*{sellerPhone}" id="shopPhone"></input><br></td>
       </tr>
       
     </table>

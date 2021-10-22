@@ -1,4 +1,4 @@
-package ru.bolgov.soulbeer.model.util;
+package ru.bolgov.soulbeer.model.dto.util;
 
 
 import org.springframework.stereotype.Component;
@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class DateTemplate {
     private List<Integer> day;
     private List<Integer> month;

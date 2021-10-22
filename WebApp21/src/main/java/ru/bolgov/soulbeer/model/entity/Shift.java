@@ -1,48 +1,35 @@
-package ru.bolgov.soulbeer.model.shift;
-
-import ru.bolgov.soulbeer.model.Seller;
-import ru.bolgov.soulbeer.model.report.ProductReport;
+package ru.bolgov.soulbeer.model.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "shift")
 public class Shift {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "shiftId")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "shift_id")
     private Long shiftId;
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "sellerId")
-    private Seller shiftSeller;
+    @Column(name = "seller_id")
+    private Long sellerId;
 
-    @Column(name = "shiftBegin")
+    @Column(name = "shop_id")
+    private Long shopId;
+
+    @Column(name = "shift_begin")
     private Date shiftBegin;
 
-    @Column(name = "shiftEnds")
+    @Column(name = "shift_ends")
     private Date shiftEnds;
 
-    @Column(name = "cashBegin")
+    @Column(name = "cash_begin")
     private BigDecimal cashBegin;
 
-    @Column(name = "cashEnd")
+    @Column(name = "cash_end")
     private BigDecimal cashEnd;
-
-    @OneToMany(mappedBy = "productReportId", fetch = FetchType.EAGER)
-    private List<ProductReport> productReports;
-
-    public List<ProductReport> getProductReports() {
-        return productReports;
-    }
-
-    public void setProductReports(List<ProductReport> productReports) {
-        this.productReports = productReports;
-    }
 
     public Shift(){}
 
@@ -54,12 +41,20 @@ public class Shift {
         this.shiftId = shiftId;
     }
 
-    public Seller getShiftSeller() {
-        return shiftSeller;
+    public Long getSellerId() {
+        return sellerId;
     }
 
-    public void setShiftSeller(Seller shiftSeller) {
-        this.shiftSeller = shiftSeller;
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 
     public Date getShiftBegin() {
