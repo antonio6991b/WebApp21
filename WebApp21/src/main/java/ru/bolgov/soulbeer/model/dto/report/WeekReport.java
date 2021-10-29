@@ -5,28 +5,29 @@ import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class WeekReport {
+
+
+    private ShiftTemplate shiftTemplate;
+
+    private List<ProductReportDto> products;
+    public WeekReport(){
+
+    }
 
 
     public void setShiftTemplate(ShiftTemplate shiftTemplate) {
         this.shiftTemplate = shiftTemplate;
     }
 
-    private ShiftTemplate shiftTemplate;
-    private List<ProductReport> products;
-
-    public WeekReport(){
-
-    }
-
-
-    public List<ProductReport> getProducts() {
+    public List<ProductReportDto> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductReport> products) {
+    public void setProducts(List<ProductReportDto> products) {
         this.products = products;
     }
 
@@ -36,14 +37,6 @@ public class WeekReport {
 
     public void fillData(ShiftTemplate shiftTemplate) {
         this.shiftTemplate = shiftTemplate;
-
     }
 
-    public List<Long> getProductIds(){
-        List<Long> id = new ArrayList<>();
-//        for (ProductReport p : this.products){
-//            id.add(p.getProduct().getProductId());
-//        }
-        return id;
-    }
 }

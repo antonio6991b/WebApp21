@@ -3,8 +3,10 @@ package ru.bolgov.soulbeer.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
+import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.Shift;
 import ru.bolgov.soulbeer.model.mapper.ShiftMapper;
+import ru.bolgov.soulbeer.repository.ProductRepository;
 import ru.bolgov.soulbeer.repository.SellerRepository;
 import ru.bolgov.soulbeer.repository.ShiftRepository;
 import ru.bolgov.soulbeer.repository.ShopRepository;
@@ -27,6 +29,8 @@ public class ShiftService {
 
     @Autowired
     private SellerRepository sellerRepository;
+
+
 
     private ShiftMapper shiftMapper = new ShiftMapper();
 
@@ -89,4 +93,6 @@ public class ShiftService {
             shiftRepository.save(tmp);
         }
     }
+
+
 }

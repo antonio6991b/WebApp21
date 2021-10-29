@@ -23,38 +23,27 @@ import java.util.List;
 @Controller
 @EnableWebMvc
 public class MainController {
-//
-//    @Autowired
-//    ProductCategoryRepository productCategoryRepository;
-//
-//    @Autowired
-//    FileService fileService;
-//
-//    @Autowired
-//    private ShopRepository shopRepository;
-//
-//    @Autowired
-//    TestDataService testDataService;
+
+    @Autowired
+    private FileService fileService;
 
     @GetMapping("/main")
     public String main(){
         return "index";
     }
-//
-//
-//    @GetMapping("fill-products")
-//    public String fillProduct(Model model){
-//
-//
-//        return "fill/fillProduct";
-//    }
-//
-//    @PostMapping("fill-products")
-//    public String fill(@RequestParam("file") MultipartFile file){
-//
-//        fileService.fillProducts(file);
-//        return "redirect:/main";
-//    }
+
+
+    @GetMapping("fill-products")
+    public String fillProduct(Model model){
+        return "fill/fillProduct";
+    }
+
+    @PostMapping("fill-products")
+    public String fill(@RequestParam("file") MultipartFile file){
+
+        fileService.fillProducts(file);
+        return "redirect:/main";
+    }
 
 //    @GetMapping("/test")
 //    public String fillTestData(){
@@ -83,33 +72,12 @@ public class MainController {
 //
 //        return "index";
 //    }
-//
-//    @GetMapping("/product-list")
-//    public String getProductList(Model model){
-//        List<ProductCategory> categories = new ArrayList<>();
-//        try {
-//            categories = productCategoryRepository.findAll();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//        StringBuilder products = new StringBuilder();
-//        for(ProductCategory category : categories){
-//            products.append(category.getCategoryName() + "(");
-//            int count = category.getProducts().size();
-//                for(Product product: category.getProducts()){
-//                    products.append(product.getProductName());
-//                    count--;
-//                    if(count > 0){
-//                        products.append(",");
-//                    }
-//                }
-//            products.append(")");
-//        }
-//        if(products.toString().equals("")){
-//            products.append("Список товаров пуст");
-//        }
-//        model.addAttribute("products", products.toString());
-//
-//        return "fill/productList";
-//    }
+
+    @GetMapping("/product-list")
+    public String getProductList(Model model){
+        String products = fileService.getProductList();
+        model.addAttribute("products", products);
+
+        return "fill/productList";
+    }
 }

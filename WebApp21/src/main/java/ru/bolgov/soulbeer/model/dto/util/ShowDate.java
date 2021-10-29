@@ -58,5 +58,8 @@ public class ShowDate {
         return this.day + "." + this.month + "." + this.year;
     }
 
-
+    @Override
+    public String toString() {
+        return day +"/" + month + "/" + year ;
+    }
 }

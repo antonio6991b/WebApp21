@@ -61,4 +61,7 @@ public class ProductCategoryService {
         productCategoryRepository.deleteById(id);
     }
 
+    public Long getCategoryIdByName(String categoryName){
+        return productCategoryRepository.findByName(categoryName).getCategoryId();
+    }
 }

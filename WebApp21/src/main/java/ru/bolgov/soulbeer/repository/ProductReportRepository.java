@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface ProductReportRepository extends CrudRepository<ProductReport, Long> {
 
-    @Query("from ProductReport p where p.shift.shiftId = ?1")
+    @Query("from ProductReport p where p.shiftId = ?1")
     List<ProductReport> findAllByShift(Long shiftId);
+
+    boolean existsByProductIdAndShiftId(Long productId, Long shiftId);
 
 }
