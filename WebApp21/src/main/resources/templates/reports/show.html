@@ -12,6 +12,24 @@
 
     <h2>Отчет по смене <span th:text = "${weekReport.getShiftTemplate().getShift().getShiftId()}"></span></h2>
     <table>
+        <tr>
+            <td>Магазин</td>
+            <td th:text = "${weekReport.getShiftTemplate().getShopName()}"></td>
+        </tr>
+        <tr>
+            <td>Продавец</td>
+            <td th:text = "${weekReport.getShiftTemplate().getSellerName()}"></td>
+        </tr>
+        <tr>
+            <td>Начало смены</td>
+            <td th:text = "${weekReport.getShiftTemplate().getDateBegin()}"></td>
+        </tr>
+        <tr>
+            <td>Конец смены</td>
+            <td th:text = "${weekReport.getShiftTemplate().getDateEnd()}"></td>
+        </tr>
+    </table>
+    <table>
         <thead>
         <tr>
             <td>Наименование</td>
@@ -28,20 +46,20 @@
         </tr>
         </thead>
         <tr th:each = "product:${weekReport.getProducts()}">
-            <td th:text = "${product.getProduct().getProductName()}"></td>
-            <td th:text = "${product.getPriceBuy()}"></td>
-            <td th:text = "${product.getPriceSell()}"></td>
-            <td th:text = "${product.getRemainsLast()}"></td>
-            <td th:text = "${product.getComing()}"></td>
-            <td th:text = "${product.getRemainsCurrent()}"></td>
-            <td th:text = "${product.getSumCurrent()}"></td>
-            <td th:text = "${product.getGrossProfit()}"></td>
-            <td th:text = "${product.getNotebookValue()}"></td>
-            <td th:text = "${product.getBalance()}"></td>
+            <td th:text = "${product.getProductName()}"></td>
+            <td th:text = "${product.getProductReport().getPriceBuy()}"></td>
+            <td th:text = "${product.getProductReport().getPriceSell()}"></td>
+            <td th:text = "${product.getProductReport().getRemainsLast()}"></td>
+            <td th:text = "${product.getProductReport().getComing()}"></td>
+            <td th:text = "${product.getProductReport().getRemainsCurrent()}"></td>
+            <td th:text = "${product.getProductReport().getSumCurrent()}"></td>
+            <td th:text = "${product.getProductReport().getGrossProfit()}"></td>
+            <td th:text = "${product.getProductReport().getNotebookValue()}"></td>
+            <td th:text = "${product.getProductReport().getBalance()}"></td>
 
             <td>
-                <a th:href = "@{/reports/edit-product/{id}(id=${product.getProductReportId()})}">Редактировать</a><br>
-                <a th:href = "@{/reports/delete-product/{id}(id=${product.getProductReportId()})}">Удалить</a><br>
+                <a th:href = "@{/reports/edit-product/{id}(id=${product.getProductReport().getProductReportId()})}">Редактировать</a><br>
+                <a th:href = "@{/reports/delete-product/{id}(id=${product.getProductReport().getProductReportId()})}">Удалить</a><br>
             </td>
 
         </tr>

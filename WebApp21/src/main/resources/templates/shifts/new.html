@@ -15,7 +15,7 @@
             <tr>
                 <td>Продавец</td>
                 <td>
-                    <select th:field="*{shift.shiftSeller}" >
+                    <select th:field="*{shift.sellerId}" >
 
                         <option th:each = "seller:${sellers}" th:text="${seller.getSellerName()}" th:value = "${seller.getSellerId()}"></option>
                     </select>
@@ -60,12 +60,12 @@
 
             <tr>
                 <td>Остаток на начало смены</td>
-                <td><input type="text"  th:field="*{shift.cashBegin}" ></td>
+                <td><input type="number"  th:field="*{shift.cashBegin}" ></td>
             </tr>
 
             <tr>
                 <td>Остаток на конец смены</td>
-                <td><input type="text"  th:field="*{shift.cashEnd}" ></td>
+                <td><input type="number"  th:field="*{shift.cashEnd}" ></td>
             </tr>
 
         </table>

@@ -29,7 +29,7 @@
       <td><a th:text = "${shop.getShopName()}" th:href="@{/shops/{id}(id=${shop.getShopId()})}"></td>
       <td th:text = "${shop.getShopAddress()}"></td>
       <td th:text = "${shop.getShopPhone()}"></td>
-      <td><a th:href = "@{/sellers/shop/{id}(id=${shop.getShopId()})}">Продавцы (<span th:text = "${shop.getSellers().size()}"></span>)</a></td>
+      <td><a th:href = "@{/sellers/shop/{id}(id=${shop.getShopId()})}">Продавцы (<span th:text = "${shop.getCountSeller()}"></span>)</a></td>
       <td th:text = "${shop.getIsCity()}"></td>
       <td>
         <a th:href = "@{/shops/edit/{id}(id=${shop.getShopId()})}">Редактировать</a><br>

@@ -14,11 +14,11 @@
         <table>
             <tr>
                 <td>Продавец</td>
-                <td th:text = "${shift.getShift().getShiftSeller().getSellerName()}"></td>
+                <td th:text = "${shift.getSellerName()}"></td>
             </tr>
             <tr>
                 <td>Магазин</td>
-                <td th:text = "${shift.getShift().getShiftSeller().getShop().getShopName()}"></td>
+                <td th:text = "${shift.getShopName()}"></td>
             </tr>
             <tr>
                 <td>Начало смены</td>

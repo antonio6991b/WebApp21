@@ -28,9 +28,9 @@
         </thead>
         <tr th:each = "shift:${shifts}">
             <td th:text = "${shift.getShift().getShiftId()}"></td>
-            <td th:text = "${shift.getShift().getShiftSeller().getShop().getShopName()}"></td>
-            <td th:text = "${shift.getShift().getShiftSeller().getSellerName()}"></td>
-            <td th:text = "${shift.getShift().getShiftSeller().getShop().getShopPhone()}"></td>
+            <td th:text = "${shift.getShopName()}"></td>
+            <td th:text = "${shift.getSellerName()}"></td>
+            <td th:text = "${shift.getShopPhone()}"></td>
             <td th:text = "${shift.getDateBegin().show()}"></td>
             <td th:text = "${shift.getDateEnd().show}"></td>
 
