@@ -11,17 +11,17 @@ function calculate(){
 
     sumCurrent = (remainsLast + coming - remainsCurrent) * priceSell;
     grossProfit = (remainsLast + coming - remainsCurrent) * (priceSell - priceBuy);
-    balance = notebookValue - grossProfit;
+    balance = notebookValue - sumCurrent;
 
     document.getElementById("sumCurrent").value = sumCurrent;
+    document.getElementById("notebookValue").value = sumCurrent
     document.getElementById("grossProfit").value = grossProfit;
     document.getElementById("balance").value = balance;
-    document.getElementById("notebookValue").value = grossProfit
 }
 
 function calculateBalance(){
-    let grossProfit = Number(document.getElementById("grossProfit").value);
+    let sumCurrent = Number(document.getElementById("sumCurrent").value);
     let notebookValue = Number(document.getElementById("notebookValue").value);
-    let balance = notebookValue - grossProfit;
+    let balance = notebookValue - sumCurrent;
     document.getElementById("balance").value = balance;
 }
