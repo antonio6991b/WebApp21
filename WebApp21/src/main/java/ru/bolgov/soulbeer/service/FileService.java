@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class FileService {
@@ -48,36 +49,54 @@ public class FileService {
         String content = uploadFile(file);
 
         List<Long> categories = new ArrayList<>();
+        System.out.println("start fill products");
+        long count = Stream.of(content.split("\\)"))
+                        .map(x -> {
+                            String contentCategoryName = x.split("\\(")[0];
+                            List<ProductCategory> productCategoriesInRepo =
+                                    productCategoryRepository.findAll();
+                            ProductCategory productCategory = productCategoriesInRepo.stream()
+                                    .filter(nn-> nn.getCategoryName().trim().equalsIgnoreCase(contentCategoryName.trim()))
+                                    .findAny().orElse(null);
+                            if(Objects.isNull(productCategory)){
+                                productCategory = new ProductCategory();
+                                productCategory.setCategoryName(contentCategoryName.trim());
+                                productCategoryRepository.save(productCategory);
+                            }
 
-        long count = Arrays.stream(content.split("\\)"))
-                .map(x -> {
-                    String categoryName = x.split("\\(")[0].trim();
-                    String repoCategoryName = productCategoryRepository.findByName(categoryName).getCategoryName();
-                    if(!productCategoryRepository.existsByCategoryName(categoryName)){
-                        ProductCategory productCategory = new ProductCategory();
-                        productCategory.setCategoryName(categoryName);
-                        productCategoryRepository.save(productCategory);
-                    }
-                    categories.add(productCategoryRepository.findByName(categoryName).getCategoryId());
+                            long productCategoryId = productCategoryRepository.findByName(contentCategoryName.trim()).getCategoryId();
 
-                    long prod = Arrays.stream(x.split("\\(")[1].split("\\,"))
-                            .filter(pro -> {
-                                String productName = x.trim();
-                                if(productRepository.findByProductNameAndCategoryId(x, categories.get(categories.size()-1)).size()==0){
-                                    Product product = new Product();
-                                    product.setCategoryId(categories.get(categories.size()-1));
-                                    product.setProductName(pro);
-                                    productRepository.save(product);
-                                }
-                                return true;
-                            })
-                            .count();
-                    return prod;
-                })
+                            long z = Stream.of(x.split("\\(")[1].split("\\,"))
+                                    .map(y -> {
+                                        List<Product> productsInCategory = productRepository.findByCategoryId(productCategoryId);
+                                        Product inRepo = productsInCategory.stream()
+                                                .filter(e -> {
+                                                    if (e.getProductName().trim()
+                                                            .equalsIgnoreCase(y.trim())){
+                                                        return true;
+                                                    }
+                                                    return false;
+                                                })
+                                                .findAny().orElse(null);
+                                        if(Objects.isNull(inRepo)){
+                                            Product productToSave = new Product();
+                                            productToSave.setCategoryId(productCategoryId);
+                                            productToSave.setProductName(y.trim());
+                                            productRepository.save(productToSave);
+                                        }
+
+                                        return 5;
+                                    })
+                                    .count();
+
+                            return 5;
+                        })
                 .count();
+
+        System.out.println("end fill products");
     }
 
-    public String getProductList(){
+    public List<String> getProductList(){
         List<ProductCategory> categories = new ArrayList<>();
         try {
             categories = productCategoryRepository.findAll();
@@ -92,14 +111,16 @@ public class FileService {
                 products.append(product.getProductName());
                 count--;
                 if(count > 0){
-                    products.append(",");
+                    products.append(", ");
                 }
             }
-            products.append(")");
+            products.append(")" + "\n");
         }
         if(products.toString().equals("")){
             products.append("Список товаров пуст");
         }
-        return products.toString();
+        System.out.println(products.toString());
+        return Stream.of(products.toString().split("\n"))
+                .collect(Collectors.toList());
     }
 }

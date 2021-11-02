@@ -7,7 +7,11 @@
 </head>
 <body>
 
-<div style="background-color: aqua; width: 500px; text-align: left" th:text = "${products}"></div>
+<div style="background-color: aqua; width: 500px; text-align: left" >
+    <span th:each = "item:${products}">
+        <span th:text = "${item}"></span><br>
+    </span>
+</div>
 
 </body>
 </html>

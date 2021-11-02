@@ -40,8 +40,9 @@ public class MainController {
 
     @PostMapping("fill-products")
     public String fill(@RequestParam("file") MultipartFile file){
-
+        System.out.println("call fileservice");
         fileService.fillProducts(file);
+        System.out.println("fileservice executed");
         return "redirect:/main";
     }
 
@@ -75,8 +76,7 @@ public class MainController {
 
     @GetMapping("/product-list")
     public String getProductList(Model model){
-        String products = fileService.getProductList();
-        model.addAttribute("products", products);
+        model.addAttribute("products", fileService.getProductList());
 
         return "fill/productList";
     }
