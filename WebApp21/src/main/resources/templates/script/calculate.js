@@ -6,16 +6,19 @@ function calculate(){
     let remainsCurrent = Number(document.getElementById("remainsCurrent").value);
     let sumCurrent;
     let grossProfit;
-    let notebookValue = Number(document.getElementById("notebookValue").value);
+
     let balance;
 
     sumCurrent = (remainsLast + coming - remainsCurrent) * priceSell;
     grossProfit = (remainsLast + coming - remainsCurrent) * (priceSell - priceBuy);
-    balance = notebookValue - sumCurrent;
+
 
     document.getElementById("sumCurrent").value = sumCurrent;
     document.getElementById("notebookValue").value = sumCurrent
     document.getElementById("grossProfit").value = grossProfit;
+    
+    let notebookValue = Number(document.getElementById("notebookValue").value);
+    balance = notebookValue - sumCurrent;
     document.getElementById("balance").value = balance;
 }
 
