@@ -64,4 +64,8 @@ public class ProductCategoryService {
     public Long getCategoryIdByName(String categoryName){
         return productCategoryRepository.findByName(categoryName).getCategoryId();
     }
+
+    public ProductCategory findByName(String name){
+        return productCategoryRepository.findByName(name);
+    }
 }

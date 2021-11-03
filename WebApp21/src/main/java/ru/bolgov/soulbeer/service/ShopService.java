@@ -74,4 +74,8 @@ public class ShopService {
     public void deleteById(Long id){
         shopRepository.deleteById(id);
     }
+
+    public Shop findByName(String name){
+        return shopRepository.findByName(name);
+    }
 }

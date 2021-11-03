@@ -62,14 +62,9 @@ public class SellerService {
 
     public void save(SellerDto sellerDto){
         boolean isPresent = sellerRepository.findByShopId(sellerDto.getShopId()).stream()
-                .peek(seller -> {
-                    System.out.println(seller.getSellerName());
-                })
                 .map(x -> x.getSellerName().trim().toLowerCase(Locale.ROOT))
                 .anyMatch(x -> (x.equalsIgnoreCase(sellerDto.getSellerName().trim().toLowerCase(Locale.ROOT))));
-        System.out.println("is present: " + isPresent);
         if (!isPresent){
-            System.out.println("save");
             sellerRepository.save(sellerMapper.dtoToSeller(sellerDto));
         }
     }
