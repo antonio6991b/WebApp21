@@ -60,6 +60,9 @@ public class SellerController {
     @GetMapping("/{id}")
     public String showSeller(@PathVariable("id") Long id, Model model){
         model.addAttribute("seller", sellerService.findById(id));
+        model.addAttribute("otherShops", sellerService.findOtherShops(id));
+        model.addAttribute("shops", sellerService.findMyShops(id));
+        model.addAttribute("shop", new Shop());
         return "sellers/show";
     }
 
@@ -70,6 +73,22 @@ public class SellerController {
         List<ShopDto> shops = shopService.findAll();
         model.addAttribute("shops", shops);
         return "sellers/edit";
+    }
+
+    @PostMapping("/add-shop/{sellerId}")
+    public String addShop(@PathVariable("sellerId") Long sellerId,
+                          @ModelAttribute Shop shop) {
+
+        sellerService.addSellerToShop(sellerId, shop.getShopId());
+        return "redirect:/sellers/" + sellerId;
+    }
+
+    @PostMapping("/delete-shop/{sellerId}")
+    public String deleteShop(@PathVariable("sellerId") Long sellerId,
+                          @ModelAttribute Shop shop) {
+
+        sellerService.removeSellerFromShop(sellerId, shop.getShopId());
+        return "redirect:/sellers/" + sellerId;
     }
 
     @PostMapping("/{id}")

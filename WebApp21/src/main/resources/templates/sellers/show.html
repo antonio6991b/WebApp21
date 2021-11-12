@@ -12,10 +12,30 @@
 
     <h2>Продавец</h2>
     №: <span th:text = "${seller.getSellerId()}"></span><br>
-    магазин: <span th:text = "${seller.getShopName()}"></span><br>
+    магазины: <span th:each = "shopName:${seller.getShopNames()}"><span th:text ="${shopName}"></span>, </span> <br>
     Имя: <span th:text = "${seller.getSellerName()}"></span><br>
     Телефон: <span th:text = "${seller.getSellerPhone()}"></span><br>
+    <br><br>
+    Добавить продавцу <span th:text = "${seller.getSellerName()}"></span> магазин
 
+    <form th:method="POST" th:action="@{/sellers/add-shop/{id}(id=${seller.getSellerId()})}" th:object="${shop}" >
+        <select th:field="*{shopId}">
+
+            <option th:each = "newShop:${otherShops}" th:text="${newShop.getShopName()}" th:value = "${newShop.getShopId()}"></option>
+        </select>
+        <input type="submit" value="Добавить"></input>
+    </form>
+
+    <br><br>
+    Удалить у продавца <span th:text = "${seller.getSellerName()}"></span> магазин
+
+    <form th:method="POST" th:action="@{/sellers/delete-shop/{id}(id=${seller.getSellerId()})}" th:object="${shop}" >
+        <select th:field="*{shopId}">
+
+            <option th:each = "newShop:${shops}" th:text="${newShop.getShopName()}" th:value = "${newShop.getShopId()}"></option>
+        </select>
+        <input type="submit" value="Удалить"></input>
+    </form>
 </div>
 </body>
 </html>

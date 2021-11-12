@@ -11,10 +11,4 @@ import java.util.List;
 public interface SellerRepository extends CrudRepository<Seller, Long> {
     List<Seller> findAll();
 
-    @Query("from Seller s where s.shopId = ?1")
-    List<Seller> findByShopId(Long shopId);
-
-    @Query("select count(s) from Seller s where s.shopId = ?1 ")
-    Long countByShopId(Long shopId);
-
 }

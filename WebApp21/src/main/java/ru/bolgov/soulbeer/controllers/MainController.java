@@ -15,6 +15,7 @@ import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 import ru.bolgov.soulbeer.model.entity.*;
+import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 import ru.bolgov.soulbeer.service.*;
 
 import java.math.BigDecimal;
@@ -50,6 +51,9 @@ public class MainController {
     @Autowired
     private ShiftService shiftService;
 
+    @Autowired
+    private ShopSellersLinkRepository shopSellersLinkRepository;
+
 
     @GetMapping("/main")
     public String main(){
@@ -78,7 +82,7 @@ public class MainController {
         List<String> limonadNames = Arrays.asList("Буратино", "Кока-кола", "Фанта", "Тархун", "Байкал", "Спрайт", "Жигули");
         List<String> snackNames = Arrays.asList("Сухари", "Фисташки", "Кальмары", "Креветки", "Семечки", "Крабы", "Орешки", "Кириешки");
 
-        List<String> shopNames = Arrays.asList("Управа", "Ставропольская");
+        List<String> shopNames = Arrays.asList("Управа", "Ставропольская", "Кирова", "Дубовый умет");
         List<String> sellerNames = Arrays.asList("Иван", "Елена", "Света", "Инна", "Евгений", "Руслан", "Константин", "Андрей");
 
         for(String name: categoryNames){
@@ -117,9 +121,14 @@ public class MainController {
             for(int i = 0; i < 3; i++){
                 long shopId = shopService.findByName(shop).getShopId();
                 SellerDto seller = new SellerDto();
-                seller.setShopId(shopId);
                 seller.setSellerName(sellerNames.get(random.nextInt(sellerNames.size())));
                 sellerService.save(seller);
+                int sellersCount = sellerService.findAll().size();
+                Long lastSellerId = sellerService.findAll().get(sellersCount - 1).getSellerId();
+                ShopSellerLink shopSellerLink = new ShopSellerLink();
+                shopSellerLink.setShopId(shopId);
+                shopSellerLink.setSellerId(lastSellerId);
+                shopSellersLinkRepository.save(shopSellerLink);
             }
         }
 

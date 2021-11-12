@@ -22,13 +22,22 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column name="seller_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="shop_id" type="bigint">
-                <constraints nullable="false" foreignKeyName="fk_shop_id" references="shop(shop_id)" deleteCascade="false"/>
-            </column>
             <column name="seller_name" type="varchar">
                 <constraints nullable="false"/>
             </column>
             <column name="seller_phone" type="bigint"/>
+        </createTable>
+
+        <createTable tableName="shop_seller_link">
+            <column name="link_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column type="int" name = "shop_id">
+                <constraints nullable="false" foreignKeyName="link_shop_id" references="shop(shop_id)"/>
+            </column>
+            <column type="int" name = "seller_id">
+                <constraints nullable="false" foreignKeyName="link_seller_id" references="seller(seller_id)"/>
+            </column>
         </createTable>
 
         <createTable tableName="product_category">

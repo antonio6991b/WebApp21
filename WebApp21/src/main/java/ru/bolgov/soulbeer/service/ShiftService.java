@@ -51,8 +51,9 @@ public class ShiftService {
     }
 
     public void save(ShiftTemplate shiftTemplate){
+        Long shopId = shiftTemplate.getShift().getShopId();
         Shift shift = shiftTemplate.createShift();
-        shift.setShopId(sellerRepository.findById(shift.getSellerId()).get().getShopId());
+        shift.setShopId(shopId);
         shiftRepository.save(shift);
     }
 
@@ -60,7 +61,7 @@ public class ShiftService {
         Shift shift =  shiftRepository.findById(id).orElse(newShift());
         ShiftTemplate shiftTemplate = new ShiftTemplate(shift);
         shiftTemplate.setSellerName(sellerRepository.findById(shift.getSellerId()).get().getSellerName());
-        shiftTemplate.setShopName(shopRepository.findById(sellerRepository.findById(shift.getSellerId()).get().getShopId()).get().getShopName());
+        //shiftTemplate.setShopName(shopRepository.findById(sellerRepository.findById(shift.getSellerId()).get().getShopId()).get().getShopName());
         return shiftTemplate;
     }
 

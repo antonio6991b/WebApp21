@@ -16,7 +16,7 @@ function calculate(){
     document.getElementById("sumCurrent").value = sumCurrent;
     document.getElementById("notebookValue").value = sumCurrent
     document.getElementById("grossProfit").value = grossProfit;
-    
+
     let notebookValue = Number(document.getElementById("notebookValue").value);
     balance = notebookValue - sumCurrent;
     document.getElementById("balance").value = balance;

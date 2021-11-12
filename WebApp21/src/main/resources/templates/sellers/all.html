@@ -18,7 +18,7 @@
         <tr>
             <td>№</td>
             <td>Имя</td>
-            <td>Магазин</td>
+            <td>Магазины</td>
             <td>Телефон</td>
             <td>Действие</td>
         </tr>
@@ -26,7 +26,11 @@
         <tr th:each = "seller:${sellers}">
             <td th:text = "${seller.getSellerId()}"></td>
             <td><a th:text = "${seller.getSellerName()}" th:href="@{/sellers/{id}(id=${seller.getSellerId()})}"></td>
-            <td th:text = "${seller.getShopName()}"></td>
+            <td><span th:each = "shopName:${seller.getShopNames()}">
+                    <span th:text ="${shopName}"></span>,
+                <a th:href="@{/sellers/{id}(id=${seller.getSellerId()})}">Добавить</a>
+                </span>
+            </td>
             <td th:text = "${seller.getSellerPhone()}"></td>
 
             <td>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая смена</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+    <h2>Создать новую смену</h2>
+    <h3>
+        Выберите магазин
+    </h3>
+    <p th:each = "shop:${shops}">
+        <a th:href = "@{/shifts/new/{id}(id=${shop.getShopId()})}">
+            <span th:text = "${shop.getShopName()}"></span></a>
+    </p>
+<hr>
+    <a href="/shifts/all">Отмена</a>
+</div>
+</body>

@@ -2,13 +2,15 @@ package ru.bolgov.soulbeer.model.dto.seller;
 
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 
+import java.util.List;
+
 public class SellerDto {
 
     private Long sellerId;
 
-    private Long shopId;
+    private List<String> shopNames;
 
-    private String shopName;
+    private List<Long> shopIds;
 
     private String sellerName;
 
@@ -38,19 +40,19 @@ public class SellerDto {
         this.sellerPhone = sellerPhone;
     }
 
-    public Long getShopId() {
-        return shopId;
+    public List<String> getShopNames() {
+        return shopNames;
     }
 
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setShopNames(List<String> shopNames) {
+        this.shopNames = shopNames;
     }
 
-    public String getShopName() {
-        return shopName;
+    public List<Long> getShopIds() {
+        return shopIds;
     }
 
-    public void setShopName(String shopName) {
-        this.shopName = shopName;
+    public void setShopIds(List<Long> shopIds) {
+        this.shopIds = shopIds;
     }
 }

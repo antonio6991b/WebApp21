@@ -10,9 +10,11 @@ public class ShiftTemplate {
     private Shift shift;
     private ShowDate dateBegin;
     private ShowDate dateEnd;
+    private Long shopId;
     private String shopName;
     private Long shopPhone;
     private String sellerName;
+
 
     public ShiftTemplate(){  //Set current monday to shift begins and current sunday to shift ends
         LocalDate today = LocalDate.now();
@@ -86,5 +88,13 @@ public class ShiftTemplate {
 
     public void setShopPhone(Long shopPhone) {
         this.shopPhone = shopPhone;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 }

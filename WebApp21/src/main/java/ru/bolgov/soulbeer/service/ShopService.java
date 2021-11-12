@@ -8,6 +8,7 @@ import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 import ru.bolgov.soulbeer.model.entity.Shop;
 import ru.bolgov.soulbeer.model.mapper.SellerMapper;
 import ru.bolgov.soulbeer.model.mapper.ShopMapper;
+import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,9 @@ public class ShopService {
 
     @Autowired
     private SellerRepository sellerRepository;
+
+    @Autowired
+    private ShopSellersLinkRepository shopSellersLinkRepository;
 
     private ShopMapper shopMapper = new ShopMapper();
     private SellerMapper sellerMapper = new SellerMapper();
@@ -48,7 +52,7 @@ public class ShopService {
                 .stream()
                 .map(x -> {
                     ShopDto shopDto = shopMapper.entityToDto(x);
-                    shopDto.setCountSeller(sellerRepository.countByShopId(x.getShopId()));
+                    shopDto.setCountSeller((long) shopSellersLinkRepository.findByShopId(shopDto.getShopId()).size());
                     return shopDto;
                 })
                 .collect(Collectors.toList());
@@ -72,10 +76,14 @@ public class ShopService {
     }
 
     public void deleteById(Long id){
-        shopRepository.deleteById(id);
+        if(shopSellersLinkRepository.findByShopId(id).size()==0) {
+            shopRepository.deleteById(id);
+        }
     }
 
     public Shop findByName(String name){
         return shopRepository.findByName(name);
     }
+
+
 }

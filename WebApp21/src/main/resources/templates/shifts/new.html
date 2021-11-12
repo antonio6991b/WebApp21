@@ -13,6 +13,12 @@
         <h2>Создать новую смену</h2>
         <table>
             <tr>
+                <td>Магазин</td>
+                <td>
+                    <input readonly th:field = "*{shift.shopId}">
+                </td>
+            </tr>
+            <tr>
                 <td>Продавец</td>
                 <td>
                     <select th:field="*{shift.sellerId}" >

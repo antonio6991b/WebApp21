@@ -7,6 +7,7 @@ public class ShiftMapper {
 
     public Shift dtoToEntity(ShiftTemplate shiftTemplate) {
         Shift shift = shiftTemplate.getShift();
+        shift.setShopId(shiftTemplate.getShopId());
         return shift;
     }
 }

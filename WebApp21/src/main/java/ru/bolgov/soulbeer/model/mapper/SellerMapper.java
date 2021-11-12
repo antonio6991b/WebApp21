@@ -14,14 +14,12 @@ public class SellerMapper {
         sellerDto.setSellerId(seller.getSellerId());
         sellerDto.setSellerName(seller.getSellerName().trim());
         sellerDto.setSellerPhone(seller.getSellerPhone());
-        sellerDto.setShopId(seller.getShopId());
         return sellerDto;
     }
 
     public Seller dtoToSeller(SellerDto sellerDto){
         Seller seller = new Seller();
-        seller.setSellerName(sellerDto.getSellerName());
-        seller.setShopId(sellerDto.getShopId());
+        seller.setSellerName(sellerDto.getSellerName().trim());
         seller.setSellerPhone(sellerDto.getSellerPhone());
         return seller;
     }

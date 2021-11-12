@@ -11,9 +11,11 @@ import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.dto.util.DateInterval;
 import ru.bolgov.soulbeer.model.dto.util.DateTemplate;
 import ru.bolgov.soulbeer.model.entity.Seller;
+import ru.bolgov.soulbeer.model.entity.Shift;
 import ru.bolgov.soulbeer.repository.SellerRepository;
 import ru.bolgov.soulbeer.service.SellerService;
 import ru.bolgov.soulbeer.service.ShiftService;
+import ru.bolgov.soulbeer.service.ShopService;
 
 import java.sql.Date;
 import java.util.List;
@@ -29,6 +31,9 @@ public class ShiftController {
 
     @Autowired
     private SellerService sellerService;
+
+    @Autowired
+    private ShopService shopService;
 
     private DateTemplate dateTemplate = new DateTemplate();
 
@@ -54,12 +59,22 @@ public class ShiftController {
         return "shifts/all";
     }
 
-
     @GetMapping("/new")
-    public String newShift(Model model){
-        model.addAttribute("shiftTemplate", new ShiftTemplate());
+    public String createShift(Model model){
+        model.addAttribute("shops", shopService.findAll());
+        return "shifts/selectShop";
+    }
 
-        List<SellerDto> sellers = sellerService.findAll();
+
+    @GetMapping("/new/{shopId}")
+    public String newShift(@PathVariable("shopId") Long shopId, Model model){
+        ShiftTemplate shiftTemplate = new ShiftTemplate();
+        Shift shift = new Shift();
+        shift.setShopId(shopId);
+        shiftTemplate.setShift(shift);
+        model.addAttribute("shiftTemplate", shiftTemplate);
+
+        List<SellerDto> sellers = sellerService.findByShopId(shopId);
 
         model.addAttribute("sellers", sellers);
         model.addAttribute("dateTemplate", dateTemplate);
@@ -69,6 +84,7 @@ public class ShiftController {
 
     @PostMapping("/")
     public String createShift(@ModelAttribute("shiftTemplate") ShiftTemplate shiftTemplate){
+        System.out.println(shiftTemplate.getShopId());
         shiftService.save(shiftTemplate);
         return "redirect:/shifts/all";
     }

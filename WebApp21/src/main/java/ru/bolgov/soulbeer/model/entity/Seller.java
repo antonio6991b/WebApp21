@@ -13,9 +13,6 @@ public class Seller {
     @Column(name = "seller_id")
     private Long sellerId;
 
-    @Column(name = "shop_id")
-    private Long shopId;
-
     @Column(name = "seller_name")
     private String sellerName;
 
@@ -30,14 +27,6 @@ public class Seller {
 
     public void setSellerId(Long sellerId) {
         this.sellerId = sellerId;
-    }
-
-    public Long getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
     }
 
     public String getSellerName() {
