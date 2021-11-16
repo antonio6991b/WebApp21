@@ -1,5 +1,6 @@
 package ru.bolgov.soulbeer.service;
 
+import liquibase.pro.packaged.D;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
@@ -12,6 +13,7 @@ import ru.bolgov.soulbeer.repository.ShiftRepository;
 import ru.bolgov.soulbeer.repository.ShopRepository;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -95,5 +97,50 @@ public class ShiftService {
         }
     }
 
+    public Shift getShiftBefore(Long shiftId){
+        Shift currentShift = shiftRepository.findById(shiftId).get();
+        Long shopId = currentShift.getShopId();
+        LocalDate beforeShiftEnd = currentShift.getShiftBegin().toLocalDate().minusDays(1);
+        Date dateToSearch = Date.valueOf(beforeShiftEnd);
+        List<Shift> tmp = shiftRepository.findByDateEnd(shopId, dateToSearch);
+        if(tmp.size()!=0){
+            return tmp.get(0);
+        }
+        Date lastDate = new Date(1l);
+        for(Shift ss: getShiftsByShopId(shopId)){
+            if(ss.getShiftBegin().equals(currentShift.getShiftBegin())){
+                continue;
+            }
+            Date tmpDate = ss.getShiftEnds();
+            if(tmpDate.compareTo(lastDate)>0){
+                lastDate = tmpDate;
+            }
+        }
+        if(shiftRepository.findByDateEnd(shopId, lastDate).size()==0){
+            return null;
+        }else{
+            return shiftRepository.findByDateEnd(shopId, lastDate).get(0);
+        }
 
+    }
+
+    public List<Shift> getShiftsByShopId(Long shopId){
+        return shiftRepository.findByShopId(shopId);
+    }
+
+    public Shift getLastShift(Long shopId){
+        List<Shift> shifts = shiftRepository.findByShopId(shopId);
+        Date lastDate = new Date(1l);
+        for(Shift ss: shifts){
+            Date tmpDate = ss.getShiftEnds();
+            if(tmpDate.compareTo(lastDate)>0){
+                lastDate = tmpDate;
+            }
+        }
+        if(shiftRepository.findByDateEnd(shopId, lastDate).size()==0){
+            return null;
+        }else{
+            return shiftRepository.findByDateEnd(shopId, lastDate).get(0);
+        }
+    }
 }

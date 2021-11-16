@@ -14,4 +14,10 @@ public interface ShiftRepository extends CrudRepository<Shift, Long> {
 
     @Query("from Shift s where s.shiftBegin in(?1, ?2)")
     List<Shift> findAllByInterval(Date from, Date to);
+
+    @Query("from Shift s where s.shopId = ?1")
+    List<Shift> findByShopId(Long shopId);
+
+    @Query("from Shift s where s.shopId = ?1 and s.shiftEnds = ?2")
+    List<Shift> findByDateEnd(Long shopId, Date dateEnd);
 }

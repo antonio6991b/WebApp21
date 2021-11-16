@@ -11,18 +11,23 @@
 
     <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/reports/edit-product/{productId}(productId=${productReport.getProductReportId()})}" th:object="${productReport}" >
         <h2>Редактирование записи </h2>
+
+        <div align="right">
+            Сумма текущая<input type="number" readonly th:field = "*{sumCurrent}" id="sumCurrent" >
+            Валовая прибыль<input type="number" readonly th:field = "*{grossProfit}" id="grossProfit" >
+            Баланс<input type="number" readonly th:field = "*{balance}" id="balance"><br><br>
+        </div>
+
         <table>
             <tr>
-                <td th:text = "${productName}"></td>
-                <td>Цена покупки <input  type="number"  th:field = "*{priceBuy}" id="priceBuy" onkeyup="calculate()"></td>
-                <td>Цена продажи<input type="number" th:field = "*{priceSell}" id="priceSell" onkeyup="calculate()"></td>
-                <td>Остаток на начало смены<input type="number" th:field = "*{remainsLast}" id="remainsLast" onkeyup="calculate()"></td>
-                <td>Приход<input type="number" th:field = "*{coming}" id="coming" onkeyup="calculate()"></td>
-                <td>Остаток на конец смены<input type="number" th:field = "*{remainsCurrent}" id="remainsCurrent" onkeyup="calculate()"></td>
-                <td>Сумма текущая<input type="number" readonly th:field = "*{sumCurrent}" id="sumCurrent" ></td>
-                <td>Валовая прибыль<input type="number" readonly th:field = "*{grossProfit}" id="grossProfit" ></td>
-                <td>Значение в тетради<input type="number" th:field = "*{notebookValue}" id="notebookValue" onkeyup="calculateBalance()"></td>
-                <td>Баланс<input type="number" readonly th:field = "*{balance}" id="balance"></td>
+                <td><span th:text = "${productName}"></span><input style = "visibility:hidden; width: 1px" readonly th:field = "*{productId}"></td>
+                <td>Цена покупки <br><input  type="number"  th:field = "*{priceBuy}" id="priceBuy" onkeyup="calculate()"></td>
+                <td>Цена продажи<br><input type="number" th:field = "*{priceSell}" id="priceSell" onkeyup="calculate()"></td>
+                <td>Остаток на начало смены<br><input type="number" th:field = "*{remainsLast}" id="remainsLast" onkeyup="calculate()"></td>
+                <td>Приход<br><input type="number" th:field = "*{coming}" id="coming" onkeyup="calculate()"></td>
+                <td>Остаток на конец смены<br><input type="number" th:field = "*{remainsCurrent}" id="remainsCurrent" onkeyup="calculate()"></td>
+                <td>Значение в тетради<br><input type="number" th:field = "*{notebookValue}" id="notebookValue" onkeyup="calculateBalance()"></td>
+
 
             </tr>
 

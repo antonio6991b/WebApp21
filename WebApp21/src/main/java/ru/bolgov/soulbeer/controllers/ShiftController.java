@@ -19,6 +19,7 @@ import ru.bolgov.soulbeer.service.ShopService;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -71,7 +72,13 @@ public class ShiftController {
         ShiftTemplate shiftTemplate = new ShiftTemplate();
         Shift shift = new Shift();
         shift.setShopId(shopId);
+        Shift lastShift = shiftService.getLastShift(shopId);
+        if(Objects.nonNull(lastShift)){
+            shift.setCashBegin(lastShift.getCashEnd());
+        }
+
         shiftTemplate.setShift(shift);
+
         model.addAttribute("shiftTemplate", shiftTemplate);
 
         List<SellerDto> sellers = sellerService.findByShopId(shopId);

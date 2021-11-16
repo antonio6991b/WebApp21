@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.bolgov.soulbeer.model.dto.report.ProductReportDto;
 import ru.bolgov.soulbeer.model.dto.report.WeekReport;
+import ru.bolgov.soulbeer.model.dto.report.rest.ReportValue;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductReport;
@@ -36,6 +37,7 @@ public class ProductReportService {
     public void edit(ProductReport productReport, Long id) {
         ProductReport tmp = productReportRepository.findById(id).orElse(null);
         if (Objects.nonNull(tmp)) {
+            tmp.setShiftId(productReport.getShiftId());
             tmp.setProductId(productReport.getProductId());
             tmp.setPriceBuy(productReport.getPriceBuy());
             tmp.setPriceSell(productReport.getPriceSell());
@@ -99,5 +101,17 @@ public class ProductReportService {
 
     public void deleteById(Long productReportId){
         productReportRepository.deleteById(productReportId);
+    }
+
+    public ReportValue getReportValue(Long productId, long shiftId){
+        ReportValue reportValue = new ReportValue();
+        List<ProductReport> report = productReportRepository.findReportValue(productId, shiftId);
+        if(report.size()!=0){
+            ProductReport tmp = report.get(0);
+            reportValue.setRemainsLast(tmp.getRemainsCurrent());
+            reportValue.setPriceSell(tmp.getPriceSell());
+            reportValue.setPriceBuy(tmp.getPriceBuy());
+        }
+        return reportValue;
     }
 }

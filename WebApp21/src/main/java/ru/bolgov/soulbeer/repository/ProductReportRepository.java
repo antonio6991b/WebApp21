@@ -15,4 +15,7 @@ public interface ProductReportRepository extends CrudRepository<ProductReport, L
 
     boolean existsByProductIdAndShiftId(Long productId, Long shiftId);
 
+    @Query("from ProductReport p where p.productId = ?1 and p.shiftId = ?2")
+    List<ProductReport> findReportValue(Long productId, long shiftId);
+
 }

@@ -51,7 +51,8 @@ public class WeekReportController {
     @PostMapping("/add-product/{shiftId}")
     public String saveProduct(@PathVariable("shiftId") Long shiftId,
             @ModelAttribute("productReport") ProductReport productReport){
-       // productReport.setShiftId(shiftId);
+
+
         productReportService.save(productReport);
         return "redirect:/reports/"+productReport.getShiftId();
     }
@@ -71,6 +72,7 @@ public class WeekReportController {
 
         Long shiftId = productReportService.getShiftId(productId);
 
+        productReport.setShiftId(shiftId);
         productReportService.edit(productReport, productId);
         return "redirect:/reports/" + shiftId;
     }
