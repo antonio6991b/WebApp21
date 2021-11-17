@@ -3,10 +3,7 @@ package ru.bolgov.soulbeer.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import ru.bolgov.soulbeer.model.dto.maker.MakerDto;
 import ru.bolgov.soulbeer.model.entity.ProductMaker;
@@ -37,4 +34,56 @@ public class MakerController {
         makerService.saveMaker(maker);
         return "redirect:/makers/all/";
     }
+
+    @GetMapping("/delete/{id}")
+    public String deleteMaker(@PathVariable("id") Long makerId, Model model){
+        model.addAttribute("maker", makerService.findById(makerId).getMaker());
+        return "makers/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String confirmDeleteMaker(@PathVariable("id") Long makerId){
+        makerService.deleteById(makerId);
+        return "redirect:/makers/all";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String editMaker(@PathVariable("id") Long makerId, Model model){
+        model.addAttribute("maker", makerService.findById(makerId).getMaker());
+        return "makers/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String confirmEditMaker(@PathVariable("id") Long makerId, @ModelAttribute("maker") ProductMaker maker){
+        makerService.editMaker(maker, makerId);
+        return "redirect:/makers/all";
+    }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

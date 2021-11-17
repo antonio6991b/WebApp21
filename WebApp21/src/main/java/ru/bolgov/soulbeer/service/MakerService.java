@@ -24,6 +24,7 @@ public class MakerService {
                 .map(x -> {
                     MakerDto makerDto = new MakerDto();
                     makerDto.setMaker(x);
+                    makerDto.setProducts(productRepository.findByMakerId(x.getMakerId()));
                     makerDto.setCountProduct(productRepository.countByMakerId(x.getMakerId()));
                     return makerDto;
                 }).collect(Collectors.toList());
@@ -40,5 +41,17 @@ public class MakerService {
 
     public void saveMaker(ProductMaker maker){
         makerRepository.save(maker);
+    }
+
+    public void deleteById(Long makerId){
+        makerRepository.deleteById(makerId);
+    }
+
+    public void editMaker(ProductMaker maker, Long id){
+        ProductMaker tmp = makerRepository.findById(id).get();
+        tmp.setMakerName(maker.getMakerName());
+        tmp.setMakerContacts(maker.getMakerContacts());
+        tmp.setMakerDescription(maker.getMakerDescription());
+        makerRepository.save(tmp);
     }
 }

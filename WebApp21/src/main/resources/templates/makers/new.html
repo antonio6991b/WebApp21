@@ -8,27 +8,24 @@
 <body>
 <a href = "/main"> На главную </a><br>
 <div class = "container">
-  <a href = "/makers/new">Производитель</a>
+
   <form th:method="POST" th:action="@{/makers/}" th:object="${maker}">
-  <table>
+    Наименование <input th:field = "*{makerName}">
+    <table>
 
     <tr>
-      <td>Наименование</td>
+
       <td>Контакты</td>
       <td>Описание</td>
 
     </tr>
     <tr>
 
-      <td>
-        <input th:field = "*{makerName}">
-
+      <td style="width: 200px">
+        <textarea maxlength="500" th:field = "*{makerContacts}"></textarea>
       </td>
-      <td>
-        <textarea th:field = "*{makerContacts}"></textarea>
-      </td>
-      <td>
-        <textarea th:field = "*{makerDescription}"></textarea>
+      <td style="width: 200px">
+        <textarea maxlength="500" th:field = "*{makerDescription}"></textarea>
       </td>
 
     </tr>

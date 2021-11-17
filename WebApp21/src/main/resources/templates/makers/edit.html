@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать производителя</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+
+    <form th:method="POST" th:action="@{/makers/edit/{id}(id=${maker.getMakerId()})}" th:object="${maker}">
+        <table>
+
+            <tr>
+                <td>Наименование</td>
+                <td>Контакты</td>
+                <td>Описание</td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <input th:field = "*{makerName}">
+
+                </td>
+                <td style="width: 200px">
+                    <textarea maxlength="500" th:field = "*{makerContacts}"></textarea>
+                </td>
+                <td style="width: 200px">
+                    <textarea maxlength="500" th:field = "*{makerDescription}"></textarea>
+                </td>
+
+            </tr>
+        </table>
+        <input type="submit" value="Редактировать">
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Удалить производителя</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+Удалить производителя
+    <form th:method="POST" th:action="@{/makers/delete/{id}(id=${maker.getMakerId()})}" th:object="${maker}">
+        <table>
+
+            <tr>
+                <td>Наименование</td>
+                <td>Контакты</td>
+                <td>Описание</td>
+
+            </tr>
+            <tr>
+
+                <td>
+                    <input readonly th:field = "*{makerName}">
+
+                </td>
+                <td style="width: 200px">
+                    <textarea readonly maxlength="500" th:field = "*{makerContacts}"></textarea>
+                </td>
+                <td style="width: 200px">
+                    <textarea readonly maxlength="500" th:field = "*{makerDescription}"></textarea>
+                </td>
+
+            </tr>
+        </table>
+        <input type="submit" value="Удалить">
+    </form>
+</div>
+</body>
+</html>
