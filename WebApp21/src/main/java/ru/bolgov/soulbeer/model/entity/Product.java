@@ -20,8 +20,8 @@ public class Product {
     @Column(name = "category_id")
     private Long categoryId;
 
-    @Column(name = "product_maker")
-    private String productMaker;
+    @Column(name = "maker_id")
+    private Long makerId;
 
     @Column(name = "product_order")
     private int productOrder;
@@ -45,12 +45,12 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getProductMaker() {
-        return productMaker;
+    public Long getMakerId() {
+        return makerId;
     }
 
-    public void setProductMaker(String productMaker) {
-        this.productMaker = productMaker;
+    public void setMakerId(Long makerId) {
+        this.makerId = makerId;
     }
 
     public int getProductOrder() {

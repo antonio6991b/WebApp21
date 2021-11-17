@@ -6,9 +6,9 @@ import ru.bolgov.soulbeer.model.dto.report.ProductReportDto;
 import ru.bolgov.soulbeer.model.dto.report.WeekReport;
 import ru.bolgov.soulbeer.model.dto.report.rest.ReportValue;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
+import ru.bolgov.soulbeer.model.entity.Expense;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductReport;
-import ru.bolgov.soulbeer.model.entity.Shift;
 import ru.bolgov.soulbeer.repository.*;
 
 import java.util.List;
@@ -32,6 +32,9 @@ public class ProductReportService {
 
     @Autowired
     private SellerRepository sellerRepository;
+
+    @Autowired
+    private ExpenseRepository expenseRepository;
 
 
     public void edit(ProductReport productReport, Long id) {
@@ -65,6 +68,8 @@ public class ProductReportService {
                     productReportDto.setProductName(productRepository.findById(x.getProductId()).get().getProductName());
                     return productReportDto;
                 }).collect(Collectors.toList()));
+        weekReport.setWriteOffList(expenseRepository.findByType(shiftId, "writeoff"));
+        weekReport.setCashDeskList(expenseRepository.findByType(shiftId, "cashdesk"));
         return weekReport;
     }
 
@@ -113,5 +118,24 @@ public class ProductReportService {
             reportValue.setPriceBuy(tmp.getPriceBuy());
         }
         return reportValue;
+    }
+
+    public void saveExpense(Expense expense, String type){
+        expense.setExpenseType(type);
+        expenseRepository.save(expense);
+    }
+
+    public void editExpense(Expense expense, Long id){
+        Expense tmp = expenseRepository.findById(id).orElse(new Expense());
+        tmp.setExpenseName(expense.getExpenseName());
+        tmp.setExpenseSum(expense.getExpenseSum());
+        expenseRepository.save(tmp);
+    }
+    public void deleteExpense(Long expenseId){
+        expenseRepository.deleteById(expenseId);
+    }
+
+    public Expense findExpense(Long expenseId){
+        return expenseRepository.findById(expenseId).get();
     }
 }

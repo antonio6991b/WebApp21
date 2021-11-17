@@ -1,14 +1,13 @@
 package ru.bolgov.soulbeer.controllers;
 
-import org.hibernate.type.BinaryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-//import ru.bolgov.soulbeer.dao.ProductCategoryRepository;
-//import ru.bolgov.soulbeer.dao.ShopRepository;
 import ru.bolgov.soulbeer.model.dto.product.ProductDto;
 import ru.bolgov.soulbeer.model.dto.productcategory.ProductCategoryDto;
 import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
@@ -19,8 +18,6 @@ import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 import ru.bolgov.soulbeer.service.*;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -154,15 +151,15 @@ public class MainController {
             productReport.setPriceBuy(new BigDecimal(random.nextInt(1000)));
             productReport.setPriceSell(productReport.getPriceBuy().add(new BigDecimal(random.nextInt(500))));
             productReport.setRemainsLast(new BigDecimal(100));
-            productReport.setComing(random.nextInt(50));
-            BigDecimal skladProd = productReport.getRemainsLast().add(new BigDecimal(productReport.getComing()));
+            productReport.setComing(new BigDecimal(random.nextInt(50)));
+            BigDecimal skladProd = productReport.getRemainsLast().add(productReport.getComing());
             productReport.setRemainsCurrent(skladProd.subtract(new BigDecimal(random.nextInt(skladProd.intValue()))));
 
-            BigDecimal current = productReport.getRemainsLast().add(new BigDecimal(productReport.getComing())).subtract(productReport.getRemainsCurrent()).multiply(productReport.getPriceSell());
+            BigDecimal current = productReport.getRemainsLast().add(productReport.getComing()).subtract(productReport.getRemainsCurrent()).multiply(productReport.getPriceSell());
 
             productReport.setSumCurrent(current);
 
-            BigDecimal profit = productReport.getRemainsLast().add(new BigDecimal(productReport.getComing())).subtract(productReport.getRemainsCurrent()).multiply(productReport.getPriceSell().subtract(productReport.getPriceBuy()));
+            BigDecimal profit = productReport.getRemainsLast().add(productReport.getComing()).subtract(productReport.getRemainsCurrent()).multiply(productReport.getPriceSell().subtract(productReport.getPriceBuy()));
 
             productReport.setGrossProfit(profit);
             int mistake = random.nextInt(100);

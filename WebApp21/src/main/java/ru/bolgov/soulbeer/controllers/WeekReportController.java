@@ -5,16 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import ru.bolgov.soulbeer.model.dto.report.ProductReportDto;
 import ru.bolgov.soulbeer.model.dto.report.WeekReport;
-import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
-import ru.bolgov.soulbeer.model.entity.Product;
+import ru.bolgov.soulbeer.model.entity.Expense;
 import ru.bolgov.soulbeer.model.entity.ProductReport;
-import ru.bolgov.soulbeer.model.entity.Shift;
 import ru.bolgov.soulbeer.service.ProductReportService;
 import ru.bolgov.soulbeer.service.ShiftService;
-
-import java.util.List;
 
 
 @Controller
@@ -92,4 +87,56 @@ public class WeekReportController {
         productReportService.deleteById(productId);
         return "redirect:/reports/" + shiftId;
     }
+
+    @GetMapping("/add-write-off/{shiftId}")
+    public String addWriteOff(@PathVariable("shiftId") Long shiftId, Model model){
+        Expense expense = new Expense();
+        expense.setShiftId(shiftId);
+        expense.setExpenseType("writeoff");
+        model.addAttribute("expense", expense);
+
+        return "reports/expenses/new";
+    }
+
+    @GetMapping("/add-cash-desk/{shiftId}")
+    public String addCashDesk(@PathVariable("shiftId") Long shiftId, Model model){
+        Expense expense = new Expense();
+        expense.setShiftId(shiftId);
+        expense.setExpenseType("cashdesk");
+        model.addAttribute("expense", expense);
+
+        return "reports/expenses/new";
+    }
+
+    @PostMapping("/add-expense/{shiftId}")
+    public String saveWriteOff(@PathVariable("shiftId") Long shiftId,
+                              @ModelAttribute("expense") Expense expense){
+
+        productReportService.saveExpense(expense, expense.getExpenseType());
+        return "redirect:/reports/" + shiftId;
+    }
+
+    @GetMapping("/edit-expense/{expenseId}")
+    public String editExpense(@PathVariable("expenseId") Long expenseId, Model model){
+        Expense expense = productReportService.findExpense(expenseId);
+        model.addAttribute("expense", expense);
+
+        return "reports/expenses/edit";
+    }
+
+    @PostMapping("/edit-expense/{expenseId}")
+    public String editExpense(@PathVariable("expenseId") Long expenseId,
+                               @ModelAttribute("expense") Expense expense){
+
+        productReportService.editExpense(expense, expenseId);
+        return "redirect:/reports/" + expense.getShiftId();
+    }
+
+    @GetMapping("/delete-expense/{expenseId}")
+    public String deleteExpense(@PathVariable("expenseId") Long expenseId){
+        Long shiftId = productReportService.findExpense(expenseId).getShiftId();
+        productReportService.deleteExpense(expenseId);
+        return "redirect:/reports/" + shiftId;
+    }
+
 }

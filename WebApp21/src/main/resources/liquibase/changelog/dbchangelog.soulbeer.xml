@@ -49,6 +49,15 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             </column>
         </createTable>
 
+        <createTable tableName="maker">
+            <column name="maker_id" type="int" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="maker_name" type="varchar(50)"/>
+            <column name="maker_contacts" type="varchar(500)"/>
+            <column name="maker_description" type="varchar(500)"/>
+        </createTable>
+
         <createTable tableName="product">
             <column name="product_id" type="int" autoIncrement="true">
                 <constraints nullable="false" primaryKey="true"/>
@@ -57,7 +66,9 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column name="category_id" type="bigint">
                 <constraints nullable="false" foreignKeyName="fk_category_id" references="product_category(category_id)"/>
             </column>
-            <column name="product_maker" type="varchar(50)"/>
+            <column name="maker_id" type="int">
+                <constraints foreignKeyName="fk_maker_id" references="maker(maker_id)"/>
+            </column>
             <column name="product_order" type="int"/>
         </createTable>
 
@@ -94,7 +105,7 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column type="double" name="price_buy"/>
             <column type="double" name="price_sell"/>
             <column type="double" name="remains_last"/>
-            <column type="int" name="coming"/>
+            <column type="double" name="coming"/>
             <column type="double" name="remains_current"/>
             <column type="double" name="sum_current"/>
             <column type="double" name="gross_profit"/>
@@ -102,12 +113,15 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column type="double" name="balance"/>
         </createTable>
 
-        <createTable tableName="expenses">
+        <createTable tableName="expense">
             <column name="expense_id" type="int" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column type="bigint" name="shift_id">
+            <column type="int" name="shift_id">
                 <constraints nullable="false" foreignKeyName="fk_exp_shift_id" references="shift(shift_id)"/>
+            </column>
+            <column name="expense_type" type="varchar(50)">
+                <constraints nullable="false"/>
             </column>
             <column name="expense_name" type="varchar(50)">
                 <constraints nullable="false"/>
@@ -116,6 +130,5 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column type="varchar(50)" name="expense_category"/>
         </createTable>
 
-<!--        <sqlFile path="liquibase/changelog/insert_data.sql"/>-->
     </changeSet>
 </databaseChangeLog>

@@ -5,16 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-//import ru.bolgov.soulbeer.dao.SellerRepository;
-//import ru.bolgov.soulbeer.dao.ShopRepository;
 import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
-import ru.bolgov.soulbeer.model.entity.Seller;
 import ru.bolgov.soulbeer.model.entity.Shop;
 import ru.bolgov.soulbeer.service.SellerService;
 import ru.bolgov.soulbeer.service.ShopService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

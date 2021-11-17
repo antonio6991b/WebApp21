@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Производители</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+<a href = "/makers/new">Добавить нового производителя</a>
+<table>
+    <tr>
+        <td>№</td>
+        <td>Наименование</td>
+        <td>Контакты</td>
+        <td>Описание</td>
+        <td>Действие</td>
+    </tr>
+    <tr height = 5 th:each = "maker : ${makers}">
+        <td>
+            <p th:text="${maker.getMaker().getMakerId()}"></p>
+        </td>
+        <td>
+            <p  th:text="${maker.getMaker().getMakerName()}">
+            </p>
+        </td>
+        <td>
+            <p th:text="${maker.getMaker().getMakerContacts()}">
+            </p>
+        </td>
+        <td>
+            <p th:text="${maker.getMaker().getMakerDescription()}"></p>
+        </td>
+        <td>
+            <a th:href = "@{/makers/edit/{id}(id=${maker.getMaker.getMakerId()})}">Редактировать</a>
+            <br>
+            <a th:href = "@{/makers/delete/{id}(id=${maker.getMaker.getMakerId()})}">Удалить</a>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

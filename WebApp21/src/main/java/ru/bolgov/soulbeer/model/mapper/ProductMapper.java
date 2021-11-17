@@ -10,7 +10,7 @@ public class ProductMapper {
         productDto.setProductId(product.getProductId());
         productDto.setProductName(product.getProductName().trim());
         productDto.setCategoryId(product.getCategoryId());
-        productDto.setProductMaker(product.getProductMaker());
+        productDto.setMakerId(product.getMakerId());
         productDto.setProductOrder(product.getProductOrder());
 
         return productDto;
@@ -21,7 +21,7 @@ public class ProductMapper {
         product.setProductId(productDto.getProductId());
         product.setProductName(productDto.getProductName());
         product.setCategoryId(productDto.getCategoryId());
-        product.setProductMaker(productDto.getProductMaker());
+        product.setMakerId(productDto.getMakerId());
         product.setProductOrder(productDto.getProductOrder());
         return product;
     }

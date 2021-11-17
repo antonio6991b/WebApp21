@@ -11,24 +11,44 @@
 <div class = "container">
 
     <h2>Отчет по смене <span th:text = "${weekReport.getShiftTemplate().getShift().getShiftId()}"></span></h2>
-    <table>
-        <tr>
-            <td>Магазин</td>
-            <td th:text = "${weekReport.getShiftTemplate().getShopName()}"></td>
-        </tr>
-        <tr>
-            <td>Продавец</td>
-            <td th:text = "${weekReport.getShiftTemplate().getSellerName()}"></td>
-        </tr>
-        <tr>
-            <td>Начало смены</td>
-            <td th:text = "${weekReport.getShiftTemplate().getDateBegin()}"></td>
-        </tr>
-        <tr>
-            <td>Конец смены</td>
-            <td th:text = "${weekReport.getShiftTemplate().getDateEnd()}"></td>
-        </tr>
-    </table>
+    <span>
+
+                <table>
+                    <tr>
+                        <td>Магазин</td>
+                        <td th:text = "${weekReport.getShiftTemplate().getShopName()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Продавец</td>
+                        <td th:text = "${weekReport.getShiftTemplate().getSellerName()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Начало смены</td>
+                        <td th:text = "${weekReport.getShiftTemplate().getDateBegin()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Конец смены</td>
+                        <td th:text = "${weekReport.getShiftTemplate().getDateEnd()}"></td>
+                    </tr>
+                </table>
+    </span>
+    <span>
+                <table>
+                    <tr>
+                        <td>Всего продано товаров на сумму</td>
+                        <td><span th:text = "${weekReport.totalSumCurrent()}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Общая валовая прибыль</td>
+                        <td><span th:text = "${weekReport.totalGrossProfit()}"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Общая разница со значением в тетради</td>
+                        <td><span th:text = "${weekReport.totalBalance()}"></span></td>
+                    </tr>
+                </table>
+    </span>
+        <a th:href = "@{/reports/add-product/{id}(id=${weekReport.getShiftTemplate().getShift().getShiftId()})}">Добавить товар</a>
     <table>
         <thead>
         <tr>
@@ -65,6 +85,47 @@
         </tr>
     </table>
     <a th:href = "@{/reports/add-product/{id}(id=${weekReport.getShiftTemplate().getShift().getShiftId()})}">Добавить товар</a>
+
+        <h3>Списания</h3>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>Название</td>
+            <td>Сумма</td>
+            <td>действие</td>
+        </tr>
+        <tr th:each = "writeOff:${weekReport.getWriteOffList()}">
+            <td><span th:text="${writeOff.getExpenseId()}"</td>
+            <td><span th:text="${writeOff.getExpenseName()}"</td>
+            <td><span th:text="${writeOff.getExpenseSum()}"</td>
+            <td>
+               <a th:href="@{/reports/delete-expense/{id}(id=${writeOff.getExpenseId})}"> Удалить</a>
+            </td>
+        </tr>
+
+    </table>
+        <a th:href = "@{/reports/add-write-off/{id}(id=${weekReport.getShiftTemplate().getShift().getShiftId()})}">Добавить расход</a>
+
+        <h3>Расходы кассы</h3>
+        <table>
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+                <td>Сумма</td>
+                <td>действие</td>
+            </tr>
+            <tr th:each = "cashDesk:${weekReport.getCashDeskList}">
+                <td><span th:text="${cashDesk.getExpenseId()}"</td>
+                <td><span th:text="${cashDesk.getExpenseName()}"</td>
+                <td><span th:text="${cashDesk.getExpenseSum()}"</td>
+                <td>
+                    <a th:href="@{/reports/delete-expense/{id}(id=${cashDesk.getExpenseId})}"> Удалить</a>
+                </td>
+            </tr>
+
+        </table>
+
+        <a th:href = "@{/reports/add-cash-desk/{id}(id=${weekReport.getShiftTemplate().getShift().getShiftId()})}">Добавить расход</a>
 </div>
 </body>
 </html>

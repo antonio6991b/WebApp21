@@ -53,6 +53,13 @@ td:first-child {
 td:nth-child(2){
     text-align: left;
 }
+
+td:hover{
+    background:green;
+}
+tr:hover{
+    background:steelblue;
+}
 input{
 
     background-color:bisque;

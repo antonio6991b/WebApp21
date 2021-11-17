@@ -10,7 +10,9 @@ public class ProductDto {
 
     private String categoryName;
 
-    private String productMaker;
+    private Long makerId;
+
+    private String maker;
 
     private int productOrder;
 
@@ -46,12 +48,20 @@ public class ProductDto {
         this.categoryName = categoryName;
     }
 
-    public String getProductMaker() {
-        return productMaker;
+    public Long getMakerId() {
+        return makerId;
     }
 
-    public void setProductMaker(String productMaker) {
-        this.productMaker = productMaker;
+    public void setMakerId(Long makerId) {
+        this.makerId = makerId;
+    }
+
+    public String getMaker() {
+        return maker;
+    }
+
+    public void setMaker(String maker) {
+        this.maker = maker;
     }
 
     public int getProductOrder() {

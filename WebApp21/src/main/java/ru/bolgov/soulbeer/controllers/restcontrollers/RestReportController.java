@@ -24,7 +24,7 @@ public class RestReportController {
 
     @GetMapping("/report-values")
     public ReportValue getReportValues(@RequestParam Map<String, String> headers) throws Exception {
-        ReportValue reportValue = new ReportValue();
+        ReportValue reportValue;
         Long productId = Long.valueOf(headers.get("productId"));
         Long shiftId = Long.valueOf(headers.get("shiftId"));
         Shift shiftBefore= shiftService.getShiftBefore(shiftId);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать товар</title>
+    <link rel="stylesheet" href="/styles/report.css"/>
+</head>
+<body>
+<a href="/main">На главную</a>
+<div class = "container">
+
+    <form th:accept-charset="UTF-8" th:method="POST" th:action="@{/reports/edit-expense/{shiftId}(shiftId=${expense.getShiftId()})}" th:object="${expense}" >
+        <h2>Создать новую запись </h2>
+
+        <table>
+
+            <tr>
+
+                <td>Наименование<br> <input  th:field = "*{expenseName}" ></td>
+                <td>Сумма<br><input type="number" th:field = "*{expenseSum}" ></td>
+
+            </tr>
+
+
+        </table>
+
+        <input type="submit" value="Создать"></input>
+        <input style="visibility: hidden" th:field = "*{shiftId}" id = "shiftId">
+        <input style="visibility: hidden" th:field = "*{expenseType}" id = "expenseType">
+
+    </form>
+
+    <a th:href="@{/reports/{id}(id = ${expense.getShiftId()})}">Отмена</a>
+</div>
+</body>

@@ -7,6 +7,7 @@ import ru.bolgov.soulbeer.model.dto.product.ProductDto;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductCategory;
 import ru.bolgov.soulbeer.model.mapper.ProductMapper;
+import ru.bolgov.soulbeer.repository.MakerRepository;
 import ru.bolgov.soulbeer.repository.ProductCategoryRepository;
 import ru.bolgov.soulbeer.repository.ProductRepository;
 
@@ -24,6 +25,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private MakerRepository makerRepository;
+
     private ProductMapper productMapper = new ProductMapper();
 
     public void edit(ProductDto productDto, Long id){
@@ -32,7 +36,7 @@ public class ProductService {
         if(Objects.nonNull(tmp)){
             tmp.setProductName(product.getProductName().trim());
             tmp.setCategoryId(product.getCategoryId());
-            tmp.setProductMaker(product.getProductMaker());
+            tmp.setMakerId(product.getMakerId());
             tmp.setProductOrder(product.getProductOrder());
             productRepository.save(tmp);
         }
@@ -43,6 +47,7 @@ public class ProductService {
                 .map(x -> {
                     ProductDto productDto = productMapper.productToDto(x);
                     productDto.setCategoryName(productCategoryRepository.findById(productDto.getCategoryId()).orElse(new ProductCategory()).getCategoryName());
+                    productDto.setMaker(makerRepository.findById(x.getMakerId()).get().getMakerName());
                     return productDto;
                 })
                 .collect(Collectors.toList());

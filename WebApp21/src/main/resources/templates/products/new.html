@@ -27,7 +27,12 @@
 
         <tr>
             <td>Производитель</td>
-            <td><input type="text"  th:field="*{productMaker}" ></td>
+            <td>
+                <select th:field="*{makerId}">
+
+                    <option th:each = "maker:${makers}" th:text="${maker.getMaker().getMakerName()}" th:value = "${maker.getMaker().getMakerId()}"></option>
+                </select>
+            </td>
         </tr>
 
         <tr>

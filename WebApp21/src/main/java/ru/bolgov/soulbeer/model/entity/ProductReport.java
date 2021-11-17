@@ -29,7 +29,7 @@ public class ProductReport {
     private BigDecimal remainsLast;
 
     @Column(name = "coming")
-    private int coming;
+    private BigDecimal coming;
 
     @Column(name = "remains_current")
     private BigDecimal remainsCurrent;
@@ -96,11 +96,11 @@ public class ProductReport {
         this.remainsLast = remainsLast;
     }
 
-    public int getComing() {
+    public BigDecimal getComing() {
         return coming;
     }
 
-    public void setComing(int coming) {
+    public void setComing(BigDecimal coming) {
         this.coming = coming;
     }
 

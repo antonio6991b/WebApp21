@@ -11,6 +11,7 @@ import ru.bolgov.soulbeer.model.dto.product.ProductDto;
 import ru.bolgov.soulbeer.model.dto.productcategory.ProductCategoryDto;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductCategory;
+import ru.bolgov.soulbeer.service.MakerService;
 import ru.bolgov.soulbeer.service.ProductCategoryService;
 import ru.bolgov.soulbeer.service.ProductService;
 
@@ -28,6 +29,9 @@ public class ProductController {
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    @Autowired
+    private MakerService makerService;
+
     @GetMapping("/all")
     public String allProducts(Model model){
         model.addAttribute("products", productService.findAll());
@@ -37,7 +41,7 @@ public class ProductController {
     @GetMapping("/new")
     public String newProduct(Model model){
         model.addAttribute("product", new ProductDto());
-
+        model.addAttribute("makers", makerService.findAll());
         List<ProductCategoryDto> productCategories = productCategoryService.findAll();
         model.addAttribute("productCategories", productCategories);
         return "products/new";

@@ -30,7 +30,7 @@
             </p>
         </td>
         <td>
-            <p th:text="${product.getProductMaker()}"></p>
+            <p th:text="${product.getMaker()}"></p>
         </td>
         <td>
             <a th:href = "@{/products/edit/{id}(id=${product.getProductId()})}">Редактировать</a>
