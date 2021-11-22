@@ -2,13 +2,13 @@ package ru.bolgov.soulbeer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.bolgov.soulbeer.repository.SellerRepository;
-import ru.bolgov.soulbeer.repository.ShopRepository;
+import ru.bolgov.soulbeer.model.dto.shop.StorageDto;
+import ru.bolgov.soulbeer.model.entity.Product;
+import ru.bolgov.soulbeer.repository.*;
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 import ru.bolgov.soulbeer.model.entity.Shop;
 import ru.bolgov.soulbeer.model.mapper.SellerMapper;
 import ru.bolgov.soulbeer.model.mapper.ShopMapper;
-import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,15 @@ public class ShopService {
 
     @Autowired
     private ShopSellersLinkRepository shopSellersLinkRepository;
+
+    @Autowired
+    private StorageRepository storageRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
+
+    @Autowired
+    private MakerRepository makerRepository;
 
     private ShopMapper shopMapper = new ShopMapper();
     private SellerMapper sellerMapper = new SellerMapper();
@@ -53,10 +62,24 @@ public class ShopService {
                 .map(x -> {
                     ShopDto shopDto = shopMapper.entityToDto(x);
                     shopDto.setCountSeller((long) shopSellersLinkRepository.findByShopId(shopDto.getShopId()).size());
-                    return shopDto;
+                    return getShopDto(shopDto);
                 })
                 .collect(Collectors.toList());
         return shops;
+    }
+
+    private ShopDto getShopDto(ShopDto shopDto) {
+        shopDto.setStorageList(storageRepository.findByShopId(shopDto.getShopId()).stream()
+                .map(x -> {
+                    StorageDto storageDto = new StorageDto();
+                    storageDto.setStorage(x);
+                    Product product = productRepository.findById(x.getProductId()).get();
+                    storageDto.setProductName(product.getProductName());
+                    storageDto.setMakerName(makerRepository.findById(product.getMakerId()).get().getMakerName());
+                    return storageDto;
+                })
+                .collect(Collectors.toList()));
+        return shopDto;
     }
 
     public void save(ShopDto shopDto){
@@ -72,7 +95,7 @@ public class ShopService {
     public ShopDto findById(Long id){
         Shop shop = shopRepository.findById(id).orElse(new Shop());
         ShopDto shopDto =  shopMapper.entityToDto(shop);
-        return shopDto;
+        return getShopDto(shopDto);
     }
 
     public void deleteById(Long id){

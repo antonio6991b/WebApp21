@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Новая накладная</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+
+    <form th:method="POST" th:action="@{/invoice/new}" th:object="${invoice}">
+
+        <table>
+            <tr>
+                <td>Магазин</td>
+                <td>
+                    <select th:field="*{invoice.shopId}" >
+
+                        <option th:each = "shop:${shops}" th:text="${shop.getShopName()}" th:value = "${shop.getShopId()}"></option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Производитель</td>
+                <td>
+                    <select th:field="*{invoice.makerId}" >
+
+                        <option th:each = "maker:${makers}" th:text="${maker.getMaker().getMakerName()}" th:value = "${maker.getMaker().getMakerId()}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Дата</td>
+                <td>д
+                    <select th:field="*{date.day}" >
+                        <option th:each = "day:${dateTemplate.getDay()}" th:text="${day}" th:value = "${day}"></option>
+                    </select>
+                    м
+                    <select th:field="*{date.month}" >
+                        <option th:each = "month:${dateTemplate.getMonth()}" th:text="${month}" th:value = "${month}"></option>
+                    </select>
+                    г
+                    <select th:field="*{date.year}" >
+                        <option th:each = "year:${dateTemplate.getYear()}" th:text="${year}" th:value = "${year}"></option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+
+        <input type="submit" value="Зарегистрировать">
+    </form>
+</div>
+</body>
+</html>

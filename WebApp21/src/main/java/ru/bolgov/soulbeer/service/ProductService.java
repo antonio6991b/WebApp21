@@ -82,4 +82,8 @@ public class ProductService {
         productDto.setCategoryName(productCategoryRepository.findById(productDto.getCategoryId()).orElse(new ProductCategory()).getCategoryName());
         return productDto;
     }
+
+    public List<Product> findByMakerId(Long makerId){
+        return productRepository.findByMakerId(makerId);
+    }
 }

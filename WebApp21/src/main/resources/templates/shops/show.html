@@ -13,6 +13,40 @@
     address = <span th:text = "${shop.getShopAddress()}"></span>, phone number = <span th:text = "${shop.getShopPhone()}"></span>
 
     <br>
+    <h3>Склад</h3>
+    <a th:href = "@{/invoice/new?shopId={id}(id=${shop.getShopId()})}">Зарегистрировать накладную</a>
+    <table>
+        <tr>
+            <td>id</td>
+            <td>Товар</td>
+            <td>Производитель</td>
+            <td>Цена закупки</td>
+            <td>Количество</td>
+            <td>Действие</td>
+        </tr>
+        <tr th:each = "product : ${shop.getStorageList()}">
+            <td>
+                <span th:text = "${product.getStorage().getStorageId()}"></span>
+            </td>
+            <td>
+                <span th:text = "${product.getProductName()}"></span>
+            </td>
+            <td>
+                <span th:text = "${product.getMakerName()}"></span>
+            </td>
+            <td>
+                <span th:text = "${product.getStorage().getPriceBuy()}"></span>
+            </td>
+            <td>
+                <span th:text = "${product.getStorage().getCount}"></span>
+            </td>
+
+            <td>
+                <a href="nn">Списать</a>
+                <a href="nn">Перевести в другой магазин</a>
+            </td>
+        </tr>
+    </table>
     <a href="/shops/all">To all shops</a>
 </div>
 </body>

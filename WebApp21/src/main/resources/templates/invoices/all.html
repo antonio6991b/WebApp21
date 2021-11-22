@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Накладные</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+<H2>Все накладные</H2>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Дата</td>
+            <td>Магазин</td>
+            <td>Производитель</td>
+        </tr>
+        <tr th:each = "invoice : ${invoices}">
+            <td>
+                <a th:href = "@{/invoice/show/{id}(id=${invoice.getInvoice().getInvoiceId()})}">
+                    <span th:text = "${invoice.getInvoice().getInvoiceId()}"></span>
+                </a>
+            </td>
+            <td><span th:text = "${invoice.getDate()}"></span></td>
+            <td><span th:text = "${invoice.getShopName()}"></span></td>
+            <td><span th:text = "${invoice.getMakerName()}"></span></td>
+        </tr>
+    </table>
+
+</div>
+</body>
+</html>

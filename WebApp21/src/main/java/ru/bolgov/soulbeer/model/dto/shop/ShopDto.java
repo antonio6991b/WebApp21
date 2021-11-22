@@ -2,6 +2,7 @@ package ru.bolgov.soulbeer.model.dto.shop;
 
 
 import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
+import ru.bolgov.soulbeer.model.entity.Storage;
 
 import java.util.List;
 
@@ -18,6 +19,8 @@ public class ShopDto {
     private Long countSeller;
 
     private int isCity;
+
+    private List<StorageDto> storageList;
 
     public Long getShopId() {
         return shopId;
@@ -65,5 +68,13 @@ public class ShopDto {
 
     public void setCountSeller(Long countSeller) {
         this.countSeller = countSeller;
+    }
+
+    public List<StorageDto> getStorageList() {
+        return storageList;
+    }
+
+    public void setStorageList(List<StorageDto> storageList) {
+        this.storageList = storageList;
     }
 }

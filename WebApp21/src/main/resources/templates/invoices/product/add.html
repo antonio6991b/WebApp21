@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить запись</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+    <H2>Добавить запись</H2>
+    <form th:method="POST" th:action="@{/invoice/add-product/}" th:object="${invoiceProduct}">
+    <table>
+        <tr>
+            <td>Накладная</td>
+            <td><input readonly th:field = "*{invoiceId}"></input></td>
+        </tr>
+        <tr>
+            <td>Товар</td>
+            <td>
+                <select th:field="*{productId}" id="productId">
+                    <option th:each = "product:${products}" th:text="${product.getProductName()}" th:value = "${product.getProductId}"></option>
+                </select>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Цена покупки</td>
+            <td><input type="number" th:field = "*{priceBuy}"></input></td>
+        </tr>
+        <tr>
+            <td>Количество</td>
+            <td><input type="number" th:field = "*{count}"></input></td>
+        </tr>
+
+    </table>
+    <input type="submit" value="Добавить">
+    </form>
+</div>
+</body>
+</html>

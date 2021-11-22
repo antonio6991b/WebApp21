@@ -130,5 +130,74 @@ http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibas
             <column type="varchar(50)" name="expense_category"/>
         </createTable>
 
+        <createTable tableName="storage">
+            <column name="storage_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="shop_id" type="int">
+                <constraints foreignKeyName="fk_storage_shop_id" references="shop(shop_id)"/>
+            </column>
+            <column name="product_id" type="int">
+                <constraints foreignKeyName="fk_storage_product_id" references="product(product_id)"/>
+            </column>
+            <column type="double" name="price_buy"/>
+            <column type="double" name="count"/>
+        </createTable>
+
+        <createTable tableName="maker_debt">
+            <column name="maker_debt_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column type="int" name="maker_id">
+                <constraints foreignKeyName="fk_maker_debt_maker" references="maker(maker_id)"/>
+            </column>
+            <column type="double" name="total_sum_coming"/>
+            <column type="double" name="total_sum_pay"/>
+            <column type="double" name="balance"/>
+        </createTable>
+
+        <createTable tableName="invoice">
+            <column name="invoice_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column type="varchar(50)" name="invoice_name"/>
+            <column name="shop_id" type="int">
+                <constraints foreignKeyName="fk_invoice_shop" references="shop(shop_id)"/>
+            </column>
+            <column name="maker_id" type="int">
+                <constraints foreignKeyName="fk_invoice_maker" references="maker(maker_id)"/>
+            </column>
+            <column name="date" type="date"/>
+        </createTable>
+
+        <createTable tableName="invoice_product">
+            <column name="invoice_product_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column type="int" name="invoice_id">
+                <constraints foreignKeyName="fk_product_invoice_id" references="invoice(invoice_id)"/>
+            </column>
+            <column type="int" name="product_id">
+                <constraints foreignKeyName="fk_invoice_product_id" references="product(product_id)"/>
+            </column>
+            <column type="double" name="price_buy"/>
+            <column type="double" name="count"/>
+
+        </createTable>
+
+        <createTable tableName="payment_to_maker">
+            <column name="payment_to_maker_id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column type="int" name="maker_id">
+                <constraints foreignKeyName="fk_payment_to_maker_maker_id" references="maker(maker_id)"/>
+            </column>
+            <column type="date" name="date"/>
+            <column type="double" name="payment_sum"/>
+            <column type="boolean" name="cash"/>
+            <column type="varchar(500)" name="description"/>
+        </createTable>
+
+
     </changeSet>
 </databaseChangeLog>

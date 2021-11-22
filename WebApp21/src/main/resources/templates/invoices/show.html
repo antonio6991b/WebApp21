@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Накладная</title>
+    <link rel="stylesheet" href="/styles/style.css"/>
+</head>
+<body>
+<a href = "/main"> На главную </a><br>
+<div class = "container">
+
+    show invoice
+    <p th:text = "${invoice.getInvoice().getInvoiceId()}"></p>
+    <p th:text = "${invoice.getShopName()}"></p>
+    <p th:text = "${invoice.getMakerName()}"></p>
+
+    <a th:href = "@{/invoice/add-product/{invoiceId}(invoiceId=${invoice.getInvoice().getInvoiceId()})}"> Добавить товар </a><br>
+    <table>
+        <tr>
+            <td>Товар</td>
+            <td>Цена покупки</td>
+            <td>Количество</td>
+        </tr>
+        <tr th:each = "product: ${invoice.getProducts()}">
+            <td><span th:text = "${product.getProductName()}"></span></td>
+            <td><span th:text = "${product.getInvoiceProduct().getPriceBuy()}"></span></td>
+            <td><span th:text = "${product.getInvoiceProduct().getCount()}"></span></td>
+
+        </tr>
+    </table>
+</div>
+</body>
+</html>

@@ -14,6 +14,7 @@ import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 import ru.bolgov.soulbeer.model.entity.*;
+import ru.bolgov.soulbeer.repository.MakerRepository;
 import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 import ru.bolgov.soulbeer.service.*;
 
@@ -51,6 +52,8 @@ public class MainController {
     @Autowired
     private ShopSellersLinkRepository shopSellersLinkRepository;
 
+    @Autowired
+    private MakerRepository makerRepository;
 
     @GetMapping("/main")
     public String main(){
@@ -82,6 +85,14 @@ public class MainController {
         List<String> shopNames = Arrays.asList("Управа", "Ставропольская", "Кирова", "Дубовый умет");
         List<String> sellerNames = Arrays.asList("Иван", "Елена", "Света", "Инна", "Евгений", "Руслан", "Константин", "Андрей");
 
+        List<String> makerNames = Arrays.asList("Жигулевский завод", "СамараПив", "Лимонадный");
+
+        for(String makerName:makerNames){
+            ProductMaker productMaker = new ProductMaker();
+            productMaker.setMakerName(makerName);
+            makerRepository.save(productMaker);
+        }
+
         for(String name: categoryNames){
             ProductCategoryDto productCategory = new ProductCategoryDto();
             productCategory.setCategoryName(name);
@@ -92,19 +103,25 @@ public class MainController {
         ProductCategory limonads = productCategoryService.findByName(categoryNames.get(1));
         ProductCategory snacks = productCategoryService.findByName(categoryNames.get(2));
         for(String beer:beerNames){
+            Long makerId = makerRepository.findByName(makerNames.get(0)).get(0).getMakerId();
             ProductDto product = new ProductDto();
+            product.setMakerId(makerId);
             product.setCategoryId(beers.getCategoryId());
             product.setProductName(beer);
             productService.save(product);
         }
         for(String limonad:limonadNames){
+            Long makerId = makerRepository.findByName(makerNames.get(1)).get(0).getMakerId();
             ProductDto product = new ProductDto();
+            product.setMakerId(makerId);
             product.setCategoryId(limonads.getCategoryId());
             product.setProductName(limonad);
             productService.save(product);
         }
         for(String snack:snackNames){
+            Long makerId = makerRepository.findByName(makerNames.get(2)).get(0).getMakerId();
             ProductDto product = new ProductDto();
+            product.setMakerId(makerId);
             product.setCategoryId(snacks.getCategoryId());
             product.setProductName(snack);
             productService.save(product);
