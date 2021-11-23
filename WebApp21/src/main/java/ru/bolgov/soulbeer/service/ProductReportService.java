@@ -81,7 +81,9 @@ public class ProductReportService {
     public List<Product> getStorageProducts(Long shiftId){
         Long shopId = shiftRepository.findById(shiftId).get().getShopId();
         return storageRepository.findByShopId(shopId).stream()
-                .map(x -> productRepository.findById(x.getProductId()).get()).collect(Collectors.toList());
+                .map(x -> productRepository.findById(x.getProductId()).get())
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public void save(ProductReport productReport){

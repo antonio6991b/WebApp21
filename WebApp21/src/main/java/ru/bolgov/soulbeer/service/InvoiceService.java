@@ -12,6 +12,7 @@ import ru.bolgov.soulbeer.model.entity.Storage;
 import ru.bolgov.soulbeer.repository.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -103,7 +104,7 @@ public class InvoiceService {
         Long invoiceId = invoiceProduct.getInvoiceId();
         Long shopId = invoiceRepository.findById(invoiceId).get().getShopId();
         List<Storage> storageList = storageRepository.findByShopId(shopId).stream()
-                .filter(x -> !x.getProductId().equals(invoiceProduct.getProductId()))
+                .filter(x -> x.getProductId().equals(invoiceProduct.getProductId()))
                 .collect(Collectors.toList());
         if(storageList.size()==0){
             Storage storage = new Storage();
@@ -113,7 +114,8 @@ public class InvoiceService {
             storage.setPriceBuy(invoiceProduct.getPriceBuy());
             storageRepository.save(storage);
         } else {
-            if (storageList.get(0).getPriceBuy().equals(invoiceProduct.getPriceBuy())){
+            if (storageList.get(0).getPriceBuy().subtract(invoiceProduct.getPriceBuy()).intValue()==0){
+                System.out.println("priceBuy equals");
                 Storage storageTmp = storageRepository.findById(storageList.get(0).getStorageId()).get();
                 storageTmp.setCount(storageTmp.getCount().add(invoiceProduct.getCount()));
                 storageRepository.save(storageTmp);
