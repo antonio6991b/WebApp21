@@ -9,8 +9,10 @@ import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.entity.Expense;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductReport;
+import ru.bolgov.soulbeer.model.entity.Storage;
 import ru.bolgov.soulbeer.repository.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -35,6 +37,9 @@ public class ProductReportService {
 
     @Autowired
     private ExpenseRepository expenseRepository;
+
+    @Autowired
+    private StorageRepository storageRepository;
 
 
     public void edit(ProductReport productReport, Long id) {
@@ -73,14 +78,24 @@ public class ProductReportService {
         return weekReport;
     }
 
-    public List<Product> getOtherProducts(Long shiftId){
-        List<Product> products = productRepository.findAll().stream()
-                .filter(productReport -> !productReportRepository.existsByProductIdAndShiftId(productReport.getProductId(), shiftId))
-                .collect(Collectors.toList());
-        return products;
+    public List<Product> getStorageProducts(Long shiftId){
+        Long shopId = shiftRepository.findById(shiftId).get().getShopId();
+        return storageRepository.findByShopId(shopId).stream()
+                .map(x -> productRepository.findById(x.getProductId()).get()).collect(Collectors.toList());
     }
 
     public void save(ProductReport productReport){
+        Long shiftId = productReport.getShiftId();
+        Long shopId = shiftRepository.findById(shiftId).get().getShopId();
+        List<Storage> storageList = storageRepository.findByShopId(shopId).stream()
+                .filter(x -> !x.getProductId().equals(productReport.getProductId()))
+                .collect(Collectors.toList());
+        BigDecimal storageCount = new BigDecimal(0);
+        for (Storage storage : storageList){
+            storageCount = storageCount.add(storage.getCount());
+        }
+        //if(storageCount.compareTo(productReport.))
+
         productReportRepository.save(productReport);
     }
 

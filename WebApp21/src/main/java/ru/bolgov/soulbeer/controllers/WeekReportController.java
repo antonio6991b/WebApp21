@@ -39,7 +39,7 @@ public class WeekReportController {
         productReport.setShiftId(shiftId);
         model.addAttribute("productReport", productReport);
 
-        model.addAttribute("products", productReportService.getOtherProducts(shiftId));
+        model.addAttribute("products", productReportService.getStorageProducts(shiftId));
         return "reports/product/new";
     }
 

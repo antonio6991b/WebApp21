@@ -7,6 +7,7 @@ import ru.bolgov.soulbeer.model.dto.invoice.InvoiceProductDto;
 import ru.bolgov.soulbeer.model.dto.util.ShowDate;
 import ru.bolgov.soulbeer.model.entity.Invoice;
 import ru.bolgov.soulbeer.model.entity.InvoiceProduct;
+import ru.bolgov.soulbeer.model.entity.MakerDebt;
 import ru.bolgov.soulbeer.model.entity.Storage;
 import ru.bolgov.soulbeer.repository.*;
 
@@ -35,6 +36,9 @@ public class InvoiceService {
 
     @Autowired
     private StorageRepository storageRepository;
+
+    @Autowired
+    private MakerDebtRepository makerDebtRepository;
 
     public void save(InvoiceDto invoiceDto){
         Invoice invoice = invoiceDto.getInvoice();
@@ -125,5 +129,9 @@ public class InvoiceService {
         }
 
         invoiceProductRepository.save(invoiceProduct);
+        MakerDebt makerDebt = makerDebtRepository.findByMakerId(invoiceRepository.findById(invoiceId).get().getMakerId());
+        makerDebt.setTotalSumComing(makerDebt.getTotalSumComing().add(invoiceProduct.getPriceBuy().multiply(invoiceProduct.getCount())));
+        makerDebt.setBalance(makerDebt.getBalance().subtract(invoiceProduct.getPriceBuy().multiply(invoiceProduct.getCount())));
+        makerDebtRepository.save(makerDebt);
     }
 }

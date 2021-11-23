@@ -16,6 +16,7 @@
         <td>Контакты</td>
         <td>Описание</td>
         <td>Товары</td>
+        <td>Задолженность</td>
         <td>Действие</td>
     </tr>
     <tr height = 5 th:each = "maker : ${makers}">
@@ -37,6 +38,9 @@
             <p th:each = "product : ${maker.getProducts()}">
                 <span th:text = "${product.getProductName()}"></span><br>
             </p>
+        </td>
+        <td>
+            <span th:text = "${maker.getMakerDebt().getBalance()}"></span>
         </td>
         <td>
             <a th:href = "@{/makers/edit/{id}(id=${maker.getMaker.getMakerId()})}">Редактировать</a>

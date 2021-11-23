@@ -9,16 +9,20 @@ import java.math.BigDecimal;
 public class MakerDebt {
 
     @Id
-    @Column(name = "makdr_debt_id")
+    @Column(name = "maker_debt_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long makerDebtId;
 
+    @Column(name = "maker_id")
     private Long makerId;
 
+    @Column(name = "total_sum_coming")
     private BigDecimal totalSumComing;
 
+    @Column(name = "total_sum_pay")
     private BigDecimal totalSumPay;
 
+    @Column(name = "balance")
     private BigDecimal balance;
 
     public Long getMakerDebtId() {

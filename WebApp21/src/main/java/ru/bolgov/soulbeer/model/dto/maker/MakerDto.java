@@ -1,5 +1,6 @@
 package ru.bolgov.soulbeer.model.dto.maker;
 
+import ru.bolgov.soulbeer.model.entity.MakerDebt;
 import ru.bolgov.soulbeer.model.entity.Product;
 import ru.bolgov.soulbeer.model.entity.ProductMaker;
 
@@ -9,6 +10,7 @@ public class MakerDto {
     private ProductMaker maker;
     private List<Product> products;
     private Long countProduct;
+    private MakerDebt makerDebt;
 
     public ProductMaker getMaker() {
         return maker;
@@ -32,5 +34,13 @@ public class MakerDto {
 
     public void setCountProduct(Long countProduct) {
         this.countProduct = countProduct;
+    }
+
+    public MakerDebt getMakerDebt() {
+        return makerDebt;
+    }
+
+    public void setMakerDebt(MakerDebt makerDebt) {
+        this.makerDebt = makerDebt;
     }
 }

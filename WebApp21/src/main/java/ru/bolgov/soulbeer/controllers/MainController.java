@@ -14,6 +14,7 @@ import ru.bolgov.soulbeer.model.dto.seller.SellerDto;
 import ru.bolgov.soulbeer.model.dto.shift.ShiftTemplate;
 import ru.bolgov.soulbeer.model.dto.shop.ShopDto;
 import ru.bolgov.soulbeer.model.entity.*;
+import ru.bolgov.soulbeer.repository.MakerDebtRepository;
 import ru.bolgov.soulbeer.repository.MakerRepository;
 import ru.bolgov.soulbeer.repository.ShopSellersLinkRepository;
 import ru.bolgov.soulbeer.service.*;
@@ -55,6 +56,9 @@ public class MainController {
     @Autowired
     private MakerRepository makerRepository;
 
+    @Autowired
+    private MakerDebtRepository makerDebtRepository;
+
     @GetMapping("/main")
     public String main(){
         return "index";
@@ -91,6 +95,15 @@ public class MainController {
             ProductMaker productMaker = new ProductMaker();
             productMaker.setMakerName(makerName);
             makerRepository.save(productMaker);
+
+            Long makerId = makerRepository.findByName(productMaker.getMakerName()).get(0).getMakerId();
+            MakerDebt makerDebt = new MakerDebt();
+            makerDebt.setMakerId(makerId);
+            makerDebt.setBalance(new BigDecimal(0));
+            makerDebt.setTotalSumComing(new BigDecimal(0));
+            makerDebt.setTotalSumPay(new BigDecimal(0));
+            makerDebtRepository.save(makerDebt);
+            System.out.println("save makerDebt, maker_id = " + makerId);
         }
 
         for(String name: categoryNames){
